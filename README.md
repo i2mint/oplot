@@ -125,6 +125,7 @@ scatter_and_color_according_to_y(X, y,
 
 ```
 from oplot import scatter_and_color_according_to_y
+
 scatter_and_color_according_to_y(X, y,
                                  projection='3d',
                                  dim_reduct='LDA')
@@ -136,6 +137,8 @@ scatter_and_color_according_to_y(X, y,
 There is also that little one, which I don't remeber ever using and needs some work:
 
 ```
+from oplot import side_by_side_bar
+
 side_by_side_bar([[1,2,3], [4,5,6]], list_names=['you', 'me'])
 ```
 
