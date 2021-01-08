@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
-from cycler import cycler
-import numpy as np
-from matplotlib.pyplot import cm
+# from cycler import cycler
+# import numpy as np
+# from matplotlib.pyplot import cm
 
 
 def plot_lines(ax,

@@ -4,14 +4,13 @@ import pandas as pd
 import random
 import six
 import os
-import sympy as sp
 from collections import Counter
 from sklearn.model_selection import StratifiedShuffleSplit
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 from sklearn.metrics import confusion_matrix
 import matplotlib.cm as cm
 import warnings
-from omodel.gen_utils.chunker import fixed_step_chunker
+from oplot.util import fixed_step_chunker
 
 
 def plot_freqs_stats(X, upper_frequency=22050, n_bins=1025, normalized=True):
@@ -101,7 +100,6 @@ def plot_confusion_matrix(y_true, y_pred,
     This function prints and plots the confusion matrix.
     Normalization can be applied by setting `normalize=True`.
     """
-
 
     # Only use the labels that appear in the data
     if classes is None:
@@ -409,7 +407,7 @@ def make_normal_outlier_timeline(y, scores, y_order=None,
         ax1.vlines(np.arange(n_points_drawn, n_points_drawn + n_points),
                    ymin=0, ymax=values, label=tag, colors=colors[i])
         n_points_drawn += n_points
-    plt.legend(prop={'size': legend_size}, loc=(1.04,0))
+    plt.legend(prop={'size': legend_size}, loc=(1.04, 0))
     plt.title(name, fontsize=title_font_size)
     if saving_path is not None:
         plt.savefig(saving_path, bbox_inches='tight', dpi=200)
@@ -540,6 +538,8 @@ def pair_metrics_to_reference(pair_metrics={'x': 'TPR', 'y': 'FPR'}, outlier_pro
     Utility to compute the reference/chance curve for a pair metrics type curve. Note that for certain combination
     of metrics, the curve may be a point.
     """
+
+    import sympy as sp  # pip install sympy
 
     # r = rate of positive of a random outlier model
     r = sp.symbols('r')
@@ -904,7 +904,6 @@ def apply_function_on_consecutive(scores, arr_for_consec, func=np.mean):
         group_func(smoothed_scores, func(scores_group))
 
     return np.array(smoothed_scores)
-
 
 
 if __name__ == '__main__':

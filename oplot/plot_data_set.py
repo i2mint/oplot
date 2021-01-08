@@ -12,10 +12,16 @@ from matplotlib.backends.backend_pdf import PdfPages
 import matplotlib.patches as mpatches
 import matplotlib
 
+from oplot.util import DFLT_DIRPATH
 
+
+# TODO: Avoid projection (and when LDA, a warning) if X is alread the right dimension
+# TODO: Allow projection to be given by a class/function?
 def scatter_and_color_according_to_y(X, y=None, col='rainbow', projection='2d', dim_reduct='LDA',
                                      save=False, legend=True,
-                                     saving_loc='/home/chris/', saving_name='myplot-', plot_tag_name=False,
+                                     saving_loc=DFLT_DIRPATH,
+                                     saving_name='myplot-',
+                                     plot_tag_name=False,
                                      super_alpha=10,
                                      cmap_col='viridis',
                                      *args, **kwargs):
@@ -41,14 +47,14 @@ def scatter_and_color_according_to_y(X, y=None, col='rainbow', projection='2d', 
     :return: a plot of 2d scatter plot of X with different colors for each tag
     """
 
-    if projection == '1d':
+    if projection == '1d' or projection == 1:
         proj_dim = 1
-    elif projection == '2d':
+    elif projection == '2d' or projection == 2:
         proj_dim = 2
-    elif projection == '3d':
+    elif projection == '3d' or projection == 3:
         proj_dim = 3
     else:
-        warnings.warn('The choices for the parameter projectionare'
+        warnings.warn('The choices for the parameter projection are'
                       ' \'1d\', \'2d\' or \'3d\'. Anything else and it will be assumed to be \'2d\' by default')
         proj_dim = 2
 
@@ -74,10 +80,10 @@ def scatter_and_color_according_to_y(X, y=None, col='rainbow', projection='2d', 
     else:
         tags = np.unique(y)
         n_tags = len(tags)
-        if dim_reduct=='LDA' and proj_dim > n_tags - 1:
-                warnings.warn('LDA cannot be used to produce {} dimensions if y has less than {} classes,'
-                              ' will use PCA instead'.format(proj_dim, proj_dim+1))
-                dim_reduct = 'PCA'
+        if dim_reduct == 'LDA' and proj_dim > n_tags - 1:
+            warnings.warn('LDA cannot be used to produce {} dimensions if y has less than {} classes,'
+                          ' will use PCA instead'.format(proj_dim, proj_dim + 1))
+            dim_reduct = 'PCA'
 
     second_index = 1
     third_index = 2
@@ -103,9 +109,9 @@ def scatter_and_color_according_to_y(X, y=None, col='rainbow', projection='2d', 
         else:
             X = X[:, :proj_dim]
 
-    if col is 'rainbow':
+    if col == 'rainbow':
         colors = matplotlib.cm.rainbow(np.linspace(0, 1, n_tags))
-    if col is 'random':
+    if col == 'random':
         colors = matplotlib.colors.hsv_to_rgb(np.random.rand(n_tags, 3))
 
     if projection == '1d':
@@ -117,7 +123,7 @@ def scatter_and_color_according_to_y(X, y=None, col='rainbow', projection='2d', 
         if colors is not None:
             for c, i in zip(colors, tags):
                 sc = ax.scatter(X[y == i, 0], np.zeros(np.sum(y == i)), c=[c], alpha=alpha,
-                                 s=10, linewidths=0.05, marker='+', *args, **kwargs)
+                                s=10, linewidths=0.05, marker='+', *args, **kwargs)
                 if legend:
                     handle = mpatches.Patch(color=c, label=i)
                     handles.append(handle)
@@ -154,7 +160,7 @@ def scatter_and_color_according_to_y(X, y=None, col='rainbow', projection='2d', 
         ax = fig.add_subplot(111, projection='3d')
         if colors is not None:
             for c, i in zip(colors, tags):
-                sc = ax.scatter(X[y == i, 0],  X[y == i, second_index], X[y == i, third_index], c=[c], alpha=alpha)
+                sc = ax.scatter(X[y == i, 0], X[y == i, second_index], X[y == i, third_index], c=[c], alpha=alpha)
                 if legend:
                     handle = mpatches.Patch(color=c, label=i)
                     handles.append(handle)
@@ -179,7 +185,6 @@ def scatter_and_color_according_to_y(X, y=None, col='rainbow', projection='2d', 
 
 
 def save_figs_to_pdf(figs, pdf_filepath=None):
-
     if pdf_filepath is None:
         pdf_filepath = '/home/chris/Desktop/plot' + datetime.datetime.today().strftime('%Y-%m-%d-%r') + '.pdf'
     with PdfPages(pdf_filepath) as pdf:
@@ -194,7 +199,6 @@ def save_figs_to_pdf(figs, pdf_filepath=None):
 #     r = int(max(0, 255 * (ratio - 1)))
 #     g = 255 - b - r
 #     return r/255, g/255, b/255, 1
-
 
 
 def side_by_side_bar(list_of_values_for_bars, width=1, spacing=1, list_names=None, colors=None):
@@ -266,8 +270,8 @@ def ratio_comparison_vlines(y1, y2, c1='b', c2='k'):
 
 
 if __name__ == '__main__':
-
     from sklearn.datasets import make_blobs
+
     X, y = make_blobs(n_samples=300, n_features=4, centers=1, cluster_std=1.0)
 
     # y_conf = []
