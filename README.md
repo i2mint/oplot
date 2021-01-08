@@ -108,6 +108,7 @@ from sklearn.datasets import make_classification
 
 ```
 from oplot import scatter_and_color_according_to_y
+
 X, y = make_classification(n_samples=500,
                            n_features=20,
                            n_classes=4,
@@ -169,6 +170,8 @@ make_normal_outlier_timeline plots the scores with a color/legend given by
 the aligned list truth
 
 ```
+from oplot.plot_stats import make_normal_outlier_timeline
+
 scores = np.arange(-1, 3, 0.1)
 tags = np.array(['normal'] * 20 + ['outlier'] * 15 + ['crazy'] * (len(scores) - 20 - 15))
 make_normal_outlier_timeline(tags, scores)
@@ -181,6 +184,8 @@ make_tables_tn_fp_fn_tp is convenient to obtain True Positive and False Negative
 tables. The range of thresholds is induced from the data.
 
 ```
+from oplot.plot_stats import make_tables_tn_fp_fn_tp
+
 scores = np.arange(-1, 3, 0.1)
 truth = scores > 2.5
 make_tables_tn_fp_fn_tp(truth, scores)
@@ -191,6 +196,8 @@ render_mpl_table takes any pandas dataframe and turn it into a pretty plot
 which can then be saved as a pdf for example.
 
 ```
+from oplot.plot_stats import make_tables_tn_fp_fn_tp, render_mpl_table
+
 scores = np.arange(-1, 3, 0.1)
 truth = scores > 2.5
 df = make_tables_tn_fp_fn_tp(truth, scores)
@@ -203,6 +210,8 @@ you want to display along with a list of scores and truth (0 for negative, 1 for
 The chance line is computed and displayed by default and the total area is returned.
 
 ```
+from oplot.plot_stats import plot_outlier_metric_curve
+
 # list of scores with higher average scores for positive events
 scores = np.concatenate([np.random.random(100), np.random.random(100) * 2])
 truth = np.array([0] * 100 + [1] * 100)
@@ -218,6 +227,8 @@ There are many choices for the statistics to display, some pairs making more or
 less sense, some not at all.
 
 ```
+from oplot.plot_stats import plot_outlier_metric_curve
+
 pair_metrics={'x': 'false_positive_rate', 'y': 'false_negative_rate'}
 plot_outlier_metric_curve(truth, scores,
                           pair_metrics=pair_metrics)
