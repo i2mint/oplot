@@ -14,7 +14,7 @@ For example:
 
 
 ```
-from oplot.multiplots import ax_func_to_plot
+from oplot import ax_func_to_plot
 
 # ax_func just takes a matplotlib axix and draws something on it
 def ax_func(ax):
