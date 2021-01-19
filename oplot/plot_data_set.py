@@ -15,6 +15,14 @@ import matplotlib
 from oplot.util import DFLT_DIRPATH
 
 
+def scatter_2d_x_and_color_according_to_y(X, y, *args, **kwargs):
+    """Very simple scatter of 2-dimensional X points, coloring according to categories expressed by pt-aligned y"""
+    assert np.ndim(X) == 2 and X.shape[1] == 2, f"X has to be 2d"
+    for yi in set(y):
+        lidx = y == yi
+        plt.plot(X[lidx, 0], X[lidx, 1], 'o', *args, **kwargs)
+
+
 # TODO: Avoid projection (and when LDA, a warning) if X is alread the right dimension
 # TODO: Allow projection to be given by a class/function?
 def scatter_and_color_according_to_y(X, y=None, col='rainbow', projection='2d', dim_reduct='LDA',
