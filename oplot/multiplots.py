@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-# from matplotlib import gridspec
+from matplotlib import gridspec
 
 
 def make_space_above(axes, topmargin=1):

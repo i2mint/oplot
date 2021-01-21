@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
-# from cycler import cycler
-# import numpy as np
-# from matplotlib.pyplot import cm
+from cycler import cycler
+import numpy as np
+from matplotlib.pyplot import cm
 
 
 def plot_lines(ax,
@@ -10,7 +10,8 @@ def plot_lines(ax,
                color='r',
                line_width=0.5,
                line_style='-',
-               line_type='vert'):
+               line_type='vert',
+               alpha=1):
     """
     Function to draw vertical or horizontal lines on an ax
     :param ax: the matplolib axis on which to draw
@@ -42,7 +43,7 @@ def plot_lines(ax,
     if line_type == 'horiz':
         line_ = ax.axhline
     for line in lines_loc:
-        line_(line, c=color, linewidth=line_width, label=label, linestyle=line_style)
+        line_(line, c=color, linewidth=line_width, label=label, linestyle=line_style, alpha=alpha)
         # only the first one produce a label
         label = None
 
@@ -78,9 +79,12 @@ def plot_wf_and_spectro(wf,
                         vert_lines_labels=None,
                         vert_lines_width=None,
                         vert_lines_style=None,
+                        alpha_lines=None,
                         n_tick_dec=None,
                         wf_line_width=1,
-                        wf_color='b'):
+                        wf_color='b',
+                        title=None,
+                        title_font_size=10):
     fig, ax = plt.subplots(2, 1, figsize=figsize)
 
     if n_tick_dec is None:
@@ -119,6 +123,10 @@ def plot_wf_and_spectro(wf,
 
     for lines_idx, lines_loc in enumerate(vert_lines_samp):
 
+        if alpha_lines is None:
+            alpha_line = None
+        else:
+            alpha_line = alpha_lines[lines_idx]
         if vert_lines_labels is None:
             vert_line_label = None
         else:
@@ -142,7 +150,8 @@ def plot_wf_and_spectro(wf,
                    color=vert_lines_color,
                    line_width=vert_line_width,
                    line_style=vert_line_style,
-                   line_type='vert')
+                   line_type='vert',
+                   alpha=alpha_line)
         first = False
 
     # plotting the spectrogram and some limits
@@ -152,5 +161,6 @@ def plot_wf_and_spectro(wf,
     if spectra_xlim:
         ax[1].set_xlim(*spectra_xlim)
 
+    fig.suptitle(title, fontsize=title_font_size)
     plt.legend(loc=(1.04, 0.8))
     plt.show()
