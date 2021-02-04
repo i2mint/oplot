@@ -164,3 +164,94 @@ def plot_wf_and_spectro(wf,
     fig.suptitle(title, fontsize=title_font_size)
     plt.legend(loc=(1.04, 0.8))
     plt.show()
+
+
+def plot_wf_with_lines(wf,
+                       figsize=(40, 10),
+                       sr=44100,
+                       wf_y_lim=None,
+                       wf_x_lim=None,
+                       n_sec_per_tick=None,
+                       vert_lines_samp=None,
+                       vert_lines_sec=None,
+                       vert_lines_colors=None,
+                       vert_lines_labels=None,
+                       vert_lines_width=None,
+                       vert_lines_style=None,
+                       alpha_lines=None,
+                       n_tick_dec=None,
+                       wf_line_width=1,
+                       wf_color='b',
+                       title=None,
+                       title_font_size=10):
+    fig, ax = plt.subplots(1, 1, figsize=figsize)
+
+    if n_tick_dec is None:
+        n_tick_dec = max(str(n_sec_per_tick)[::-1].find('.'), 1)
+
+    if n_sec_per_tick is None:
+        # make a tick every 10% of the whole wf, roughly if possible, or every 1sec if 10% is less than 1sec
+        n_sec_per_tick = max(int((len(wf) / sr) / 10), 1)
+
+    # getting the ticks where we want them
+    ticks_pos = range(0, len(wf), int(sr * n_sec_per_tick))
+    ticks_labels = [f'{round(n_sec_per_tick * i, n_tick_dec)}s' for i in range(len(ticks_pos))]
+
+    # TODO: udnerstand wtf is going on here
+    plt.sca(ax)
+    plt.xticks(ticks_pos, ticks_labels)
+    plt.sca(ax)
+    plt.xticks(ticks_pos, ticks_labels)
+
+    # plot the wf
+    plot_wf(ax, wf=wf, wf_line_width=wf_line_width, wf_color=wf_color)
+    ax.set_xlim((0, len(wf)))
+    # set some wf plot limits
+    if wf_y_lim:
+        ax.set_ylim(*wf_y_lim)
+    if wf_x_lim:
+        ax.set_xlim(*wf_x_lim)
+
+    # plot the vertical lines:
+    if vert_lines_samp is None:
+        vert_lines_samp = []
+    if vert_lines_sec is None:
+        vert_lines_sec = []
+    vert_lines_samp = list(vert_lines_samp)
+    vert_lines_samp += [[int(i * sr) for i in list_lines] for list_lines in vert_lines_sec]
+
+    for lines_idx, lines_loc in enumerate(vert_lines_samp):
+
+        if alpha_lines is None:
+            alpha_line = None
+        else:
+            alpha_line = alpha_lines[lines_idx]
+        if vert_lines_labels is None:
+            vert_line_label = ''
+        else:
+            vert_line_label = vert_lines_labels[lines_idx]
+        if vert_lines_colors is None:
+            vert_lines_color = 'r'
+        else:
+            vert_lines_color = vert_lines_colors[lines_idx]
+        if vert_lines_width is None:
+            vert_line_width = 0.5
+        else:
+            vert_line_width = vert_lines_width[lines_idx]
+        if vert_lines_style is None:
+            vert_line_style = '-'
+        else:
+            vert_line_style = vert_lines_style[lines_idx]
+
+        plot_lines(ax,
+                   lines_loc=lines_loc,
+                   label=vert_line_label,
+                   color=vert_lines_color,
+                   line_width=vert_line_width,
+                   line_style=vert_line_style,
+                   line_type='vert',
+                   alpha=alpha_line)
+
+    fig.suptitle(title, fontsize=title_font_size)
+    plt.legend(loc=(1.04, 0.8))
+    plt.show()
