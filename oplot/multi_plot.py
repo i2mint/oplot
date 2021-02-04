@@ -4,6 +4,11 @@ import matplotlib.pylab as plt
 
 
 def _get_attr_args_and_kwargs_from_ax_call_item(ax_call_item):
+    """
+
+    :param ax_call_item:
+    :return:
+    """
     if isinstance(ax_call_item, dict):
         attr = ax_call_item['attr']
         args = ax_call_item.pop('args', ())

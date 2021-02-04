@@ -53,6 +53,15 @@ def plot_spectro(ax,
                  chk_size=2048,
                  noverlap=0,
                  sr=44100):
+    """
+
+    :param ax:
+    :param wf:
+    :param chk_size:
+    :param noverlap:
+    :param sr:
+    :return:
+    """
     ax.specgram(x=wf, NFFT=chk_size, noverlap=noverlap, Fs=sr)
 
 
@@ -60,6 +69,14 @@ def plot_wf(ax,
             wf,
             wf_line_width=0.8,
             wf_color='b'):
+    """
+
+    :param ax:
+    :param wf:
+    :param wf_line_width:
+    :param wf_color:
+    :return:
+    """
     ax.plot(wf, linewidth=wf_line_width, c=wf_color)
 
 
@@ -85,6 +102,32 @@ def plot_wf_and_spectro(wf,
                         wf_color='b',
                         title=None,
                         title_font_size=10):
+    """
+
+    :param wf:
+    :param figsize:
+    :param chk_size:
+    :param noverlap:
+    :param sr:
+    :param spectra_ylim:
+    :param wf_y_lim:
+    :param wf_x_lim:
+    :param spectra_xlim:
+    :param n_sec_per_tick:
+    :param vert_lines_samp:
+    :param vert_lines_sec:
+    :param vert_lines_colors:
+    :param vert_lines_labels:
+    :param vert_lines_width:
+    :param vert_lines_style:
+    :param alpha_lines:
+    :param n_tick_dec:
+    :param wf_line_width:
+    :param wf_color:
+    :param title:
+    :param title_font_size:
+    :return:
+    """
     fig, ax = plt.subplots(2, 1, figsize=figsize)
 
     if n_tick_dec is None:
@@ -184,6 +227,28 @@ def plot_wf_with_lines(wf,
                        wf_color='b',
                        title=None,
                        title_font_size=10):
+    """
+
+    :param wf:
+    :param figsize:
+    :param sr:
+    :param wf_y_lim:
+    :param wf_x_lim:
+    :param n_sec_per_tick:
+    :param vert_lines_samp:
+    :param vert_lines_sec:
+    :param vert_lines_colors:
+    :param vert_lines_labels:
+    :param vert_lines_width:
+    :param vert_lines_style:
+    :param alpha_lines:
+    :param n_tick_dec:
+    :param wf_line_width:
+    :param wf_color:
+    :param title:
+    :param title_font_size:
+    :return:
+    """
     fig, ax = plt.subplots(1, 1, figsize=figsize)
 
     if n_tick_dec is None:
