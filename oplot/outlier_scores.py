@@ -1,3 +1,7 @@
+"""Visualizing various regions in a list of scores. E.g. adding colored regions
+corresponding to percentiles to a timeline of outlier scores"""
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 

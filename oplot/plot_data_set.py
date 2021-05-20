@@ -1,3 +1,5 @@
+"""Function to reduce and plot data in 2 or 3 dimensions"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA

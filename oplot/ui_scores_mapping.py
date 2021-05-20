@@ -1,3 +1,6 @@
+"""Functions to create and plot outlier scores (or other) in a fixed bounded range. Intended to use to
+show the results of an outlier algorithm in a user friendly UI"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button, RadioButtons

@@ -1,3 +1,5 @@
+"""Drawing multiple plots in a single figure"""
+
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import gridspec
@@ -136,7 +138,6 @@ def multiplot_with_max_size(list_func_per_ax,
                     outer_axis_labels_only=outer_axis_labels_only,
                     dpi=dpi,
                     plot=plot)
-
 
 # # Example of usage
 # if __name__ == '__main__':

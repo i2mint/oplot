@@ -1,3 +1,5 @@
+"""Functions to represent the accuracy of outlier or classification algorithms"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
