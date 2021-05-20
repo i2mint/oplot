@@ -3,62 +3,62 @@ import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button, RadioButtons
 
 
-def double_sigmoid(joint, min_lower, max_lower, max_upper, base_lower=2, base_upper=2):
-    """
-
-    :param joint: float, the x-axis value where the two sigmoids meet
-    :param min_lower: float, the smallest value taken by the lower sigmoid (as a limit when x -> -inf)
-    :param max_lower: float, the largest value taken by the lower sigmoid (as a limit when x -> inf, note that
-                      the lower sigmoid is cut off at joint and so it will have a maximum strictly less than max_lower)
-    :param max_upper: float, the largest value of the sigmoid (as a limit when x -> inf)
-    :return: a function
-    """
-
-    lower = lambda x: min_lower + (max_lower - min_lower) / (1 + base_lower ** -x)
-    upper = lambda x: lower(joint) - (max_upper - max_lower) / (1 + base_upper ** joint) + (max_upper - max_lower) \
-                      / (1 + base_upper ** -(x - 2 * joint))
-
-    def piecewise(x):
-        if x <= joint:
-            return lower(x)
-        else:
-            return upper(x)
-
-    return piecewise
-
-
-def make_smooching_scores_map(min_lin_range, max_lin_range,
-                              prop_under, prop_above):
-    """
-    Makes a function mapping (-inf, inf) to (0, 1).
-    The function is linear equal to y=x on the range (min_lin_range, max_lin_range), exponential before min_lin_range
-    and also after max_lin_range. The function is smooth and resembles a sigmoid but the linear portion is controlled
-    as well as the relative size of what is under/above the linear portion.
-    This function was made with the UI needs in mind.
-
-    :param min_lin_range: the smallest value of range on which the function is linear
-    :param max_lin_range: the largest value of range on which the function is linear
-    :param prop_under: the proportion of the total y_axis range taken by the curve for all values above max_lin_range
-    :param prop_above: the proportion of the total y_axis range taken by the curve for all values under min_lin_range
-    :return: a sigmoid like function
-    """
-
-    linear_span = max_lin_range - min_lin_range
-    under_span = linear_span * prop_under / (1 - prop_under - prop_above)
-    above_span = linear_span * prop_above / (1 - prop_under - prop_above)
-    under_power = np.exp(1 / under_span)
-    above_power = np.exp(1 / above_span)
-    normalization = max_lin_range + above_span
-
-    def mapping(x):
-        if x < min_lin_range:
-            return ((min_lin_range - under_span) + under_span * under_power ** (x - min_lin_range)) / normalization
-        elif x > max_lin_range:
-            return (max_lin_range + above_span - above_span * above_power ** (max_lin_range - x)) / normalization
-        else:
-            return x / normalization
-
-    return np.vectorize(mapping)
+# def double_sigmoid(joint, min_lower, max_lower, max_upper, base_lower=2, base_upper=2):
+#     """
+#
+#     :param joint: float, the x-axis value where the two sigmoids meet
+#     :param min_lower: float, the smallest value taken by the lower sigmoid (as a limit when x -> -inf)
+#     :param max_lower: float, the largest value taken by the lower sigmoid (as a limit when x -> inf, note that
+#                       the lower sigmoid is cut off at joint and so it will have a maximum strictly less than max_lower)
+#     :param max_upper: float, the largest value of the sigmoid (as a limit when x -> inf)
+#     :return: a function
+#     """
+#
+#     lower = lambda x: min_lower + (max_lower - min_lower) / (1 + base_lower ** -x)
+#     upper = lambda x: lower(joint) - (max_upper - max_lower) / (1 + base_upper ** joint) + (max_upper - max_lower) \
+#                       / (1 + base_upper ** -(x - 2 * joint))
+#
+#     def piecewise(x):
+#         if x <= joint:
+#             return lower(x)
+#         else:
+#             return upper(x)
+#
+#     return piecewise
+#
+#
+# def make_smooching_scores_map(min_lin_range, max_lin_range,
+#                               prop_under, prop_above):
+#     """
+#     Makes a function mapping (-inf, inf) to (0, 1).
+#     The function is linear equal to y=x on the range (min_lin_range, max_lin_range), exponential before min_lin_range
+#     and also after max_lin_range. The function is smooth and resembles a sigmoid but the linear portion is controlled
+#     as well as the relative size of what is under/above the linear portion.
+#     This function was made with the UI needs in mind.
+#
+#     :param min_lin_range: the smallest value of range on which the function is linear
+#     :param max_lin_range: the largest value of range on which the function is linear
+#     :param prop_under: the proportion of the total y_axis range taken by the curve for all values above max_lin_range
+#     :param prop_above: the proportion of the total y_axis range taken by the curve for all values under min_lin_range
+#     :return: a sigmoid like function
+#     """
+#
+#     linear_span = max_lin_range - min_lin_range
+#     under_span = linear_span * prop_under / (1 - prop_under - prop_above)
+#     above_span = linear_span * prop_above / (1 - prop_under - prop_above)
+#     under_power = np.exp(1 / under_span)
+#     above_power = np.exp(1 / above_span)
+#     normalization = max_lin_range + above_span
+#
+#     def mapping(x):
+#         if x < min_lin_range:
+#             return ((min_lin_range - under_span) + under_span * under_power ** (x - min_lin_range)) / normalization
+#         elif x > max_lin_range:
+#             return (max_lin_range + above_span - above_span * above_power ** (max_lin_range - x)) / normalization
+#         else:
+#             return x / normalization
+#
+#     return np.vectorize(mapping)
 
 
 # TODO: add a multiplicative factor in the top model to give the ability to match the top size
@@ -216,6 +216,11 @@ def make_slidable_sigmoid(min_score=0, max_score=5,
     stop = Slider(axtop, 'top', 1, 5.0, valinit=bottom)
 
     def update(val):
+        """
+        Util function to help updating the plot
+        :param val:
+        :return:
+        """
         top = stop.val
         bottom = sbottom.val
         f = make_ui_score_mapping(top_base=top, bottom_base=bottom,

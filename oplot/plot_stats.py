@@ -12,6 +12,7 @@ from sklearn.metrics import confusion_matrix
 import matplotlib.cm as cm
 import warnings
 from omodel.gen_utils.chunker import fixed_step_chunker
+from operator import itemgetter
 
 
 def plot_freqs_stats(X, upper_frequency=22050, n_bins=1025, normalized=True):
@@ -241,6 +242,15 @@ def list_mult(l, mult, random_remainder=False):
 
 
 def rebalancing_normal_outlier_ratio(normal_scores, outlier_scores, percent_outliers):
+    """
+    Rebalance artificially the ratio outlier/(normal + outlier) to the specified percent_outliers.
+    Does this by copying data points, use with caution!
+    :param normal_scores:
+    :param outlier_scores:
+    :param percent_outliers:
+    :return:
+    """
+
     n_normal = len(normal_scores)
     n_outlier = len(outlier_scores)
     correction_multiplier = n_outlier / n_normal * (1 - percent_outliers) / percent_outliers
@@ -341,6 +351,7 @@ def make_tn_fp_fn_tp_tag_lists(truth, scores, threshold, tags=None):
 
 def vlines(x, ymin=0, ymax=None, marker='o', marker_kwargs=None,
            colors=u'k', linestyles=u'solid', label=u'', data=None, **kwargs):
+    """Plot vlines in a more intuitive way than the default matplotlib version"""
     if ymax is None:
         ymax = x
         x = np.arange(len(ymax))
@@ -358,11 +369,17 @@ def vlines(x, ymin=0, ymax=None, marker='o', marker_kwargs=None,
 
 
 def make_normal_outlier_timeline(y, scores, y_order=None,
+                                 vertical_sep=False,
                                  saving_path=None, fig_size=(16, 5),
                                  name='normal/outlier scores',
                                  smooth=False,
                                  legend_size=10,
-                                 title_font_size=10):
+                                 title_font_size=10,
+                                 label_for_y=None,
+                                 legend_n_cols=1,
+                                 xticks=None,
+                                 xticks_labels=None,
+                                 xticks_rotation=90):
     """
     Plots all scores grouped by their y values in order specified by y_order or np.unique(y) is left to None.
     :param scores: an array of outlier scores
@@ -372,6 +389,9 @@ def make_normal_outlier_timeline(y, scores, y_order=None,
     :param line_width: the thickness of the line on the plot
     :return:
     """
+
+    if label_for_y is None:
+        label_for_y = lambda x: x
 
     scores = np.array(scores)
     y = np.array(y)
@@ -387,7 +407,7 @@ def make_normal_outlier_timeline(y, scores, y_order=None,
         new_y_order = []
         for i in y_order:
             try:
-                scores_i = smooth_scores(scores[y == i], window_size=smooth)
+                scores_i = list(smooth_scores(scores[y == i], window_size=smooth))
                 new_scores.extend(scores_i)
                 new_y += [i] * len(scores_i)
                 new_y_order.append(i)
@@ -403,16 +423,36 @@ def make_normal_outlier_timeline(y, scores, y_order=None,
     fig, ax1 = plt.subplots(figsize=fig_size)
     ax1.tick_params(labelright=True)
     n_points_drawn = 0
+
     for i, tag in enumerate(y_order):
         values = scores[y == tag]
         n_points = len(values)
         ax1.vlines(np.arange(n_points_drawn, n_points_drawn + n_points),
-                   ymin=0, ymax=values, label=tag, colors=colors[i])
+                   ymin=0, ymax=values, label=label_for_y(tag), colors=colors[i])
         n_points_drawn += n_points
-    plt.legend(prop={'size': legend_size}, loc=(1.04,0))
+    if xticks and not xticks_labels:
+        plt.xticks(ticks=xticks, rotation=xticks_rotation)
+    if xticks_labels and not xticks:
+        plt.xticks(ticks=plt.xticks()[0], labels=xticks_labels, rotation=xticks_rotation)
+    if xticks and xticks_labels:
+        plt.xticks(ticks=xticks, labels=xticks_labels, rotation=xticks_rotation)
+    if vertical_sep == 'auto':
+        group_len = apply_function_on_consecutive(y, y, lambda x: len(x))
+        vertical_lines_pos = np.cumsum(group_len)
+        ax1.vlines(vertical_lines_pos,
+                   ymin=np.min(scores),
+                   ymax=np.max(scores), colors='k', linewidth=0.3, linestyles='-.')
+    elif vertical_sep:
+        ax1.vlines(vertical_sep,
+                   ymin=np.min(scores),
+                   ymax=np.max(scores), colors='k', linewidth=0.3, linestyles='-.')
+
+
+    plt.legend(prop={'size': legend_size}, loc=(1.04,0), ncol=legend_n_cols)
     plt.title(name, fontsize=title_font_size)
     if saving_path is not None:
         plt.savefig(saving_path, bbox_inches='tight', dpi=200)
+
 
     plt.show()
 
@@ -665,7 +705,9 @@ def plot_outlier_metric_curve(truth, scores,
                               table_dpi=300,
                               base_statistics_dict=base_statistics_dict,
                               synonyms=synonyms,
-                              return_rauc=True):
+                              return_rauc=True,
+                              add_point_left=None,
+                              add_point_right=None):
     """
     Plots one outlier scores metric against another one. The metrics name can be any names in the base_statistics_dict
     or the synonyms dict. The chance line/curve is automatically computed and displayed along with a table
@@ -702,7 +744,7 @@ def plot_outlier_metric_curve(truth, scores,
     if saving_root and not os.path.isdir(saving_root):
         os.mkdir(saving_root)
 
-    # translate the metric request
+    # translate the metrics requested
     statistics_dict = dict()
     for k, v in base_statistics_dict.items():
         statistics_dict[k] = v
@@ -716,9 +758,9 @@ def plot_outlier_metric_curve(truth, scores,
     # spread out the repeating scores to avoid degenerate cases
     if wiggle:
         scores, truth = wiggle_scores(scores, truth)
-
     normal_scores = scores[truth == 0]
-    outlier_scores = scores[truth != 1]
+    outlier_scores = scores[truth == 1]
+
 
     # TODO: this is NOT smart and can be slow if the rebalancing is drastic. Need improvement.
     # re-balance the proportion as required by simply copying whichever of outliers/normal elements we need
@@ -742,12 +784,27 @@ def plot_outlier_metric_curve(truth, scores,
     for tn, fp, fn, tp in zip(tns, fps, fns, tps):
         x.append(fx(tn, fp, fn, tp))
         y.append(fy(tn, fp, fn, tp))
+
+    # find all the nan and remove them
+    nan_idx =  list(np.argwhere(np.isnan(x)).flatten()) +  list(np.argwhere(np.isnan(y)).flatten())
+    x = [item for idx, item in enumerate(x) if not idx in nan_idx]
+    y = [item for idx, item in enumerate(y) if not idx in nan_idx]
+
     # sorting the results keeping x and y aligned
+    z = list(zip(x, y))
+    z = sorted(z, key=itemgetter(0))
+    z = sorted(z, key=itemgetter(0), reverse=True)
+    x, y = zip(*z)
+
+    if add_point_left:
+        x = [add_point_left[0]] + list(x)
+        y = [add_point_left[1]] + list(y)
+    if add_point_right:
+        x = list(x) + [add_point_right[0]]
+        y = list(y) + [add_point_right[1]]
+
     x = np.array(x)
     y = np.array(y)
-    idx = np.argsort(x)
-    x = x[idx]
-    y = y[idx]
 
     # Getting equally spaced points for the table or curve
     if (plot_curve and plot_table_points_on_curve) or plot_table:
@@ -779,10 +836,9 @@ def plot_outlier_metric_curve(truth, scores,
             curve_legend_name = curve_name
         if not title:
             title = curve_name
-
         plt.plot(x, y, color='b', alpha=0.2, label=curve_legend_name)
         plt.fill_between(x, y, alpha=0.2, color='b')
-        plt.ylim([0.0, 1.05])
+        plt.ylim([0.0, 1.1])
         plt.xlim([0.0, 1.0])
 
         # add a reference line if specified by the user
@@ -906,8 +962,8 @@ def apply_function_on_consecutive(scores, arr_for_consec, func=np.mean):
     return np.array(smoothed_scores)
 
 
-
-if __name__ == '__main__':
-    scores = np.random.random(200)
-    truth = np.array([int(i) for i in np.random.random(200) * 2])
-    make_normal_outlier_timeline(scores, truth)
+#
+# if __name__ == '__main__':
+#     scores = np.random.random(200)
+#     truth = np.array([int(i) for i in np.random.random(200) * 2])
+#     make_normal_outlier_timeline(scores, truth)

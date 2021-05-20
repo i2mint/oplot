@@ -138,12 +138,12 @@ def multiplot_with_max_size(list_func_per_ax,
                     plot=plot)
 
 
-# Example of usage
-if __name__ == '__main__':
-    def ax_func(ax):
-        ax.plot([1, 5, 3])
-        ax.set_title('test_test')
-
-
-    ax_func_to_plot([ax_func] * 6, title='Test', x_labels='x_name_here', y_labels='something',
-                    outer_axis_labels_only=True)
+# # Example of usage
+# if __name__ == '__main__':
+#     def ax_func(ax):
+#         ax.plot([1, 5, 3])
+#         ax.set_title('test_test')
+#
+#
+#     ax_func_to_plot([ax_func] * 6, title='Test', x_labels='x_name_here', y_labels='something',
+#                     outer_axis_labels_only=True)

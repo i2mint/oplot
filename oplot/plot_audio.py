@@ -228,7 +228,6 @@ def plot_wf_with_lines(wf,
                        title=None,
                        title_font_size=10):
     """
-
     :param wf:
     :param figsize:
     :param sr:
