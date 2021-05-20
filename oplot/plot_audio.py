@@ -1,3 +1,5 @@
+"""Functions intended to plot waveform and spectra plus some timestamps information as vertical lines on the plots"""
+
 import matplotlib.pyplot as plt
 from cycler import cycler
 import numpy as np
@@ -228,7 +230,6 @@ def plot_wf_with_lines(wf,
                        title=None,
                        title_font_size=10):
     """
-
     :param wf:
     :param figsize:
     :param sr:

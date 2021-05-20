@@ -1,3 +1,5 @@
+"""Function to reduce and plot data in 2 or 3 dimensions"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
@@ -179,9 +181,15 @@ def scatter_and_color_according_to_y(X, y=None, col='rainbow', projection='2d', 
 
 
 def save_figs_to_pdf(figs, pdf_filepath=None):
+    """
+    Save figures to a single pdf
+    :param figs:
+    :param pdf_filepath:
+    :return:
+    """
 
     if pdf_filepath is None:
-        pdf_filepath = '/home/chris/Desktop/plot' + datetime.datetime.today().strftime('%Y-%m-%d-%r') + '.pdf'
+        pdf_filepath = '' + datetime.datetime.today().strftime('%Y-%m-%d-%r') + '.pdf'
     with PdfPages(pdf_filepath) as pdf:
         for fig in figs:
             pdf.savefig(fig)
@@ -227,27 +235,35 @@ def side_by_side_bar(list_of_values_for_bars, width=1, spacing=1, list_names=Non
     ax.xaxis.set_ticklabels([])
 
 
-def comparison_vlines(y1, y2, c1='b', c2='r'):
-    n = len(y1)
-    assert len(y2) == n, "y1 and y2 need to be of the same length"
-    plt.vlines(list(range(n)), y1, y2)
-    plt.plot(y1, 'o', color=c1)
-    plt.plot(y2, 'o', color=c2)
-
-
-def diff_comparison_vlines(y1, y2, c1='b', c2='k'):
-    """
-
-    :param y1:
-    :param y2:
-    :param c1:
-    :param c2:
-    :return: what plt.plot returns
-    """
-    y = np.array(y1) - np.array(y2)
-    plt.vlines(list(range(len(y))), 0, y)
-    plt.hlines(0, 0, len(y) - 1, colors=c2)
-    return plt.plot(list(range(len(y))), y, 'o', color=c1)
+# def comparison_vlines(y1, y2, c1='b', c2='r'):
+#     """
+#
+#     :param y1:
+#     :param y2:
+#     :param c1:
+#     :param c2:
+#     :return:
+#     """
+#     n = len(y1)
+#     assert len(y2) == n, "y1 and y2 need to be of the same length"
+#     plt.vlines(list(range(n)), y1, y2)
+#     plt.plot(y1, 'o', color=c1)
+#     plt.plot(y2, 'o', color=c2)
+#
+#
+# def diff_comparison_vlines(y1, y2, c1='b', c2='k'):
+#     """
+#
+#     :param y1:
+#     :param y2:
+#     :param c1:
+#     :param c2:
+#     :return: what plt.plot returns
+#     """
+#     y = np.array(y1) - np.array(y2)
+#     plt.vlines(list(range(len(y))), 0, y)
+#     plt.hlines(0, 0, len(y) - 1, colors=c2)
+#     return plt.plot(list(range(len(y))), y, 'o', color=c1)
 
 
 def ratio_comparison_vlines(y1, y2, c1='b', c2='k'):
@@ -265,17 +281,17 @@ def ratio_comparison_vlines(y1, y2, c1='b', c2='k'):
     return plt.plot(list(range(len(y))), y, 'o', color=c1)
 
 
-if __name__ == '__main__':
-
-    from sklearn.datasets import make_blobs
-    X, y = make_blobs(n_samples=300, n_features=4, centers=1, cluster_std=1.0)
-
-    # y_conf = []
-    # for i in range(len(y)):
-    #     if y[i] == 0 or y[i] == 2:
-    #         y_conf.append(0)
-    #     else:
-    #         y_conf.append(1)
-    # y_conf = np.array(y_conf)
-
-    scatter_and_color_according_to_y(X, y, col='rainbow', dim_reduct='LDA', projection='3d')
+# if __name__ == '__main__':
+#
+#     from sklearn.datasets import make_blobs
+#     X, y = make_blobs(n_samples=300, n_features=4, centers=1, cluster_std=1.0)
+#
+#     # y_conf = []
+#     # for i in range(len(y)):
+#     #     if y[i] == 0 or y[i] == 2:
+#     #         y_conf.append(0)
+#     #     else:
+#     #         y_conf.append(1)
+#     # y_conf = np.array(y_conf)
+#
+#     scatter_and_color_according_to_y(X, y, col='rainbow', dim_reduct='LDA', projection='3d')

@@ -1,3 +1,5 @@
+"""Utils"""
+
 import os
 
 DFLT_DIRPATH = os.path.expanduser('~')
