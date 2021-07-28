@@ -23,7 +23,7 @@ d = pd.DataFrame(
 heatmap(d)
 ```
 
-![image](https://user-images.githubusercontent.com/1906276/127305086-94c54108-4ff2-471d-b808-89e0ae0f51d9.png)
+<img src="https://user-images.githubusercontent.com/1906276/127305086-94c54108-4ff2-471d-b808-89e0ae0f51d9.png" width="320">
 
 Lot's more control is available. Signature is
 ```python
@@ -61,7 +61,7 @@ ax_func_to_plot([ax_func] * 6,
                 outer_axis_labels_only=True)
 ```
 
-![image](https://user-images.githubusercontent.com/1906276/127305797-948851fa-6cb0-4d19-aac1-6508ee7db04f.png)
+<img src="https://user-images.githubusercontent.com/1906276/127305797-948851fa-6cb0-4d19-aac1-6508ee7db04f.png" width="320">
 
 In some cases, the number of plots on the grid may be large enough to exceed
 the memory limit available to be saved on a single plot. In that case the function
