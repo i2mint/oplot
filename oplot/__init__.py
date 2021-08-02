@@ -1,3 +1,6 @@
+""" Oplot is a repository for all our existing and future python plotting related tools.
+"""
+
 from oplot.multiplots import ax_func_to_plot
 from oplot.ui_scores_mapping import make_ui_score_mapping
 from oplot.outlier_scores import plot_scores_and_zones

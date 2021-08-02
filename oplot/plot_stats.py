@@ -105,7 +105,6 @@ def plot_confusion_matrix(y_true, y_pred,
     Normalization can be applied by setting `normalize=True`.
     """
 
-
     # Only use the labels that appear in the data
     if classes is None:
         classes = np.unique(y_true)
@@ -449,12 +448,10 @@ def make_normal_outlier_timeline(y, scores, y_order=None,
                    ymin=np.min(scores),
                    ymax=np.max(scores), colors='k', linewidth=0.3, linestyles='-.')
 
-
-    plt.legend(prop={'size': legend_size}, loc=(1.04,0), ncol=legend_n_cols)
+    plt.legend(prop={'size': legend_size}, loc=(1.04, 0), ncol=legend_n_cols)
     plt.title(name, fontsize=title_font_size)
     if saving_path is not None:
         plt.savefig(saving_path, bbox_inches='tight', dpi=200)
-
 
     plt.show()
 
@@ -763,7 +760,6 @@ def plot_outlier_metric_curve(truth, scores,
     normal_scores = scores[truth == 0]
     outlier_scores = scores[truth == 1]
 
-
     # TODO: this is NOT smart and can be slow if the rebalancing is drastic. Need improvement.
     # re-balance the proportion as required by simply copying whichever of outliers/normal elements we need
     # in greater quantities
@@ -788,7 +784,7 @@ def plot_outlier_metric_curve(truth, scores,
         y.append(fy(tn, fp, fn, tp))
 
     # find all the nan and remove them
-    nan_idx =  list(np.argwhere(np.isnan(x)).flatten()) +  list(np.argwhere(np.isnan(y)).flatten())
+    nan_idx = list(np.argwhere(np.isnan(x)).flatten()) + list(np.argwhere(np.isnan(y)).flatten())
     x = [item for idx, item in enumerate(x) if not idx in nan_idx]
     y = [item for idx, item in enumerate(y) if not idx in nan_idx]
 
@@ -962,7 +958,6 @@ def apply_function_on_consecutive(scores, arr_for_consec, func=np.mean):
         group_func(smoothed_scores, func(scores_group))
 
     return np.array(smoothed_scores)
-
 
 #
 # if __name__ == '__main__':

@@ -11,7 +11,7 @@ several different plots. The main parameter is an iterator of functions, each
 taking an ax as input and drawing something on it.
 
 For example:
-
+![](readme_plots/Screen_Shot_2021-01-06_at_06.23.21.png)
 
 ```
 from oplot import ax_func_to_plot
