@@ -4,7 +4,36 @@ Feel free to modify/improve any of the functions. Most of them are work in progr
 yet already very convenient. Below is a demo of the type of plots you can get.
 
 
-## multiplots.py
+# matrix.py
+
+```python
+import pandas as pd
+from oplot import heatmap 
+d = pd.DataFrame(
+    [
+        {'A': 1, 'B': 3, 'C': 1},
+        {'A': 1, 'B': 3, 'C': 2},
+        {'A': 5, 'B': 5, 'C': 4},
+        {'A': 3, 'B': 2, 'C': 2},
+        {'A': 1, 'B': 3, 'C': 3},
+        {'A': 4, 'B': 3, 'C': 1},
+        {'A': 5, 'B': 1, 'C': 3},
+    ]
+)
+heatmap(d)
+```
+
+<img src="https://user-images.githubusercontent.com/1906276/127305086-94c54108-4ff2-471d-b808-89e0ae0f51d9.png" width="320">
+
+Lot's more control is available. Signature is
+```python
+(X, y=None, col_labels=None, figsize=None, cmap=None, return_gcf=False, 
+ax=None, xlabel_top=True, ylabel_left=True, xlabel_bottom=True, 
+ylabel_right=True, **kwargs)
+
+```
+
+# multiplots.py
 
 The multiplots module contains functions to make "grid like" plot made of 
 several different plots. The main parameter is an iterator of functions, each 
@@ -32,7 +61,7 @@ ax_func_to_plot([ax_func] * 6,
                 outer_axis_labels_only=True)
 ```
 
-<img src="readme_plots/Screen_Shot_2021-01-06_at_06.23.21.png" width="300">
+<img src="https://user-images.githubusercontent.com/1906276/127305797-948851fa-6cb0-4d19-aac1-6508ee7db04f.png" width="320">
 
 In some cases, the number of plots on the grid may be large enough to exceed
 the memory limit available to be saved on a single plot. In that case the function
@@ -41,7 +70,7 @@ max_plot_per_file, and if needed several plots with no more than that many
 plots will be created.
 
 
-## ui_scores_mapping.py
+# ui_scores_mapping.py
 
 The module contains functions to make "sigmoid like" mappings. The original 
 and main intent is to provide function to map outlier scores to a bounded range,
@@ -66,7 +95,7 @@ plt.plot(x, y)
 <img src="readme_plots/Screen Shot 2021-01-06 at 07.21.26.png" width="320">
 
 
-## outlier_scores.py
+# outlier_scores.py
 
 This module contains functions to plot outlier scores with colors corresponding
 to chosen thresholds.
@@ -83,7 +112,7 @@ find_prop_markers, get_confusion_zone_percentiles and get_confusion_zones_std pr
 to find statistically meaningfull zones.
 
 
-## plot_audio.py
+# plot_audio.py
 
 Here two functions of interest, plot_spectra which does what the name implies,
 and plot_wf_and_spectro which gives two plots on top of each others:
@@ -97,7 +126,7 @@ Parameters allows to add vertical markers to the plot like in the example below.
 <img src="readme_plots/Screen_Shot_2021-01-06_at_09.08.55.png" width="800">
 
 
-## plot_data_set.py
+# plot_data_set.py
 
 The main function here is scatter_and_color_according_to_y, which makes a 2d
 or 3d scatter plot with color representing the class. The dimension reduction 
