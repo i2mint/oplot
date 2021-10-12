@@ -959,6 +959,28 @@ def apply_function_on_consecutive(scores, arr_for_consec, func=np.mean):
 
     return np.array(smoothed_scores)
 
+
+from operator import itemgetter
+
+def parallel_sort(iterable_list, sort_idx=0):
+    """
+    Sort several lists in iterable_list in parallel, according to the the list of index sort_idx
+    :param iterable_list: list of list, all the lists have the same length
+    :param sort_idx: int, the index of the list to sort by
+    :return: a list sorted tuples
+
+
+    >>> parallel_sort([[2, 3, 1], ['a', 'b', 'c']])
+    [(1, 2, 3), ('c', 'a', 'b')]
+
+    >>> parallel_sort([[2, 3, 1], ['a', 'b', 'c'], [10, 9, 7]], sort_idx=2)
+    [(1, 3, 2), ('c', 'b', 'a'), (7, 9, 10)]
+
+    """
+    z = zip(*iterable_list)
+    sorted_z = [item for item in sorted(z, key=itemgetter(sort_idx))]
+    return list(zip(*sorted_z))
+
 #
 # if __name__ == '__main__':
 #     scores = np.random.random(200)
