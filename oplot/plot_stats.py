@@ -8,13 +8,10 @@ import six
 import os
 import sympy as sp
 from collections import Counter
-from sklearn.model_selection import StratifiedShuffleSplit
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 from sklearn.metrics import confusion_matrix
 import matplotlib.cm as cm
 import warnings
-from omodel.gen_utils.chunker import fixed_step_chunker
-from operator import itemgetter
+from oplot.util import fixed_step_chunker
 
 
 def plot_freqs_stats(X, upper_frequency=22050, n_bins=1025, normalized=True):
@@ -99,7 +96,8 @@ def plot_confusion_matrix(y_true, y_pred,
                           saving_path=None,
                           figsize=(10, 10),
                           color_bar=False,
-                          plot=True):
+                          plot=True,
+                          cm=False):
     """
     This function prints and plots the confusion matrix.
     Normalization can be applied by setting `normalize=True`.
@@ -110,7 +108,10 @@ def plot_confusion_matrix(y_true, y_pred,
         classes = np.unique(y_true)
 
     # Compute confusion matrix
-    cm = confusion_matrix(y_true, y_pred, labels=classes)
+    if not cm:
+        cm = confusion_matrix(y_true, y_pred, labels=classes)
+    else:
+        cm = cm.reshape((2, 2))
 
     if normalize:
         cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
@@ -148,83 +149,6 @@ def plot_confusion_matrix(y_true, y_pred,
             fig.savefig(saving_path, bbox_inches='tight', dpi=200)
     if plot:
         plt.show()
-
-
-# TODO: factor out the classification method, this is here as a draft to work on later
-# def n_splits_mean_confusion_matrix(X, y, n_splits=10, test_size=0.2,
-#                                    plot=True, title=None,
-#                                    cmap=plt.cm.Blues,
-#                                    saving_path=None):
-#     """
-#     :param X: an array of fvs
-#     :param y: an array of tags
-#     :param n_splits: int, the number of independent test runs
-#     :param test_size: float, the percentage of samples used for testing
-#     :param plot: boolean, whether or not to plot the matrix
-#     :param title: the title to the plot, only used if plot is set to True
-#     :param cmap: the coloring scheme of the plot of the confusion matrix, only used if plot is set to True
-#     :param saving_path: optional, if set it is the path where the plot is saved
-#     :return: a mean normalized confusion matrix over the runs
-#     """
-#
-#     shufflesplit = StratifiedShuffleSplit(n_splits=n_splits, test_size=test_size)
-#     all_conf_mat = []
-#     for train_index, test_index in shufflesplit.split(X, y):
-#         train_X = X[train_index]
-#         train_y = y[train_index]
-#         test_X = X[test_index]
-#         test_y = y[test_index]
-#
-#         lda = LDA()
-#         lda.fit(train_X, train_y)
-#
-#         proj_matrix = lda.scalings_
-#         train_fvs = np.dot(train_X, proj_matrix)
-#         test_fvs = np.dot(test_X, proj_matrix)
-#
-#         cs = CentroidSmoothing()
-#         cs.fit(train_fvs, train_y)
-#         pred = cs.predict(test_fvs)
-#         accuracy = np.sum(pred == test_y) / len(pred)
-#         conf_mat = confusion_matrix(test_y, pred)
-#         normalized_conf_mat = conf_mat / np.sum(conf_mat, axis=1)
-#         all_conf_mat.append(normalized_conf_mat)
-#
-#     mean_conf_matrix = np.mean(np.array(all_conf_mat), axis=0)
-#     if plot:
-#         classes = np.unique(y)
-#         fig, ax = plt.subplots(figsize=(20, 20))
-#         im = ax.imshow(mean_conf_matrix, interpolation='nearest', cmap=cmap)
-#         ax.figure.colorbar(im, ax=ax)
-#         # We want to show all ticks...
-#         ax.set(xticks=np.arange(mean_conf_matrix.shape[1]),
-#                yticks=np.arange(mean_conf_matrix.shape[0]),
-#                # ... and label them with the respective list entries
-#                xticklabels=classes, yticklabels=classes,
-#                title=title,
-#                ylabel='True label',
-#                xlabel='Predicted label')
-#
-#         # Rotate the tick labels and set their alignment.
-#         plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
-#                  rotation_mode="anchor")
-#
-#         # Loop over data dimensions and create text annotations.
-#         fmt = '.2f'
-#         thresh = mean_conf_matrix.max() / 2.
-#         for i in range(mean_conf_matrix.shape[0]):
-#             for j in range(mean_conf_matrix.shape[1]):
-#                 # remove this condition if a 0 in each cell with no confusion is wanted
-#                 if mean_conf_matrix[i, j] > 0:
-#                     ax.text(j, i, format(mean_conf_matrix[i, j], fmt),
-#                             ha="center", va="center",
-#                             color="white" if mean_conf_matrix[i, j] > thresh else "black")
-#         fig.tight_layout()
-#         if saving_path is not None:
-#             fig.savefig(saving_path, bbox_inches='tight', dpi=200)
-#         plt.show()
-#
-#     return np.mean(np.array(all_conf_mat), axis=0)
 
 
 def list_mult(l, mult, random_remainder=False):
@@ -289,6 +213,7 @@ def get_tn_fp_fn_tp(truth, scores, threshold=2):
 
     thresh_funct = lambda x: 1 if x > threshold else 0
     pred = list(map(thresh_funct, scores))
+    print(confusion_matrix(truth, pred).ravel())
     tn, fp, fn, tp = confusion_matrix(truth, pred).ravel()
     return tn, fp, fn, tp
 
@@ -431,11 +356,11 @@ def make_normal_outlier_timeline(y, scores, y_order=None,
         ax1.vlines(np.arange(n_points_drawn, n_points_drawn + n_points),
                    ymin=0, ymax=values, label=label_for_y(tag), colors=colors[i])
         n_points_drawn += n_points
-    if xticks and not xticks_labels:
+    if xticks is not None and xticks_labels is None:
         plt.xticks(ticks=xticks, rotation=xticks_rotation)
-    if xticks_labels and not xticks:
+    if xticks_labels is not None and xticks is None:
         plt.xticks(ticks=plt.xticks()[0], labels=xticks_labels, rotation=xticks_rotation)
-    if xticks and xticks_labels:
+    if xticks is not None and xticks_labels is not None:
         plt.xticks(ticks=xticks, labels=xticks_labels, rotation=xticks_rotation)
     if vertical_sep == 'auto':
         group_len = apply_function_on_consecutive(y, y, lambda x: len(x))
@@ -448,7 +373,8 @@ def make_normal_outlier_timeline(y, scores, y_order=None,
                    ymin=np.min(scores),
                    ymax=np.max(scores), colors='k', linewidth=0.3, linestyles='-.')
 
-    plt.legend(prop={'size': legend_size}, loc=(1.04, 0), ncol=legend_n_cols)
+    if legend_size:
+        plt.legend(prop={'size': legend_size}, loc=(1.04, 0), ncol=legend_n_cols)
     plt.title(name, fontsize=title_font_size)
     if saving_path is not None:
         plt.savefig(saving_path, bbox_inches='tight', dpi=200)

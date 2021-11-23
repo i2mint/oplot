@@ -57,7 +57,7 @@ def find_prop_markers(sorted_scores,
                       add_full_out_zone=True):
     """
     Find the score thresholds starting at which the proportion of n_normal / n_total
-    is on or below the values in ratio_markers. If the proportion is never reach, the
+    is on or below the values in ratio_markers. If the proportion is never reached, the
     proportions are skipped and the thresholds array is shorter than the ratio_markers tuple
     If add_full_out_zone is set to True, the zone where all scores are from abnormal sound is added and
     any zone above that one is removed.
