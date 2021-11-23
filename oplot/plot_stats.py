@@ -393,9 +393,9 @@ def pick_equally_spaced_points(values, n_points):
     are "fine" compared to the number of point n_points. It works well for what it is intended: finding equally spaced
     points on a precision/recall curve if many points are available on the curve.
 
-    >>>  pick_equally_spaced_points([1,2,3], 3)
+    >>> pick_equally_spaced_points([1,2,3], 3)
     [0, 1, 2]
-    >>>  pick_equally_spaced_points(range(300), 3)
+    >>> pick_equally_spaced_points(range(300), 3)
     [0, 150, 299]
     >>> pick_equally_spaced_points([1, 1.1, 1.2, 4, 5, 6], 3)
     [0, 3, 5]
