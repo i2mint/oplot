@@ -542,7 +542,7 @@ def wiggle_values_keep_order(values):
 
     >>> scores = [1, 1, 2, 3, 3, 4, 5, 5]
     >>> wiggle_values_keep_order(scores)
-    [1.0, 1.5, 2.0, 3.0, 3.5, 4.0, 5.0, 5.5]
+    array([1. , 1.5, 2. , 3. , 3.5, 4. , 5. , 5.5])
 
     :param values: a list of floats in general
     :return: a new list of float, where the values have been moved around a little, without altering their order
@@ -600,10 +600,10 @@ def wiggle_scores(scores, truth):
              wiggled
 
     >>> wiggle_scores([1, 1, 2], [0, 0, 0])
-    (array([1. , 1.5, 2. ]), (0, 0, 0))
+    (array([1. , 1.5, 2. ]), array([0, 0, 0]))
 
     >>> wiggle_scores([4, 1, 1, 2], [1, 0, 0, 0])
-    (array([1. , 1.5, 2. , 4. ]), (0, 0, 0, 1))
+    (array([1. , 1.5, 2. , 4. ]), array([0, 0, 0, 1]))
 
     """
     scores = np.array(scores)
@@ -829,12 +829,12 @@ def smooth_scores(scores, window_size=2, window_step=None, smooth_func=np.mean):
     :return: a new list of scores
 
 
-    >>> smooth_scores([1], window_size=2)
-    array([], dtype=float64)
-    >>> smooth_scores([1, 2], window_size=2)
-    array([1.5])
-    >>> smooth_scores([1, 2, 3], window_size=2, smooth_func=np.max)
-    array([2, 3])
+    >>> list(smooth_scores([1], window_size=2))
+    []
+    >>> list(smooth_scores([1, 2], window_size=2))
+    [1.5]
+    >>> list(smooth_scores([1, 2, 3], window_size=2, window_step=1, smooth_func=np.max))
+    [2, 3]
 
     """
     if window_step is None:
@@ -906,9 +906,3 @@ def parallel_sort(iterable_list, sort_idx=0):
     z = zip(*iterable_list)
     sorted_z = [item for item in sorted(z, key=itemgetter(sort_idx))]
     return list(zip(*sorted_z))
-
-#
-# if __name__ == '__main__':
-#     scores = np.random.random(200)
-#     truth = np.array([int(i) for i in np.random.random(200) * 2])
-#     make_normal_outlier_timeline(scores, truth)
