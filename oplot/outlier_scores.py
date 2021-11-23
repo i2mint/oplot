@@ -108,14 +108,13 @@ def get_percentiles(scores, n_percentiles):
     >>> get_percentiles(arr, n_percentiles=3)
     array([2, 3, 4])
     >>> get_percentiles(arr, n_percentiles=4)
-    array([1 2 3 4])
+    array([1, 2, 3, 4])
     >>> get_percentiles(arr, n_percentiles=5)
-    array([1.5 2.  2.5 3.  3.5])
+    array([1.5, 2. , 2.5, 3. , 3.5])
     >>> get_percentiles(arr, n_percentiles=6)
-    array([1.5 2.  2.5 3.  3.5 4. ])
-     >>> get_percentiles(arr, n_percentiles=7)
-    array([1.33333333 1.66666667 2.         2.33333333 2.66666667 3.
-    3.33333333 3.66666667])
+    array([1.5, 2. , 2.5, 3. , 3.5, 4. ])
+    >>> get_percentiles(arr, n_percentiles=7)
+    array([1. , 1.5, 2. , 2.5, 3. , 3.5, 4. ])
     """
 
     sorted_scores = np.sort(scores)
