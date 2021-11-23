@@ -14,8 +14,10 @@ def make_linear_part(max_score, min_score):
     """
 
     slope = 1 / (max_score - min_score)
+
     def linear_part(x):
         return x * slope + 1 - slope * min_score
+
     return linear_part
 
 
@@ -31,8 +33,10 @@ def make_top_part(base, max_score, min_score):
     t = np.log(slope / np.log(base)) / np.log(base) + max_score
     # at the limit when x->inf, the function will approach c
     c = 2 + base ** (-max_score + t)
+
     def top_part(x):
-        return - base ** (-x + t) + c
+        return -(base ** (-x + t)) + c
+
     return top_part, c
 
 
@@ -55,10 +59,9 @@ def make_bottom_part(base, max_score, min_score):
     return bottom_part, c
 
 
-def make_ui_score_mapping(min_lin_score, max_lin_score,
-                          top_base=2, bottom_base=2,
-                          max_score=10,
-                          reverse=False):
+def make_ui_score_mapping(
+    min_lin_score, max_lin_score, top_base=2, bottom_base=2, max_score=10, reverse=False
+):
     """
     Plot a sigmoid function to map outlier scores to (by default) the range (0, 10)
     The function is not only continuous but also smooth and the radius of the corners are controlled by the floats
@@ -89,15 +92,11 @@ def make_ui_score_mapping(min_lin_score, max_lin_score,
 
     """
 
-    linear_part = make_linear_part(max_lin_score,
-                                   min_lin_score)
-    bottom_part, min_ = make_bottom_part(bottom_base,
-                                         max_lin_score,
-                                         min_lin_score)
-    top_part, max_ = make_top_part(top_base,
-                                   max_lin_score,
-                                   min_lin_score)
+    linear_part = make_linear_part(max_lin_score, min_lin_score)
+    bottom_part, min_ = make_bottom_part(bottom_base, max_lin_score, min_lin_score)
+    top_part, max_ = make_top_part(top_base, max_lin_score, min_lin_score)
     if reverse:
+
         def ui_score_mapping(x):
             if x < min_lin_score:
                 return max_score - max_score * (bottom_part(x) - min_) / (max_ - min_)
@@ -105,7 +104,9 @@ def make_ui_score_mapping(min_lin_score, max_lin_score,
                 return max_score - max_score * (top_part(x) - min_) / (max_ - min_)
             else:
                 return max_score - max_score * (linear_part(x) - min_) / (max_ - min_)
+
     else:
+
         def ui_score_mapping(x):
             if x < min_lin_score:
                 return max_score * (bottom_part(x) - min_) / (max_ - min_)
@@ -113,9 +114,8 @@ def make_ui_score_mapping(min_lin_score, max_lin_score,
                 return max_score * (top_part(x) - min_) / (max_ - min_)
             else:
                 return max_score * (linear_part(x) - min_) / (max_ - min_)
+
     return ui_score_mapping
-
-
 
 
 def between_percentiles_mean(scores, min_percentile=0.450, max_percentile=0.55):
@@ -123,22 +123,29 @@ def between_percentiles_mean(scores, min_percentile=0.450, max_percentile=0.55):
     Get the mean of the scores between the specified percentiles
     """
     import numpy
+
     scores = numpy.array(scores)
     sorted_scores = numpy.sort(scores)
-    high_scores = sorted_scores[int(min_percentile * len(sorted_scores)): int(max_percentile * len(sorted_scores))]
+    high_scores = sorted_scores[
+        int(min_percentile * len(sorted_scores)) : int(
+            max_percentile * len(sorted_scores)
+        )
+    ]
     return numpy.mean(high_scores)
 
 
-def tune_ui_map(scores,
-                truth=None,
-                all_normal=True,
-                min_percentile_normal=0.25,
-                max_percentile_normal=0.75,
-                min_percentile_abnormal=0.25,
-                max_percentile_abnormal=0.75,
-                lower_base=10,
-                upper_base=10,
-                abnormal_fact=2):
+def tune_ui_map(
+    scores,
+    truth=None,
+    all_normal=True,
+    min_percentile_normal=0.25,
+    max_percentile_normal=0.75,
+    min_percentile_abnormal=0.25,
+    max_percentile_abnormal=0.75,
+    lower_base=10,
+    upper_base=10,
+    abnormal_fact=2,
+):
     """
     Construct a ui scores map spreading out the scores between 0 and 10, where high means normal. Scores is
     an array of raw stroll scores. NOTE: it assumes large scores means abnormal, small means normal!! Need to adapt
@@ -155,30 +162,39 @@ def tune_ui_map(scores,
     # we have examples of normal and abnormal
     if truth is not None and len(set(truth)) == 2:
         truth = np.array(truth)
-        median_normal = between_percentiles_mean(scores[truth == 0], min_percentile=min_percentile_normal,
-                                                 max_percentile=max_percentile_normal)
-        median_abnormal = between_percentiles_mean(scores[truth == 1], min_percentile=min_percentile_abnormal,
-                                                   max_percentile=max_percentile_abnormal)
+        median_normal = between_percentiles_mean(
+            scores[truth == 0],
+            min_percentile=min_percentile_normal,
+            max_percentile=max_percentile_normal,
+        )
+        median_abnormal = between_percentiles_mean(
+            scores[truth == 1],
+            min_percentile=min_percentile_abnormal,
+            max_percentile=max_percentile_abnormal,
+        )
 
     # if not the scores are all normal
     elif all_normal:
-        median_normal = between_percentiles_mean(scores, min_percentile=min_percentile_normal,
-                                                 max_percentile=max_percentile_normal)
+        median_normal = between_percentiles_mean(
+            scores,
+            min_percentile=min_percentile_normal,
+            max_percentile=max_percentile_normal,
+        )
 
-        normal_large = between_percentiles_mean(scores,
-                                                min_percentile=0.9,
-                                                max_percentile=1)
+        normal_large = between_percentiles_mean(
+            scores, min_percentile=0.9, max_percentile=1
+        )
 
         # as an approximation of the median abnormal, we use the media
         median_abnormal = normal_large * abnormal_fact
 
     # probably never useful, in case all scores are from abnormal
     else:
-        median_abnormal = between_percentiles_mean(scores, min_percentile=min_percentile_abnormal,
-                                                   max_percentile=max_percentile_abnormal)
+        median_abnormal = between_percentiles_mean(
+            scores,
+            min_percentile=min_percentile_abnormal,
+            max_percentile=max_percentile_abnormal,
+        )
         median_normal = median_abnormal / 10
 
     return median_normal, median_abnormal, lower_base, upper_base
-
-
-

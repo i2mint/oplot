@@ -47,8 +47,16 @@ def plot_freqs_stats(X, upper_frequency=22050, n_bins=1025, normalized=True):
     plt.show()
 
 
-def make_heatmap(matrix_results, tags, rounding=4, fig_size=(20, 20),
-                 make_symmetric=False, fill_diag=None, cmap=plt.cm.Blues, name=''):
+def make_heatmap(
+    matrix_results,
+    tags,
+    rounding=4,
+    fig_size=(20, 20),
+    make_symmetric=False,
+    fill_diag=None,
+    cmap=plt.cm.Blues,
+    name='',
+):
     """
     Makes a heatmap plot of the matrix_results where the entries are rounded.
     If matrix_results is upper or lower diagonal and make_symmetric is set to true,
@@ -74,30 +82,33 @@ def make_heatmap(matrix_results, tags, rounding=4, fig_size=(20, 20),
     ax.set_xticklabels(tags)
     ax.set_yticklabels(tags)
     # Rotate the tick labels and set their alignment.
-    plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
-             rotation_mode="anchor")
+    plt.setp(ax.get_xticklabels(), rotation=45, ha='right', rotation_mode='anchor')
     # Loop over data dimensions and create text annotations.
     for i in range(len(tags)):
         for j in range(len(tags)):
-            text = ax.text(j, i, matrix_results[i, j],
-                           ha="center", va="center", color="w")
-    ax.set_title("Pairwise Classification accuracy " + name)
+            text = ax.text(
+                j, i, matrix_results[i, j], ha='center', va='center', color='w'
+            )
+    ax.set_title('Pairwise Classification accuracy ' + name)
     fig.tight_layout()
     plt.show()
 
 
-def plot_confusion_matrix(y_true, y_pred,
-                          fig=None,
-                          ax=None,
-                          classes=None,
-                          normalize=False,
-                          title=None,
-                          cmap=plt.cm.Blues,
-                          saving_path=None,
-                          figsize=(10, 10),
-                          color_bar=False,
-                          plot=True,
-                          cm=False):
+def plot_confusion_matrix(
+    y_true,
+    y_pred,
+    fig=None,
+    ax=None,
+    classes=None,
+    normalize=False,
+    title=None,
+    cmap=plt.cm.Blues,
+    saving_path=None,
+    figsize=(10, 10),
+    color_bar=False,
+    plot=True,
+    cm=False,
+):
     """
     This function prints and plots the confusion matrix.
     Normalization can be applied by setting `normalize=True`.
@@ -121,28 +132,35 @@ def plot_confusion_matrix(y_true, y_pred,
     if color_bar:
         ax.figure.colorbar(im, ax=ax)
     # We want to show all ticks...
-    ax.set(xticks=np.arange(cm.shape[1]),
-           yticks=np.arange(cm.shape[0]),
-           # ... and label them with the respective list entries
-           xticklabels=classes, yticklabels=classes,
-           title=title,
-           ylabel='True label',
-           xlabel='Predicted label')
+    ax.set(
+        xticks=np.arange(cm.shape[1]),
+        yticks=np.arange(cm.shape[0]),
+        # ... and label them with the respective list entries
+        xticklabels=classes,
+        yticklabels=classes,
+        title=title,
+        ylabel='True label',
+        xlabel='Predicted label',
+    )
     ax.grid(False)
     # Rotate the tick labels and set their alignment.
-    plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
-             rotation_mode="anchor")
+    plt.setp(ax.get_xticklabels(), rotation=45, ha='right', rotation_mode='anchor')
 
     # Loop over data dimensions and create text annotations.
     fmt = '.2f' if normalize else 'd'
-    thresh = cm.max() / 2.
+    thresh = cm.max() / 2.0
     for i in range(cm.shape[0]):
         for j in range(cm.shape[1]):
             # remove this condition if a 0 in each cell with no confusion is wanted
             if cm[i, j] > 0:
-                ax.text(j, i, format(cm[i, j], fmt),
-                        ha="center", va="center",
-                        color="white" if cm[i, j] > thresh else "black")
+                ax.text(
+                    j,
+                    i,
+                    format(cm[i, j], fmt),
+                    ha='center',
+                    va='center',
+                    color='white' if cm[i, j] > thresh else 'black',
+                )
     if fig is not None:
         fig.tight_layout()
         if saving_path is not None:
@@ -162,7 +180,7 @@ def list_mult(l, mult, random_remainder=False):
     if random_remainder:
         remainder = random.sample(l, int(np.ceil(len(l) * remain)))
     else:
-        remainder = l[:int(np.ceil(len(l) * remain))]
+        remainder = l[: int(np.ceil(len(l) * remain))]
     return l * int(mult_in) + remainder
 
 
@@ -178,11 +196,19 @@ def rebalancing_normal_outlier_ratio(normal_scores, outlier_scores, percent_outl
 
     n_normal = len(normal_scores)
     n_outlier = len(outlier_scores)
-    correction_multiplier = n_outlier / n_normal * (1 - percent_outliers) / percent_outliers
+    correction_multiplier = (
+        n_outlier / n_normal * (1 - percent_outliers) / percent_outliers
+    )
     if correction_multiplier >= 1:
-        return np.array(list_mult(list(normal_scores), correction_multiplier)), outlier_scores
+        return (
+            np.array(list_mult(list(normal_scores), correction_multiplier)),
+            outlier_scores,
+        )
     else:
-        return normal_scores, np.array(list_mult(list(outlier_scores), 1 / correction_multiplier))
+        return (
+            normal_scores,
+            np.array(list_mult(list(outlier_scores), 1 / correction_multiplier)),
+        )
 
 
 def rebalance_scores(test_scores, test_truth, outlier_proportion):
@@ -194,8 +220,9 @@ def rebalance_scores(test_scores, test_truth, outlier_proportion):
 
     test_normal_scores = test_scores[test_truth == 0]
     test_anom_scores = test_scores[test_truth == 1]
-    normal_scores, anom_scores = rebalancing_normal_outlier_ratio(test_normal_scores, test_anom_scores,
-                                                                  percent_outliers=outlier_proportion)
+    normal_scores, anom_scores = rebalancing_normal_outlier_ratio(
+        test_normal_scores, test_anom_scores, percent_outliers=outlier_proportion
+    )
     bal_test_scores = np.hstack((normal_scores, anom_scores))
     bal_test_truth = np.array([0] * len(normal_scores) + [1] * len(anom_scores))
     return bal_test_scores, bal_test_truth
@@ -218,7 +245,9 @@ def get_tn_fp_fn_tp(truth, scores, threshold=2):
     return tn, fp, fn, tp
 
 
-def make_tables_tn_fp_fn_tp(truth, scores, threshold_range=None, n_thresholds=10, normalize=False):
+def make_tables_tn_fp_fn_tp(
+    truth, scores, threshold_range=None, n_thresholds=10, normalize=False
+):
     """
     Make a table of counts of tn, fp, fn, tp for n_thresholds equally spaced in threshold_range
 
@@ -237,7 +266,16 @@ def make_tables_tn_fp_fn_tp(truth, scores, threshold_range=None, n_thresholds=10
         tn, fp, fn, tp = get_tn_fp_fn_tp(truth, scores, threshold)
         row.append([threshold, int(tn), int(fp), int(fn), int(tp)])
     row = row[::-1]
-    df = pd.DataFrame(row, columns=['Threshold', 'True Negative', 'False Positive', 'False Negative', 'True Positive'])
+    df = pd.DataFrame(
+        row,
+        columns=[
+            'Threshold',
+            'True Negative',
+            'False Positive',
+            'False Negative',
+            'True Positive',
+        ],
+    )
     if normalize:
         total_positive = np.sum(truth)
         total_negative = len(truth) - total_positive
@@ -262,50 +300,86 @@ def make_tn_fp_fn_tp_tag_lists(truth, scores, threshold, tags=None):
         to_pick_from = tags
         counter = 1
     threshold_pred = [1 if score >= threshold else 0 for score in scores]
-    true_positive = [to_pick_from[i] for i in range(n) if (threshold_pred[i] == 1 and truth[i] == 1)]
-    true_negative = [to_pick_from[i] for i in range(n) if (threshold_pred[i] == 0 and truth[i] == 0)]
-    false_positive = [to_pick_from[i] for i in range(n) if (threshold_pred[i] == 1 and truth[i] == 0)]
-    false_negative = [to_pick_from[i] for i in range(n) if (threshold_pred[i] == 0 and truth[i] == 1)]
+    true_positive = [
+        to_pick_from[i] for i in range(n) if (threshold_pred[i] == 1 and truth[i] == 1)
+    ]
+    true_negative = [
+        to_pick_from[i] for i in range(n) if (threshold_pred[i] == 0 and truth[i] == 0)
+    ]
+    false_positive = [
+        to_pick_from[i] for i in range(n) if (threshold_pred[i] == 1 and truth[i] == 0)
+    ]
+    false_negative = [
+        to_pick_from[i] for i in range(n) if (threshold_pred[i] == 0 and truth[i] == 1)
+    ]
     if counter:
         true_positive = Counter(true_positive)
         true_negative = Counter(true_negative)
         false_positive = Counter(false_positive)
         false_negative = Counter(false_negative)
 
-    return {'tp': true_positive, 'tn': true_negative, 'fp': false_positive, 'fn': false_negative}
+    return {
+        'tp': true_positive,
+        'tn': true_negative,
+        'fp': false_positive,
+        'fn': false_negative,
+    }
 
 
-def vlines(x, ymin=0, ymax=None, marker='o', marker_kwargs=None,
-           colors=u'k', linestyles=u'solid', label=u'', data=None, **kwargs):
+def vlines(
+    x,
+    ymin=0,
+    ymax=None,
+    marker='o',
+    marker_kwargs=None,
+    colors='k',
+    linestyles='solid',
+    label='',
+    data=None,
+    **kwargs,
+):
     """Plot vlines in a more intuitive way than the default matplotlib version"""
     if ymax is None:
         ymax = x
         x = np.arange(len(ymax))
 
         if ymax is None:
-            raise ValueError("Need to specify ymax")
+            raise ValueError('Need to specify ymax')
 
     if marker is not None:
         if marker_kwargs is None:
             marker_kwargs = {}
         plt.plot(x, ymax, marker, **marker_kwargs)
 
-    return plt.vlines(x, ymin=ymin, ymax=ymax,
-                      colors=colors, linestyles=linestyles, label=label, data=data, **kwargs)
+    return plt.vlines(
+        x,
+        ymin=ymin,
+        ymax=ymax,
+        colors=colors,
+        linestyles=linestyles,
+        label=label,
+        data=data,
+        **kwargs,
+    )
 
 
-def make_normal_outlier_timeline(y, scores, y_order=None,
-                                 vertical_sep=False,
-                                 saving_path=None, fig_size=(16, 5),
-                                 name='normal/outlier scores',
-                                 smooth=False,
-                                 legend_size=10,
-                                 title_font_size=10,
-                                 label_for_y=None,
-                                 legend_n_cols=1,
-                                 xticks=None,
-                                 xticks_labels=None,
-                                 xticks_rotation=90):
+def make_normal_outlier_timeline(
+    y,
+    scores,
+    y_order=None,
+    vertical_sep=False,
+    saving_path=None,
+    fig_size=(16, 5),
+    name='normal/outlier scores',
+    smooth=False,
+    legend_size=10,
+    title_font_size=10,
+    label_for_y=None,
+    legend_n_cols=1,
+    xticks=None,
+    xticks_labels=None,
+    xticks_rotation=90,
+):
     """
     Plots all scores grouped by their y values in order specified by y_order or np.unique(y) is left to None.
     :param scores: an array of outlier scores
@@ -338,8 +412,10 @@ def make_normal_outlier_timeline(y, scores, y_order=None,
                 new_y += [i] * len(scores_i)
                 new_y_order.append(i)
             except ValueError:
-                print(f'There are less scores corresponding to {i} than the smoothing window size. '
-                      f'These scores will be dropped')
+                print(
+                    f'There are less scores corresponding to {i} than the smoothing window size. '
+                    f'These scores will be dropped'
+                )
         scores = np.array(new_scores)
         y = np.array(new_y)
         y_order = new_y_order
@@ -353,25 +429,42 @@ def make_normal_outlier_timeline(y, scores, y_order=None,
     for i, tag in enumerate(y_order):
         values = scores[y == tag]
         n_points = len(values)
-        ax1.vlines(np.arange(n_points_drawn, n_points_drawn + n_points),
-                   ymin=0, ymax=values, label=label_for_y(tag), colors=colors[i])
+        ax1.vlines(
+            np.arange(n_points_drawn, n_points_drawn + n_points),
+            ymin=0,
+            ymax=values,
+            label=label_for_y(tag),
+            colors=colors[i],
+        )
         n_points_drawn += n_points
     if xticks is not None and xticks_labels is None:
         plt.xticks(ticks=xticks, rotation=xticks_rotation)
     if xticks_labels is not None and xticks is None:
-        plt.xticks(ticks=plt.xticks()[0], labels=xticks_labels, rotation=xticks_rotation)
+        plt.xticks(
+            ticks=plt.xticks()[0], labels=xticks_labels, rotation=xticks_rotation
+        )
     if xticks is not None and xticks_labels is not None:
         plt.xticks(ticks=xticks, labels=xticks_labels, rotation=xticks_rotation)
     if vertical_sep == 'auto':
         group_len = apply_function_on_consecutive(y, y, lambda x: len(x))
         vertical_lines_pos = np.cumsum(group_len)
-        ax1.vlines(vertical_lines_pos,
-                   ymin=np.min(scores),
-                   ymax=np.max(scores), colors='k', linewidth=0.3, linestyles='-.')
+        ax1.vlines(
+            vertical_lines_pos,
+            ymin=np.min(scores),
+            ymax=np.max(scores),
+            colors='k',
+            linewidth=0.3,
+            linestyles='-.',
+        )
     elif vertical_sep:
-        ax1.vlines(vertical_sep,
-                   ymin=np.min(scores),
-                   ymax=np.max(scores), colors='k', linewidth=0.3, linestyles='-.')
+        ax1.vlines(
+            vertical_sep,
+            ymin=np.min(scores),
+            ymax=np.max(scores),
+            colors='k',
+            linewidth=0.3,
+            linestyles='-.',
+        )
 
     if legend_size:
         plt.legend(prop={'size': legend_size}, loc=(1.04, 0), ncol=legend_n_cols)
@@ -417,16 +510,24 @@ def pick_equally_spaced_points(values, n_points):
 
 
 # TODO: make the integer values show as integer instead of floats
-def render_mpl_table(data, col_width=3.0, row_height=0.625, font_size=14,
-                     header_color='#40466e', row_colors=['#f1f1f2', 'w'], edge_color='w',
-                     bbox=[0, 0, 1, 1], header_columns=0,
-                     ax=None,
-                     path_to_save=None,
-                     round_decimals=3,
-                     cols_to_round=(),
-                     cols_to_int='all_other',
-                     dpi=300,
-                     **kwargs):
+def render_mpl_table(
+    data,
+    col_width=3.0,
+    row_height=0.625,
+    font_size=14,
+    header_color='#40466e',
+    row_colors=['#f1f1f2', 'w'],
+    edge_color='w',
+    bbox=[0, 0, 1, 1],
+    header_columns=0,
+    ax=None,
+    path_to_save=None,
+    round_decimals=3,
+    cols_to_round=(),
+    cols_to_int='all_other',
+    dpi=300,
+    **kwargs,
+):
     """
     Take a pandas dataframe and represents it with a picture. This allows to save a .png version of the dataframe.
     """
@@ -441,10 +542,14 @@ def render_mpl_table(data, col_width=3.0, row_height=0.625, font_size=14,
             if col not in cols_to_round:
                 data[col] = data[col].apply(lambda x: int(x))
     if ax is None:
-        size = (np.array(data.shape[::-1]) + np.array([0, 1])) * np.array([col_width, row_height])
+        size = (np.array(data.shape[::-1]) + np.array([0, 1])) * np.array(
+            [col_width, row_height]
+        )
         fig, ax = plt.subplots(figsize=size)
         ax.axis('off')
-    mpl_table = ax.table(cellText=data.values, bbox=bbox, colLabels=data.columns, **kwargs)
+    mpl_table = ax.table(
+        cellText=data.values, bbox=bbox, colLabels=data.columns, **kwargs
+    )
 
     mpl_table.auto_set_font_size(False)
     mpl_table.set_fontsize(font_size)
@@ -463,44 +568,57 @@ def render_mpl_table(data, col_width=3.0, row_height=0.625, font_size=14,
 
 # all these scores except for MCC gives a score between 0 and 1.
 # I normalized MMC into what I call NNMC in order to keep the same scale for all.
-base_statistics_dict = {'TPR': lambda tn, fp, fn, tp: tp / (tp + fn),
-                        # sensitivity, recall, hit rate, or true positive rate
-                        'TNR': lambda tn, fp, fn, tp: tn / (tn + fp),  # specificity, selectivity or true negative rate
-                        'PPV': lambda tn, fp, fn, tp: tp / (tp + fp),  # precision or positive predictive value
-                        'NPV': lambda tn, fp, fn, tp: tn / (tn + fn),  # negative predictive value
-                        'FNR': lambda tn, fp, fn, tp: fn / (fn + tp),  # miss rate or false negative rate
-                        'FPR': lambda tn, fp, fn, tp: fp / (fp + tn),  # fall-out or false positive rate
-                        'FDR': lambda tn, fp, fn, tp: fp / (fp + tp),  # false discovery rate
-                        'FOR': lambda tn, fp, fn, tp: fn / (fn + tn),  # false omission rate
-                        'TS': lambda tn, fp, fn, tp: tp / (tp + fn + fp),
-                        # threat score (TS) or Critical Success Index (CSI)
-                        'ACC': lambda tn, fp, fn, tp: (tp + tn) / (tp + tn + fp + fn),  # accuracy
-                        'F1': lambda tn, fp, fn, tp: (2 * tp) / (2 * tp + fp + fn),  # F1 score
-                        'NMCC': lambda tn, fp, fn, tp: ((tp * tn - fp * fn) / (
-                                (tp + fp) * (tp + fn) * (tn + fp) * (tn + fn)) ** 0.5 + 1) / 2,
-                        # NORMALIZED TO BE BETWEEN 0 AND 1 Matthews correlation coefficient
-                        'BM': lambda tn, fp, fn, tp: tp / (tp + fn) + tn / (tn + fp) - 1,
-                        # Informedness or Bookmaker Informedness
-                        'MK': lambda tn, fp, fn, tp: tp / (tp + fp) + tn / (tn + fn) - 1}  # Markedness
+base_statistics_dict = {
+    'TPR': lambda tn, fp, fn, tp: tp / (tp + fn),
+    # sensitivity, recall, hit rate, or true positive rate
+    'TNR': lambda tn, fp, fn, tp: tn
+    / (tn + fp),  # specificity, selectivity or true negative rate
+    'PPV': lambda tn, fp, fn, tp: tp
+    / (tp + fp),  # precision or positive predictive value
+    'NPV': lambda tn, fp, fn, tp: tn / (tn + fn),  # negative predictive value
+    'FNR': lambda tn, fp, fn, tp: fn / (fn + tp),  # miss rate or false negative rate
+    'FPR': lambda tn, fp, fn, tp: fp / (fp + tn),  # fall-out or false positive rate
+    'FDR': lambda tn, fp, fn, tp: fp / (fp + tp),  # false discovery rate
+    'FOR': lambda tn, fp, fn, tp: fn / (fn + tn),  # false omission rate
+    'TS': lambda tn, fp, fn, tp: tp / (tp + fn + fp),
+    # threat score (TS) or Critical Success Index (CSI)
+    'ACC': lambda tn, fp, fn, tp: (tp + tn) / (tp + tn + fp + fn),  # accuracy
+    'F1': lambda tn, fp, fn, tp: (2 * tp) / (2 * tp + fp + fn),  # F1 score
+    'NMCC': lambda tn, fp, fn, tp: (
+        (tp * tn - fp * fn) / ((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn)) ** 0.5 + 1
+    )
+    / 2,
+    # NORMALIZED TO BE BETWEEN 0 AND 1 Matthews correlation coefficient
+    'BM': lambda tn, fp, fn, tp: tp / (tp + fn) + tn / (tn + fp) - 1,
+    # Informedness or Bookmaker Informedness
+    'MK': lambda tn, fp, fn, tp: tp / (tp + fp) + tn / (tn + fn) - 1,
+}  # Markedness
 
-synonyms = {'TPR': ['recall', 'sensitivity', 'true_positive_rate', 'hit_rate', 'tpr'],
-            'TNR': ['specificity', 'SPC', 'true_negative_rate', 'selectivity', 'tnr'],
-            'PPV': ['precision', 'positive_predictive_value', 'ppv'],
-            'NPV': ['negative_predictive_value', 'npv'],
-            'FNR': ['miss_rate', 'false_negative_rate', 'fnr'],
-            'FPR': ['fall_out', 'false_positive_rate', 'fpr'],
-            'FDR': ['false_discovery_rate', 'fdr'],
-            'FOR': ['false_omission_rate', 'for'],
-            'TS': ['threat_score', 'critical_success_index', 'CSI', 'csi', 'ts'],
-            'ACC': ['accuracy', 'acc'],
-            'F1': ['f1_score', 'f1', 'F1_score'],
-            'NMCC': ['normalized_Matthews_correlation_coefficient', 'nmcc'],
-            'BM': ['informedness', 'bookmaker_informedness', 'bi', 'BI', 'bm'],
-            'MK': ['markedness', 'mk']}
+synonyms = {
+    'TPR': ['recall', 'sensitivity', 'true_positive_rate', 'hit_rate', 'tpr'],
+    'TNR': ['specificity', 'SPC', 'true_negative_rate', 'selectivity', 'tnr'],
+    'PPV': ['precision', 'positive_predictive_value', 'ppv'],
+    'NPV': ['negative_predictive_value', 'npv'],
+    'FNR': ['miss_rate', 'false_negative_rate', 'fnr'],
+    'FPR': ['fall_out', 'false_positive_rate', 'fpr'],
+    'FDR': ['false_discovery_rate', 'fdr'],
+    'FOR': ['false_omission_rate', 'for'],
+    'TS': ['threat_score', 'critical_success_index', 'CSI', 'csi', 'ts'],
+    'ACC': ['accuracy', 'acc'],
+    'F1': ['f1_score', 'f1', 'F1_score'],
+    'NMCC': ['normalized_Matthews_correlation_coefficient', 'nmcc'],
+    'BM': ['informedness', 'bookmaker_informedness', 'bi', 'BI', 'bm'],
+    'MK': ['markedness', 'mk'],
+}
 
 
-def pair_metrics_to_reference(pair_metrics={'x': 'TPR', 'y': 'FPR'}, outlier_proportion=0.2, label='chance line',
-                              base_statistics_dict=base_statistics_dict, synonyms=synonyms):
+def pair_metrics_to_reference(
+    pair_metrics={'x': 'TPR', 'y': 'FPR'},
+    outlier_proportion=0.2,
+    label='chance line',
+    base_statistics_dict=base_statistics_dict,
+    synonyms=synonyms,
+):
     """
     Utility to compute the reference/chance curve for a pair metrics type curve. Note that for certain combination
     of metrics, the curve may be a point.
@@ -530,7 +648,9 @@ def pair_metrics_to_reference(pair_metrics={'x': 'TPR', 'y': 'FPR'}, outlier_pro
     simp_fy = sp.expand(fy(tn, fp, fn, tp))
 
     x_values = np.linspace(0, 1, 40)
-    y_values = [simp_fy.evalf(subs={R: outlier_proportion, simp_fx: i}) for i in x_values]
+    y_values = [
+        simp_fy.evalf(subs={R: outlier_proportion, simp_fx: i}) for i in x_values
+    ]
     plt.plot(x_values, y_values, '--', c='r', label=label)
 
 
@@ -557,7 +677,9 @@ def wiggle_values_keep_order(values):
         else:
             next_val = val
             for i in range(current_val_count):
-                new.append(current_val + i * (next_val - current_val) / current_val_count)
+                new.append(
+                    current_val + i * (next_val - current_val) / current_val_count
+                )
             current_val = next_val
             current_val_count = 1
     len_new = len(new)
@@ -574,7 +696,7 @@ def cumulative_tn_fp_fn_tp(truth, scores):
     truth = np.array(truth)
     scores = np.array(scores)
 
-    sorted_idx = np.argsort(scores, kind="mergesort")
+    sorted_idx = np.argsort(scores, kind='mergesort')
     sorted_truth = truth[sorted_idx]
 
     total_true_positive = np.sum(sorted_truth)
@@ -614,25 +736,28 @@ def wiggle_scores(scores, truth):
     return np.array(wiggle_values_keep_order(scores)), np.array(truth)
 
 
-def plot_outlier_metric_curve(truth, scores,
-                              pair_metrics={'x': 'TPR', 'y': 'PPV'},
-                              plot_curve=True,
-                              curve_legend_name=None,
-                              title=None,
-                              plot_table_points_on_curve=False,
-                              plot_chance_line=True,
-                              plot_table=False,
-                              n_points_for_table=10,
-                              axis_name_dict=None,
-                              saving_root=None,
-                              outlier_proportion=None,
-                              wiggle=False,
-                              table_dpi=300,
-                              base_statistics_dict=base_statistics_dict,
-                              synonyms=synonyms,
-                              return_rauc=True,
-                              add_point_left=None,
-                              add_point_right=None):
+def plot_outlier_metric_curve(
+    truth,
+    scores,
+    pair_metrics={'x': 'TPR', 'y': 'PPV'},
+    plot_curve=True,
+    curve_legend_name=None,
+    title=None,
+    plot_table_points_on_curve=False,
+    plot_chance_line=True,
+    plot_table=False,
+    n_points_for_table=10,
+    axis_name_dict=None,
+    saving_root=None,
+    outlier_proportion=None,
+    wiggle=False,
+    table_dpi=300,
+    base_statistics_dict=base_statistics_dict,
+    synonyms=synonyms,
+    return_rauc=True,
+    add_point_left=None,
+    add_point_right=None,
+):
     """
     Plots one outlier scores metric against another one. The metrics name can be any names in the base_statistics_dict
     or the synonyms dict. The chance line/curve is automatically computed and displayed along with a table
@@ -690,13 +815,15 @@ def plot_outlier_metric_curve(truth, scores,
     # re-balance the proportion as required by simply copying whichever of outliers/normal elements we need
     # in greater quantities
     if outlier_proportion is not None:
-        normal_scores, outlier_scores = rebalancing_normal_outlier_ratio(normal_scores,
-                                                                         outlier_scores,
-                                                                         percent_outliers=outlier_proportion)
+        normal_scores, outlier_scores = rebalancing_normal_outlier_ratio(
+            normal_scores, outlier_scores, percent_outliers=outlier_proportion
+        )
         truth = np.array([0] * len(normal_scores) + [1] * len(outlier_scores))
         scores = np.array(list(normal_scores) + list(outlier_scores))
     else:
-        outlier_proportion = len(outlier_scores) / (len(outlier_scores) + len(normal_scores))
+        outlier_proportion = len(outlier_scores) / (
+            len(outlier_scores) + len(normal_scores)
+        )
 
     # This is the core of the function, finding the tns, fps, fns, tps and computing the values
     # for the metrics requested
@@ -710,7 +837,9 @@ def plot_outlier_metric_curve(truth, scores,
         y.append(fy(tn, fp, fn, tp))
 
     # find all the nan and remove them
-    nan_idx = list(np.argwhere(np.isnan(x)).flatten()) + list(np.argwhere(np.isnan(y)).flatten())
+    nan_idx = list(np.argwhere(np.isnan(x)).flatten()) + list(
+        np.argwhere(np.isnan(y)).flatten()
+    )
     x = [item for idx, item in enumerate(x) if not idx in nan_idx]
     y = [item for idx, item in enumerate(y) if not idx in nan_idx]
 
@@ -767,7 +896,9 @@ def plot_outlier_metric_curve(truth, scores,
 
         # add a reference line if specified by the user
         if plot_chance_line:
-            pair_metrics_to_reference(pair_metrics=pair_metrics, outlier_proportion=outlier_proportion)
+            pair_metrics_to_reference(
+                pair_metrics=pair_metrics, outlier_proportion=outlier_proportion
+            )
         plt.title(title)
 
         # adding the points to the curve
@@ -812,7 +943,9 @@ def area_under_points(points):
     total_area = 0
     left_point = sorted_points[0]
     for right_point in sorted_points[1:]:
-        total_area += (right_point[0] - left_point[0]) * (right_point[1] + left_point[1]) / 2
+        total_area += (
+            (right_point[0] - left_point[0]) * (right_point[1] + left_point[1]) / 2
+        )
         left_point = right_point
 
     return total_area
@@ -887,6 +1020,7 @@ def apply_function_on_consecutive(scores, arr_for_consec, func=np.mean):
 
 
 from operator import itemgetter
+
 
 def parallel_sort(iterable_list, sort_idx=0):
     """

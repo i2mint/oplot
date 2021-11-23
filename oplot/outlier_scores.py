@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 # See: https://www.dropbox.com/s/g6lxxovop3sibto/013-outlier_scores_functions.ipynb?dl=0
 # for a demo of usage
 
+
 def sort_scores_truth(scores, truth):
     """
     Sort the aligned scores and truth arrays from lowest to largest
@@ -51,10 +52,9 @@ def find_last_normal_idx(sorted_truth):
         return len(sorted_truth) - np.argmax(np.diff(sorted_truth)[::-1]) - 2
 
 
-def find_prop_markers(sorted_scores,
-                      sorted_truth,
-                      ratio_markers=(1, 0.75, 0.5),
-                      add_full_out_zone=True):
+def find_prop_markers(
+    sorted_scores, sorted_truth, ratio_markers=(1, 0.75, 0.5), add_full_out_zone=True
+):
     """
     Find the score thresholds starting at which the proportion of n_normal / n_total
     is on or below the values in ratio_markers. If the proportion is never reached, the
@@ -129,7 +129,9 @@ def get_percentiles(scores, n_percentiles):
         extended_scores.append(sorted_scores[-1])
         sorted_scores = np.array(extended_scores)
     n_scores = len(sorted_scores)
-    percentiles_idx = np.array([int(n_scores / (n_percentiles + 1) * i) for i in range(1, n_percentiles + 1)])
+    percentiles_idx = np.array(
+        [int(n_scores / (n_percentiles + 1) * i) for i in range(1, n_percentiles + 1)]
+    )
     return sorted_scores[percentiles_idx]
 
 
@@ -154,8 +156,12 @@ def get_confusion_zones_percentiles(scores, truth, n_percentiles=1):
     elif n_percentiles == 1:
         return (min_anomaly, max_normal)
     else:
-        confused_normal_scores = scores_normal[(min_anomaly <= scores_normal) & (scores_normal <= max_normal)]
-        confused_anomaly_scores = scores_anomaly[(min_anomaly <= scores_anomaly) & (scores_normal <= max_normal)]
+        confused_normal_scores = scores_normal[
+            (min_anomaly <= scores_normal) & (scores_normal <= max_normal)
+        ]
+        confused_anomaly_scores = scores_anomaly[
+            (min_anomaly <= scores_anomaly) & (scores_normal <= max_normal)
+        ]
         if len(confused_normal_scores) > len(confused_anomaly_scores):
             most_numerous = confused_normal_scores
         else:
@@ -220,7 +226,9 @@ def plot_scores_and_zones(scores, zones, box=None, title=None, lines=True):
     red_idx = indices[red_mask]
 
     green_red_idx = np.concatenate((red_idx, green_idx))
-    yellow_idx = indices[np.logical_and(np.logical_not(red_mask), np.logical_not(green_mask))]
+    yellow_idx = indices[
+        np.logical_and(np.logical_not(red_mask), np.logical_not(green_mask))
+    ]
     yellow_scores = scores[yellow_idx]
 
     ax.scatter(x=green_idx, y=green_scores, c='g')

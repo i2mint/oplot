@@ -9,12 +9,13 @@ from typing import Optional, Iterable
 
 
 def fixed_step_chunker(
-        it: Iterable,
-        chk_size: int,
-        chk_step: Optional[int] = None,
-        start_at: Optional[int] = None,
-        stop_at: Optional[int] = None,
-        return_tail: bool = False):
+    it: Iterable,
+    chk_size: int,
+    chk_step: Optional[int] = None,
+    start_at: Optional[int] = None,
+    stop_at: Optional[int] = None,
+    return_tail: bool = False,
+):
     """
       a function to get (an iterator of) segments (bt, tt) of chunks from an iterator (or list)
       of the for [it_1, it_2...], given a chk_size, chk_step, and a start_at and a stop_at.

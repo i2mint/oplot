@@ -35,12 +35,22 @@ import matplotlib.patches as mpatches
 import matplotlib
 
 
-def scatter_and_color_according_to_y(X, y=None, col='rainbow', projection='2d', dim_reduct='LDA',
-                                     save=False, legend=True,
-                                     saving_loc='/home/chris/', saving_name='myplot-', plot_tag_name=False,
-                                     super_alpha=10,
-                                     cmap_col='viridis',
-                                     *args, **kwargs):
+def scatter_and_color_according_to_y(
+    X,
+    y=None,
+    col='rainbow',
+    projection='2d',
+    dim_reduct='LDA',
+    save=False,
+    legend=True,
+    saving_loc='/home/chris/',
+    saving_name='myplot-',
+    plot_tag_name=False,
+    super_alpha=10,
+    cmap_col='viridis',
+    *args,
+    **kwargs
+):
     """
     :param X: an array of feature vectors
     :param y: an array of tags
@@ -70,8 +80,10 @@ def scatter_and_color_according_to_y(X, y=None, col='rainbow', projection='2d', 
     elif projection == '3d':
         proj_dim = 3
     else:
-        warnings.warn('The choices for the parameter projectionare'
-                      ' \'1d\', \'2d\' or \'3d\'. Anything else and it will be assumed to be \'2d\' by default')
+        warnings.warn(
+            'The choices for the parameter projectionare'
+            " '1d', '2d' or '3d'. Anything else and it will be assumed to be '2d' by default"
+        )
         proj_dim = 2
 
     if y is None:
@@ -80,7 +92,9 @@ def scatter_and_color_according_to_y(X, y=None, col='rainbow', projection='2d', 
         n_tags = 1
         tags = [0]
         if dim_reduct == 'LDA':
-            warnings.warn('LDA cannot be used if no y is provided, will use PCA instead')
+            warnings.warn(
+                'LDA cannot be used if no y is provided, will use PCA instead'
+            )
             dim_reduct = 'PCA'
 
     elif isinstance(y[0], float):
@@ -90,16 +104,20 @@ def scatter_and_color_according_to_y(X, y=None, col='rainbow', projection='2d', 
         col = 'continuous'
         no_tag = True
         if dim_reduct == 'LDA':
-            warnings.warn('LDA cannot be used if the y entries are floats, will use PCA instead')
+            warnings.warn(
+                'LDA cannot be used if the y entries are floats, will use PCA instead'
+            )
             dim_reduct = 'PCA'
 
     else:
         tags = np.unique(y)
         n_tags = len(tags)
-        if dim_reduct=='LDA' and proj_dim > n_tags - 1:
-                warnings.warn('LDA cannot be used to produce {} dimensions if y has less than {} classes,'
-                              ' will use PCA instead'.format(proj_dim, proj_dim+1))
-                dim_reduct = 'PCA'
+        if dim_reduct == 'LDA' and proj_dim > n_tags - 1:
+            warnings.warn(
+                'LDA cannot be used to produce {} dimensions if y has less than {} classes,'
+                ' will use PCA instead'.format(proj_dim, proj_dim + 1)
+            )
+            dim_reduct = 'PCA'
 
     second_index = 1
     third_index = 2
@@ -138,12 +156,23 @@ def scatter_and_color_according_to_y(X, y=None, col='rainbow', projection='2d', 
             second_index = 0
         if colors is not None:
             for c, i in zip(colors, tags):
-                sc = ax.scatter(X[y == i, 0], np.zeros(np.sum(y == i)), c=[c], alpha=alpha,
-                                 s=10, linewidths=0.05, marker='+', *args, **kwargs)
+                sc = ax.scatter(
+                    X[y == i, 0],
+                    np.zeros(np.sum(y == i)),
+                    c=[c],
+                    alpha=alpha,
+                    s=10,
+                    linewidths=0.05,
+                    marker='+',
+                    *args,
+                    **kwargs
+                )
                 if legend:
                     handle = mpatches.Patch(color=c, label=i)
                     handles.append(handle)
-                    ax.legend(handles=handles, loc='center left', bbox_to_anchor=(1, 0.5))
+                    ax.legend(
+                        handles=handles, loc='center left', bbox_to_anchor=(1, 0.5)
+                    )
         else:
             ax.scatter(X[:, 0], X[:, second_index], c=y, alpha=alpha, *args, **kwargs)
             ax.colorbar()
@@ -156,11 +185,20 @@ def scatter_and_color_according_to_y(X, y=None, col='rainbow', projection='2d', 
             second_index = 0
         if colors is not None:
             for c, i in zip(colors, tags):
-                sc = ax.scatter(X[y == i, 0], X[y == i, second_index], c=[c], alpha=alpha, *args, **kwargs)
+                sc = ax.scatter(
+                    X[y == i, 0],
+                    X[y == i, second_index],
+                    c=[c],
+                    alpha=alpha,
+                    *args,
+                    **kwargs
+                )
                 if legend:
                     handle = mpatches.Patch(color=c, label=i)
                     handles.append(handle)
-                    ax.legend(handles=handles, loc='center left', bbox_to_anchor=(1, 0.5))
+                    ax.legend(
+                        handles=handles, loc='center left', bbox_to_anchor=(1, 0.5)
+                    )
         else:
             ax.scatter(X[:, 0], X[:, second_index], c=y, alpha=alpha, *args, **kwargs)
             ax.colorbar()
@@ -176,13 +214,29 @@ def scatter_and_color_according_to_y(X, y=None, col='rainbow', projection='2d', 
         ax = fig.add_subplot(111, projection='3d')
         if colors is not None:
             for c, i in zip(colors, tags):
-                sc = ax.scatter(X[y == i, 0],  X[y == i, second_index], X[y == i, third_index], c=[c], alpha=alpha)
+                sc = ax.scatter(
+                    X[y == i, 0],
+                    X[y == i, second_index],
+                    X[y == i, third_index],
+                    c=[c],
+                    alpha=alpha,
+                )
                 if legend:
                     handle = mpatches.Patch(color=c, label=i)
                     handles.append(handle)
-                    ax.legend(handles=handles, loc='center left', bbox_to_anchor=(1, 0.5))
+                    ax.legend(
+                        handles=handles, loc='center left', bbox_to_anchor=(1, 0.5)
+                    )
         else:
-            p = ax.scatter(X[:, 0], X[:, second_index], X[:, third_index], c=y, alpha=alpha, *args, **kwargs)
+            p = ax.scatter(
+                X[:, 0],
+                X[:, second_index],
+                X[:, third_index],
+                c=y,
+                alpha=alpha,
+                *args,
+                **kwargs
+            )
             fig.colorbar(p)
 
     if plot_tag_name and not no_tag:
@@ -191,11 +245,20 @@ def scatter_and_color_according_to_y(X, y=None, col='rainbow', projection='2d', 
             if projection == '2d':
                 plt.text(tag_center[0], tag_center[1], tags[tag])
             else:
-                ax.text(tag_center[0], tag_center[1], tag_center[2], tags[tag], size=20, zorder=1,
-                        color='k')
+                ax.text(
+                    tag_center[0],
+                    tag_center[1],
+                    tag_center[2],
+                    tags[tag],
+                    size=20,
+                    zorder=1,
+                    color='k',
+                )
 
     if save:
-        path = saving_loc + saving_name + datetime.datetime.today().strftime('%Y-%m-%d-%r')
+        path = (
+            saving_loc + saving_name + datetime.datetime.today().strftime('%Y-%m-%d-%r')
+        )
         plt.savefig(path, bbox_inches='tight')
     plt.show()
 
@@ -224,8 +287,9 @@ def save_figs_to_pdf(figs, pdf_filepath=None):
 #     return r/255, g/255, b/255, 1
 
 
-
-def side_by_side_bar(list_of_values_for_bars, width=1, spacing=1, list_names=None, colors=None):
+def side_by_side_bar(
+    list_of_values_for_bars, width=1, spacing=1, list_names=None, colors=None
+):
     """
     A plotting utility making side by side bar graphs from a list of list (of same length) of values.
 
@@ -245,11 +309,16 @@ def side_by_side_bar(list_of_values_for_bars, width=1, spacing=1, list_names=Non
     if colors is None:
         colors = plt.cm.rainbow(np.linspace(0, 1, n_bars))
     else:
-        assert len(colors) >= n_bars, "There's not enough colors for the number of bars ({})".format(n_bars)
+        assert (
+            len(colors) >= n_bars
+        ), "There's not enough colors for the number of bars ({})".format(n_bars)
     ax = plt.subplot(111)
     # making each of the bar plot
     for i, list_of_values_for_bars in enumerate(list_of_values_for_bars):
-        x = [width * j * n_bars + spacing * j + i * width for j in range(len(list_of_values_for_bars))]
+        x = [
+            width * j * n_bars + spacing * j + i * width
+            for j in range(len(list_of_values_for_bars))
+        ]
         ax.bar(x, list_of_values_for_bars, width=width, color=colors[i], align='center')
     ax.legend(list_names)
     ax.xaxis.set_ticklabels([])

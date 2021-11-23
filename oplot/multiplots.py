@@ -18,21 +18,23 @@ def make_space_above(axes, topmargin=1):
     fig.set_figheight(figh)
 
 
-def ax_func_to_plot(list_func_per_ax,
-                    n_per_row=3,
-                    title=None,
-                    title_font_size=10,
-                    width=15,
-                    height_row=10,
-                    saving_path=None,
-                    x_labels=None,
-                    y_labels=None,
-                    outer_axis_labels_only=False,
-                    dpi=200,
-                    plot=True,
-                    h_pad=0,
-                    w_pad=0,
-                    title_offset=0):
+def ax_func_to_plot(
+    list_func_per_ax,
+    n_per_row=3,
+    title=None,
+    title_font_size=10,
+    width=15,
+    height_row=10,
+    saving_path=None,
+    x_labels=None,
+    y_labels=None,
+    outer_axis_labels_only=False,
+    dpi=200,
+    plot=True,
+    h_pad=0,
+    w_pad=0,
+    title_offset=0,
+):
     """
     Draw one grid of plots from the individual plots
 
@@ -50,7 +52,12 @@ def ax_func_to_plot(list_func_per_ax,
     """
 
     n_rows = int(np.ceil(len(list_func_per_ax) / n_per_row))
-    fig, axes = plt.subplots(nrows=n_rows, ncols=n_per_row, figsize=(width, height_row * n_rows), squeeze=False)
+    fig, axes = plt.subplots(
+        nrows=n_rows,
+        ncols=n_per_row,
+        figsize=(width, height_row * n_rows),
+        squeeze=False,
+    )
 
     # fig.legend(fancybox=True, framealpha=1, shadow=True, borderpad=1)
     fig.suptitle(title, fontsize=title_font_size)
@@ -84,19 +91,21 @@ def ax_func_to_plot(list_func_per_ax,
         plt.show()
 
 
-def multiplot_with_max_size(list_func_per_ax,
-                            max_plot_per_file=60,
-                            n_per_row=3,
-                            title=None,
-                            title_font_size=10,
-                            width=15,
-                            height_row=10,
-                            saving_path_format=None,
-                            x_labels=None,
-                            y_labels=None,
-                            outer_axis_labels_only=False,
-                            dpi=300,
-                            plot=True):
+def multiplot_with_max_size(
+    list_func_per_ax,
+    max_plot_per_file=60,
+    n_per_row=3,
+    title=None,
+    title_font_size=10,
+    width=15,
+    height_row=10,
+    saving_path_format=None,
+    x_labels=None,
+    y_labels=None,
+    outer_axis_labels_only=False,
+    dpi=300,
+    plot=True,
+):
     """
     Same as ax_func_to_plot but saves on several files
     :param max_plot_per_file: the maximum number of plots per file
@@ -105,39 +114,46 @@ def multiplot_with_max_size(list_func_per_ax,
     n_files, n_remainder_rows = divmod(len(list_func_per_ax), max_plot_per_file)
     file_idx = 0
     for file_idx in range(n_files):
-        funcs = list_func_per_ax[file_idx * max_plot_per_file: (file_idx + 1) * max_plot_per_file]
+        funcs = list_func_per_ax[
+            file_idx * max_plot_per_file : (file_idx + 1) * max_plot_per_file
+        ]
         if saving_path_format:
             saving_path = saving_path_format.format(file_idx)
         else:
             saving_path = None
-        ax_func_to_plot(funcs,
-                        n_per_row=n_per_row,
-                        title=title,
-                        title_font_size=title_font_size,
-                        width=width,
-                        height_row=height_row,
-                        saving_path=saving_path,
-                        x_labels=x_labels,
-                        y_labels=y_labels,
-                        outer_axis_labels_only=outer_axis_labels_only)
+        ax_func_to_plot(
+            funcs,
+            n_per_row=n_per_row,
+            title=title,
+            title_font_size=title_font_size,
+            width=width,
+            height_row=height_row,
+            saving_path=saving_path,
+            x_labels=x_labels,
+            y_labels=y_labels,
+            outer_axis_labels_only=outer_axis_labels_only,
+        )
     file_idx += 1
     if saving_path_format:
         saving_path = saving_path_format.format(file_idx)
     else:
         saving_path = None
     funcs = list_func_per_ax[-n_remainder_rows:]
-    ax_func_to_plot(funcs,
-                    n_per_row=n_per_row,
-                    title=title,
-                    title_font_size=title_font_size,
-                    width=width,
-                    height_row=height_row,
-                    saving_path=saving_path,
-                    x_labels=x_labels,
-                    y_labels=y_labels,
-                    outer_axis_labels_only=outer_axis_labels_only,
-                    dpi=dpi,
-                    plot=plot)
+    ax_func_to_plot(
+        funcs,
+        n_per_row=n_per_row,
+        title=title,
+        title_font_size=title_font_size,
+        width=width,
+        height_row=height_row,
+        saving_path=saving_path,
+        x_labels=x_labels,
+        y_labels=y_labels,
+        outer_axis_labels_only=outer_axis_labels_only,
+        dpi=dpi,
+        plot=plot,
+    )
+
 
 # # Example of usage
 # if __name__ == '__main__':
