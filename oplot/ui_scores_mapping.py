@@ -137,10 +137,12 @@ def tune_ui_map(scores,
                 min_percentile_abnormal=0.25,
                 max_percentile_abnormal=0.75,
                 lower_base=10,
-                upper_base=10):
+                upper_base=10,
+                abnormal_fact=2):
     """
     Construct a ui scores map spreading out the scores between 0 and 10, where high means normal. Scores is
-    an array of raw stroll scores.
+    an array of raw stroll scores. NOTE: it assumes large scores means abnormal, small means normal!! Need to adapt
+    otherwise.
 
     LOWERING the default range for the normal scores from [0.25, 0.75] to say [0., 0.25] will DECREASE the average
     quality score of normal sounds.
@@ -162,7 +164,13 @@ def tune_ui_map(scores,
     elif all_normal:
         median_normal = between_percentiles_mean(scores, min_percentile=min_percentile_normal,
                                                  max_percentile=max_percentile_normal)
-        median_abnormal = 10 * median_normal
+
+        normal_large = between_percentiles_mean(scores,
+                                                min_percentile=0.9,
+                                                max_percentile=1)
+
+        # as an approximation of the median abnormal, we use the media
+        median_abnormal = normal_large * abnormal_fact
 
     # probably never useful, in case all scores are from abnormal
     else:
