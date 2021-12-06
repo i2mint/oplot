@@ -506,7 +506,7 @@ def pick_equally_spaced_points(values, n_points):
             position = values[index]
         points_idx.append(index)
     points_idx.append(len(values) - 1)
-    return points_idx
+    return np.array(points_idx)
 
 
 # TODO: make the integer values show as integer instead of floats
@@ -863,6 +863,7 @@ def plot_outlier_metric_curve(
     if (plot_curve and plot_table_points_on_curve) or plot_table:
         # note that pick_equally_spaced_points is a quick hack, will not work for less than ideal situation
         idx = pick_equally_spaced_points(x, n_points_for_table)
+        print(idx)
         x_points = x[idx]
         y_points = y[idx]
         x_nan = np.isnan(x_points)
