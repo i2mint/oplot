@@ -487,11 +487,11 @@ def pick_equally_spaced_points(values, n_points):
     points on a precision/recall curve if many points are available on the curve.
 
     >>> pick_equally_spaced_points([1,2,3], 3)
-    [0, 1, 2]
+    array([0, 1, 2])
     >>> pick_equally_spaced_points(range(300), 3)
-    [0, 150, 299]
+    array([  0, 150, 299])
     >>> pick_equally_spaced_points([1, 1.1, 1.2, 4, 5, 6], 3)
-    [0, 3, 5]
+    array([0, 3, 5])
     """
     min_value = min(values)
     max_value = max(values)
@@ -861,11 +861,14 @@ def plot_outlier_metric_curve(
 
     # Getting equally spaced points for the table or curve
     if (plot_curve and plot_table_points_on_curve) or plot_table:
+        sorted_x, sorted_y = parallel_sort([x, y])
+        sorted_x = np.array(sorted_x)
+        sorted_y = np.array(sorted_y)
+
         # note that pick_equally_spaced_points is a quick hack, will not work for less than ideal situation
-        idx = pick_equally_spaced_points(x, n_points_for_table)
-        print(idx)
-        x_points = x[idx]
-        y_points = y[idx]
+        idx = pick_equally_spaced_points(sorted_x, n_points_for_table)
+        x_points = sorted_x[idx]
+        y_points = sorted_y[idx]
         x_nan = np.isnan(x_points)
         y_nan = np.isnan(y_points)
         xy_not_nan = np.logical_not(np.logical_or(x_nan, y_nan))
