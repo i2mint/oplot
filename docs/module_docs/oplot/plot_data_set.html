@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>oplot.plot_data_set &mdash; oplot 0.1.2 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/toggleprompt.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="oplot.plot_stats" href="plot_stats.html" />
+    <link rel="prev" title="oplot.plot_audio" href="plot_audio.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> oplot
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../oplot.html">oplot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matrix.html">oplot.matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_plot.html">oplot.multi_plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multiplots.html">oplot.multiplots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="my.html">oplot.my</a></li>
+<li class="toctree-l1"><a class="reference internal" href="outlier_scores.html">oplot.outlier_scores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot_audio.html">oplot.plot_audio</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">oplot.plot_data_set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot_stats.html">oplot.plot_stats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui_scores_mapping.html">oplot.ui_scores_mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">oplot.util</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">oplot</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>oplot.plot_data_set</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/oplot/plot_data_set.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-oplot.plot_data_set">
+<span id="oplot-plot-data-set"></span><h1>oplot.plot_data_set<a class="headerlink" href="#module-oplot.plot_data_set" title="Permalink to this headline">¶</a></h1>
+<p>Function to reduce and plot data in 2 or 3 dimensions</p>
+<p>Example of usage:</p>
+<p>from sklearn.datasets import make_blobs</p>
+<p>X, y = make_blobs(n_samples=300, n_features=4, centers=3, cluster_std=1.0)</p>
+<p>y_conf = []
+for i in range(len(y)):</p>
+<blockquote>
+<div><dl class="simple">
+<dt>if y[i] == 0 or y[i] == 2:</dt><dd><p>y_conf.append(0)</p>
+</dd>
+<dt>else:</dt><dd><p>y_conf.append(1)</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>y_conf = np.array(y_conf)</p>
+<p>scatter_and_color_according_to_y(X, y_conf, col=’rainbow’, dim_reduct=’LDA’, projection=’3d’)</p>
+<dl class="py function">
+<dt id="oplot.plot_data_set.ratio_comparison_vlines">
+<code class="sig-prename descclassname">oplot.plot_data_set.</code><code class="sig-name descname">ratio_comparison_vlines</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y1</span></em>, <em class="sig-param"><span class="n">y2</span></em>, <em class="sig-param"><span class="n">c1</span><span class="o">=</span><span class="default_value">'b'</span></em>, <em class="sig-param"><span class="n">c2</span><span class="o">=</span><span class="default_value">'k'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_data_set.html#ratio_comparison_vlines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_data_set.ratio_comparison_vlines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots vlines of y1/y2.
+:param y1: numerator
+:param y2: denominator
+:param c1: color of numerator
+:param c2: color of denominator (will be a straight horizontal line placed at 1)
+:return: what plt.plot returns</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_data_set.save_figs_to_pdf">
+<code class="sig-prename descclassname">oplot.plot_data_set.</code><code class="sig-name descname">save_figs_to_pdf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">figs</span></em>, <em class="sig-param"><span class="n">pdf_filepath</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_data_set.html#save_figs_to_pdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_data_set.save_figs_to_pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save figures to a single pdf
+:param figs:
+:param pdf_filepath:
+:return:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_data_set.scatter_and_color_according_to_y">
+<code class="sig-prename descclassname">oplot.plot_data_set.</code><code class="sig-name descname">scatter_and_color_according_to_y</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">y</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">col</span><span class="o">=</span><span class="default_value">'rainbow'</span></em>, <em class="sig-param"><span class="n">projection</span><span class="o">=</span><span class="default_value">'2d'</span></em>, <em class="sig-param"><span class="n">dim_reduct</span><span class="o">=</span><span class="default_value">'LDA'</span></em>, <em class="sig-param"><span class="n">save</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">legend</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">saving_loc</span><span class="o">=</span><span class="default_value">'/home/chris/'</span></em>, <em class="sig-param"><span class="n">saving_name</span><span class="o">=</span><span class="default_value">'myplot-'</span></em>, <em class="sig-param"><span class="n">plot_tag_name</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">super_alpha</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">cmap_col</span><span class="o">=</span><span class="default_value">'viridis'</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_data_set.html#scatter_and_color_according_to_y"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_data_set.scatter_and_color_according_to_y" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> – an array of feature vectors</p></li>
+<li><p><strong>y</strong> – an array of tags</p></li>
+<li><p><strong>col</strong> – ‘random’ or ‘rainbow’. Rainbow tends to give more distinct colors</p></li>
+<li><p><strong>projection</strong> – ‘2d’ or ‘3d’</p></li>
+<li><p><strong>dim_reduct</strong> – ‘LDA’ or ‘PCA’, the dimension reduction method used (when needed)
+anything else and the function will use the first 2 or 3 coordinates by default</p></li>
+<li><p><strong>iterated</strong> – <dl class="simple">
+<dt>whether or not to use iterated projection in LDA when the number of tags is 2</dt><dd><p>without the iterate projection, one would get only 1 dimension out of lda
+if set to False and the number of tags is 2 and the original space has dimension
+more than 2, the first two dimensions will be retained for the scatterplot
+(i.e. no smart drawing then). This last option can be useful when the iterated
+projection just yield points on a line.</p>
+</dd>
+</dl>
+<p>fall_back: when LDA cannot produce the required number of dimensions, PCA is used instead.</p>
+</p></li>
+<li><p><strong>save</strong> – a boolean, whether or not the plot will be saved</p></li>
+<li><p><strong>saving_loc</strong> – a string, the location where the file will be saved. If none is given,
+it will be saved in the home folder</p></li>
+<li><p><strong>args</strong> – more argument for scatter</p></li>
+<li><p><strong>kwargs</strong> – more keyword argument for scatter</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a plot of 2d scatter plot of X with different colors for each tag</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_data_set.side_by_side_bar">
+<code class="sig-prename descclassname">oplot.plot_data_set.</code><code class="sig-name descname">side_by_side_bar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_of_values_for_bars</span></em>, <em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">spacing</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">list_names</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">colors</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_data_set.html#side_by_side_bar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_data_set.side_by_side_bar" title="Permalink to this definition">¶</a></dt>
+<dd><p>A plotting utility making side by side bar graphs from a list of list (of same length) of values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>list_of_values_for_bars</strong> – list of list of values for the bar graphs</p></li>
+<li><p><strong>width</strong> – the width of the bar graphs</p></li>
+<li><p><strong>spacing</strong> – the size of the spacing between groups of bars</p></li>
+<li><p><strong>list_names</strong> – the names to assign to the bars, in the same order as in list_of_values_for_bars</p></li>
+<li><p><strong>list_colors</strong> – the colors to use for the bars, in the same order as in list_of_values_for_bars</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a nice plot!</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="plot_audio.html" class="btn btn-neutral float-left" title="oplot.plot_audio" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="plot_stats.html" class="btn btn-neutral float-right" title="oplot.plot_stats" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

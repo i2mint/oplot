@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>oplot.ui_scores_mapping &mdash; oplot 0.1.2 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/toggleprompt.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> oplot
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot.html">oplot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/matrix.html">oplot.matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/multi_plot.html">oplot.multi_plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/multiplots.html">oplot.multiplots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/my.html">oplot.my</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/outlier_scores.html">oplot.outlier_scores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/plot_audio.html">oplot.plot_audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/plot_data_set.html">oplot.plot_data_set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/plot_stats.html">oplot.plot_stats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/ui_scores_mapping.html">oplot.ui_scores_mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/util.html">oplot.util</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">oplot</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>oplot.ui_scores_mapping</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for oplot.ui_scores_mapping</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Functions to create and plot outlier scores (or other) in a fixed bounded range. Intended to use to</span>
+<span class="sd">show the results of an outlier algorithm in a user friendly UI&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="make_linear_part"><a class="viewcode-back" href="../../module_docs/oplot/ui_scores_mapping.html#oplot.ui_scores_mapping.make_linear_part">[docs]</a><span class="k">def</span> <span class="nf">make_linear_part</span><span class="p">(</span><span class="n">max_score</span><span class="p">,</span> <span class="n">min_score</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :param bottom: the proportion of the graph used for the bottom &quot;sigmoid&quot;</span>
+<span class="sd">    :param middle: the proportion of the graph used for the middle linear part</span>
+<span class="sd">    :param top: the proportion of the graph used for the top &quot;sigmoid&quot;</span>
+<span class="sd">    :param max_score: the maximum score seen on train</span>
+<span class="sd">    :param min_score: the minimum score seen on train</span>
+<span class="sd">    :return: the linear part of the ui score mapping</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">slope</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_score</span> <span class="o">-</span> <span class="n">min_score</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">linear_part</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">slope</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">slope</span> <span class="o">*</span> <span class="n">min_score</span>
+
+    <span class="k">return</span> <span class="n">linear_part</span></div>
+
+
+<div class="viewcode-block" id="make_top_part"><a class="viewcode-back" href="../../module_docs/oplot/ui_scores_mapping.html#oplot.ui_scores_mapping.make_top_part">[docs]</a><span class="k">def</span> <span class="nf">make_top_part</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">max_score</span><span class="p">,</span> <span class="n">min_score</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The base has to be between 0 and 1, strictly.</span>
+<span class="sd">    The function will be of the form -base ** (-x + t) + C, where t and C</span>
+<span class="sd">    are the two constants to solve for. The constraints are continuity and</span>
+<span class="sd">    smoothness at max_score when pieced with the linear part</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">slope</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_score</span> <span class="o">-</span> <span class="n">min_score</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">slope</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">base</span><span class="p">))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="o">+</span> <span class="n">max_score</span>
+    <span class="c1"># at the limit when x-&gt;inf, the function will approach c</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">base</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="n">max_score</span> <span class="o">+</span> <span class="n">t</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">top_part</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="o">-</span><span class="p">(</span><span class="n">base</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="n">x</span> <span class="o">+</span> <span class="n">t</span><span class="p">))</span> <span class="o">+</span> <span class="n">c</span>
+
+    <span class="k">return</span> <span class="n">top_part</span><span class="p">,</span> <span class="n">c</span></div>
+
+
+<div class="viewcode-block" id="make_bottom_part"><a class="viewcode-back" href="../../module_docs/oplot/ui_scores_mapping.html#oplot.ui_scores_mapping.make_bottom_part">[docs]</a><span class="k">def</span> <span class="nf">make_bottom_part</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">max_score</span><span class="p">,</span> <span class="n">min_score</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The base has to be between 0 and 1, strictly.</span>
+<span class="sd">    The function will be of the form -base ** (-x + t) + C, where t and C</span>
+<span class="sd">    are the two constants to solve for. The constraints are continuity and</span>
+<span class="sd">    smoothness at max_score when pieced with the linear part</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">slope</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_score</span> <span class="o">-</span> <span class="n">min_score</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">slope</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">base</span><span class="p">))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="o">-</span> <span class="n">min_score</span>
+    <span class="c1"># at the limit when x-&gt;-inf, the function will approach c</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">base</span> <span class="o">**</span> <span class="p">(</span><span class="n">min_score</span> <span class="o">+</span> <span class="n">t</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">bottom_part</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">base</span> <span class="o">**</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="n">c</span>
+
+    <span class="k">return</span> <span class="n">bottom_part</span><span class="p">,</span> <span class="n">c</span></div>
+
+
+<div class="viewcode-block" id="make_ui_score_mapping"><a class="viewcode-back" href="../../module_docs/oplot/ui_scores_mapping.html#oplot.ui_scores_mapping.make_ui_score_mapping">[docs]</a><span class="k">def</span> <span class="nf">make_ui_score_mapping</span><span class="p">(</span>
+    <span class="n">min_lin_score</span><span class="p">,</span> <span class="n">max_lin_score</span><span class="p">,</span> <span class="n">top_base</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">bottom_base</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">max_score</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot a sigmoid function to map outlier scores to (by default) the range (0, 10)</span>
+<span class="sd">    The function is not only continuous but also smooth and the radius of the corners are controlled by the floats</span>
+<span class="sd">    top_base and bottom_base</span>
+<span class="sd">    :param min_lin_score: float, the minimum scores which is map with a linear function</span>
+<span class="sd">    :param max_lin_score: float, the maximum scores which is map with a linear function</span>
+<span class="sd">    :param top_base: float, the base of the exponential function on top of the linear part</span>
+<span class="sd">    :param bottom_base:  float, the base of the exponential function on the bottom of the linear part</span>
+<span class="sd">    :param max_score: float, the upper bound of the function</span>
+<span class="sd">    :param reverse: boolean, whether to mirror the function along its center</span>
+<span class="sd">    :return: a mapping, sigmoid like</span>
+
+
+<span class="sd">    ------------------------ Example of use: ---------------------------</span>
+
+<span class="sd">    from oplot.ui_scores_mapping import make_ui_score_mapping</span>
+<span class="sd">    import numpy as np</span>
+<span class="sd">    import matplotlib,pyplot as plt</span>
+
+<span class="sd">    sigmoid_map = make_ui_score_mapping(min_lin_score=1,</span>
+<span class="sd">                                        max_lin_score=9,</span>
+<span class="sd">                                        top_base=2,</span>
+<span class="sd">                                        bottom_base=2,</span>
+<span class="sd">                                        max_score=10)</span>
+
+<span class="sd">    x = np.linspace(-5, 15, 100)</span>
+<span class="sd">    plt.plot(x, [sigmoid_map(i) for i in x])</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">linear_part</span> <span class="o">=</span> <span class="n">make_linear_part</span><span class="p">(</span><span class="n">max_lin_score</span><span class="p">,</span> <span class="n">min_lin_score</span><span class="p">)</span>
+    <span class="n">bottom_part</span><span class="p">,</span> <span class="n">min_</span> <span class="o">=</span> <span class="n">make_bottom_part</span><span class="p">(</span><span class="n">bottom_base</span><span class="p">,</span> <span class="n">max_lin_score</span><span class="p">,</span> <span class="n">min_lin_score</span><span class="p">)</span>
+    <span class="n">top_part</span><span class="p">,</span> <span class="n">max_</span> <span class="o">=</span> <span class="n">make_top_part</span><span class="p">(</span><span class="n">top_base</span><span class="p">,</span> <span class="n">max_lin_score</span><span class="p">,</span> <span class="n">min_lin_score</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">reverse</span><span class="p">:</span>
+
+        <span class="k">def</span> <span class="nf">ui_score_mapping</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">min_lin_score</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">max_score</span> <span class="o">-</span> <span class="n">max_score</span> <span class="o">*</span> <span class="p">(</span><span class="n">bottom_part</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">min_</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_</span> <span class="o">-</span> <span class="n">min_</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">max_lin_score</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">max_score</span> <span class="o">-</span> <span class="n">max_score</span> <span class="o">*</span> <span class="p">(</span><span class="n">top_part</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">min_</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_</span> <span class="o">-</span> <span class="n">min_</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">max_score</span> <span class="o">-</span> <span class="n">max_score</span> <span class="o">*</span> <span class="p">(</span><span class="n">linear_part</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">min_</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_</span> <span class="o">-</span> <span class="n">min_</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="k">def</span> <span class="nf">ui_score_mapping</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">min_lin_score</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">max_score</span> <span class="o">*</span> <span class="p">(</span><span class="n">bottom_part</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">min_</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_</span> <span class="o">-</span> <span class="n">min_</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">max_lin_score</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">max_score</span> <span class="o">*</span> <span class="p">(</span><span class="n">top_part</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">min_</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_</span> <span class="o">-</span> <span class="n">min_</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">max_score</span> <span class="o">*</span> <span class="p">(</span><span class="n">linear_part</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">min_</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_</span> <span class="o">-</span> <span class="n">min_</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ui_score_mapping</span></div>
+
+
+<div class="viewcode-block" id="between_percentiles_mean"><a class="viewcode-back" href="../../module_docs/oplot/ui_scores_mapping.html#oplot.ui_scores_mapping.between_percentiles_mean">[docs]</a><span class="k">def</span> <span class="nf">between_percentiles_mean</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">min_percentile</span><span class="o">=</span><span class="mf">0.450</span><span class="p">,</span> <span class="n">max_percentile</span><span class="o">=</span><span class="mf">0.55</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the mean of the scores between the specified percentiles</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">numpy</span>
+
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+    <span class="n">sorted_scores</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+    <span class="n">high_scores</span> <span class="o">=</span> <span class="n">sorted_scores</span><span class="p">[</span>
+        <span class="nb">int</span><span class="p">(</span><span class="n">min_percentile</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_scores</span><span class="p">))</span> <span class="p">:</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="n">max_percentile</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_scores</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">high_scores</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="tune_ui_map"><a class="viewcode-back" href="../../module_docs/oplot/ui_scores_mapping.html#oplot.ui_scores_mapping.tune_ui_map">[docs]</a><span class="k">def</span> <span class="nf">tune_ui_map</span><span class="p">(</span>
+    <span class="n">scores</span><span class="p">,</span>
+    <span class="n">truth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">all_normal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">min_percentile_normal</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
+    <span class="n">max_percentile_normal</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
+    <span class="n">min_percentile_abnormal</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
+    <span class="n">max_percentile_abnormal</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
+    <span class="n">lower_base</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">upper_base</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">abnormal_fact</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Construct a ui scores map spreading out the scores between 0 and 10, where high means normal. Scores is</span>
+<span class="sd">    an array of raw stroll scores. NOTE: it assumes large scores means abnormal, small means normal!! Need to adapt</span>
+<span class="sd">    otherwise.</span>
+
+<span class="sd">    LOWERING the default range for the normal scores from [0.25, 0.75] to say [0., 0.25] will DECREASE the average</span>
+<span class="sd">    quality score of normal sounds.</span>
+
+<span class="sd">    INCREASING the range for the abnormal scores from [0.25, 0.75] to say [0.5, 1.0] will DECREASE the average quality</span>
+<span class="sd">    score of abnormal sounds.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+    <span class="c1"># we have examples of normal and abnormal</span>
+    <span class="k">if</span> <span class="n">truth</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">truth</span><span class="p">))</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">truth</span><span class="p">)</span>
+        <span class="n">median_normal</span> <span class="o">=</span> <span class="n">between_percentiles_mean</span><span class="p">(</span>
+            <span class="n">scores</span><span class="p">[</span><span class="n">truth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="n">min_percentile</span><span class="o">=</span><span class="n">min_percentile_normal</span><span class="p">,</span>
+            <span class="n">max_percentile</span><span class="o">=</span><span class="n">max_percentile_normal</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">median_abnormal</span> <span class="o">=</span> <span class="n">between_percentiles_mean</span><span class="p">(</span>
+            <span class="n">scores</span><span class="p">[</span><span class="n">truth</span> <span class="o">==</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="n">min_percentile</span><span class="o">=</span><span class="n">min_percentile_abnormal</span><span class="p">,</span>
+            <span class="n">max_percentile</span><span class="o">=</span><span class="n">max_percentile_abnormal</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># if not the scores are all normal</span>
+    <span class="k">elif</span> <span class="n">all_normal</span><span class="p">:</span>
+        <span class="n">median_normal</span> <span class="o">=</span> <span class="n">between_percentiles_mean</span><span class="p">(</span>
+            <span class="n">scores</span><span class="p">,</span>
+            <span class="n">min_percentile</span><span class="o">=</span><span class="n">min_percentile_normal</span><span class="p">,</span>
+            <span class="n">max_percentile</span><span class="o">=</span><span class="n">max_percentile_normal</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">normal_large</span> <span class="o">=</span> <span class="n">between_percentiles_mean</span><span class="p">(</span>
+            <span class="n">scores</span><span class="p">,</span> <span class="n">min_percentile</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">max_percentile</span><span class="o">=</span><span class="mi">1</span>
+        <span class="p">)</span>
+
+        <span class="c1"># as an approximation of the median abnormal, we use the media</span>
+        <span class="n">median_abnormal</span> <span class="o">=</span> <span class="n">normal_large</span> <span class="o">*</span> <span class="n">abnormal_fact</span>
+
+    <span class="c1"># probably never useful, in case all scores are from abnormal</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">median_abnormal</span> <span class="o">=</span> <span class="n">between_percentiles_mean</span><span class="p">(</span>
+            <span class="n">scores</span><span class="p">,</span>
+            <span class="n">min_percentile</span><span class="o">=</span><span class="n">min_percentile_abnormal</span><span class="p">,</span>
+            <span class="n">max_percentile</span><span class="o">=</span><span class="n">max_percentile_abnormal</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">median_normal</span> <span class="o">=</span> <span class="n">median_abnormal</span> <span class="o">/</span> <span class="mi">10</span>
+
+    <span class="k">return</span> <span class="n">median_normal</span><span class="p">,</span> <span class="n">median_abnormal</span><span class="p">,</span> <span class="n">lower_base</span><span class="p">,</span> <span class="n">upper_base</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

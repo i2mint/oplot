@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>oplot.plot_stats &mdash; oplot 0.1.2 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/toggleprompt.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="oplot.ui_scores_mapping" href="ui_scores_mapping.html" />
+    <link rel="prev" title="oplot.plot_data_set" href="plot_data_set.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> oplot
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../oplot.html">oplot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matrix.html">oplot.matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multi_plot.html">oplot.multi_plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="multiplots.html">oplot.multiplots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="my.html">oplot.my</a></li>
+<li class="toctree-l1"><a class="reference internal" href="outlier_scores.html">oplot.outlier_scores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot_audio.html">oplot.plot_audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plot_data_set.html">oplot.plot_data_set</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">oplot.plot_stats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ui_scores_mapping.html">oplot.ui_scores_mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">oplot.util</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">oplot</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>oplot.plot_stats</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/oplot/plot_stats.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-oplot.plot_stats">
+<span id="oplot-plot-stats"></span><h1>oplot.plot_stats<a class="headerlink" href="#module-oplot.plot_stats" title="Permalink to this headline">¶</a></h1>
+<p>Functions to represent the accuracy of outlier or classification algorithms</p>
+<dl class="py function">
+<dt id="oplot.plot_stats.apply_function_on_consecutive">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">apply_function_on_consecutive</code><span class="sig-paren">(</span><em class="sig-param">scores</em>, <em class="sig-param">arr_for_consec</em>, <em class="sig-param">func=&lt;function mean&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#apply_function_on_consecutive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.apply_function_on_consecutive" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>Apply func to each block of consecutive value in scores if the corresponding values in arr_for_consec are constant</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scores</strong> – a list of floats</p></li>
+<li><p><strong>arr_for_consec</strong> – an array of values defining the blocks</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list the output of func on each block</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.area_under_points">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">area_under_points</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">points</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#area_under_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.area_under_points" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a list of pair corresponding to the x and y coordinates of the points, find the
+area under the curve of the (simplest) piecewise linear function passing by all the points</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">area_under_points</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">area_under_points</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+<span class="go">1.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">area_under_points</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)])</span>
+<span class="go">3.5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.cumulative_tn_fp_fn_tp">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">cumulative_tn_fp_fn_tp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">truth</span></em>, <em class="sig-param"><span class="n">scores</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#cumulative_tn_fp_fn_tp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.cumulative_tn_fp_fn_tp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute efficiently the cumulative tn, fp, fn and tp</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.get_tn_fp_fn_tp">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">get_tn_fp_fn_tp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">truth</span></em>, <em class="sig-param"><span class="n">scores</span></em>, <em class="sig-param"><span class="n">threshold</span><span class="o">=</span><span class="default_value">2</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#get_tn_fp_fn_tp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.get_tn_fp_fn_tp" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute the counts of true negative, false positive, false negative and true positive as predicted
+by the outlier score for the given threshold
+:param truth: a list of 0 and 1’s, 0 meaning normal and 1 meaning outlier
+:param scores: a list of outlier scores, of same length as truth
+:param threshold: a float, any score under is predicted as normal and above as outlier
+:return: true negative, false positive, false negative, true positive</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.list_mult">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">list_mult</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">l</span></em>, <em class="sig-param"><span class="n">mult</span></em>, <em class="sig-param"><span class="n">random_remainder</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#list_mult"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.list_mult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extend the multiplication of lists by an integer naturally to float.
+EX: [1,2] * 1.5 = [1,2,1]
+If random_remainder is set to True, the decimal part of the new list will be chose at random from l.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.make_heatmap">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">make_heatmap</code><span class="sig-paren">(</span><em class="sig-param">matrix_results</em>, <em class="sig-param">tags</em>, <em class="sig-param">rounding=4</em>, <em class="sig-param">fig_size=(20</em>, <em class="sig-param">20)</em>, <em class="sig-param">make_symmetric=False</em>, <em class="sig-param">fill_diag=None</em>, <em class="sig-param">cmap=&lt;matplotlib.colors.LinearSegmentedColormap object&gt;</em>, <em class="sig-param">name=''</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#make_heatmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.make_heatmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes a heatmap plot of the matrix_results where the entries are rounded.
+If matrix_results is upper or lower diagonal and make_symmetric is set to true,
+plot will be made symmetric by copying the strict upper or lower half.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.make_normal_outlier_timeline">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">make_normal_outlier_timeline</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">scores</span></em>, <em class="sig-param"><span class="n">y_order</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vertical_sep</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">saving_path</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">fig_size</span><span class="o">=</span><span class="default_value">(16, 5)</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">'normal/outlier scores'</span></em>, <em class="sig-param"><span class="n">smooth</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">legend_size</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">title_font_size</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">label_for_y</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">legend_n_cols</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">xticks</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">xticks_labels</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">xticks_rotation</span><span class="o">=</span><span class="default_value">90</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#make_normal_outlier_timeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.make_normal_outlier_timeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots all scores grouped by their y values in order specified by y_order or np.unique(y) is left to None.
+:param scores: an array of outlier scores
+:param y: an array of tags, each tag will get its own color on the plot and its name on the legend</p>
+<blockquote>
+<div><p>The vertical line will also be grouped according to the tags, in the order given in y_order</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig_size</strong> – the size of the plot</p></li>
+<li><p><strong>line_width</strong> – the thickness of the line on the plot</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.make_tables_tn_fp_fn_tp">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">make_tables_tn_fp_fn_tp</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">truth</span></em>, <em class="sig-param"><span class="n">scores</span></em>, <em class="sig-param"><span class="n">threshold_range</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_thresholds</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">normalize</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#make_tables_tn_fp_fn_tp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.make_tables_tn_fp_fn_tp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a table of counts of tn, fp, fn, tp for n_thresholds equally spaced in threshold_range</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>truth</strong> – a list of 0 and 1’s, 0 meaning normal and 1 meaning outlier</p></li>
+<li><p><strong>scores</strong> – a list of outlier scores, of same length as truth</p></li>
+<li><p><strong>threshold_range</strong> – two values in a tuple or list. The thresholds will be picked within these.</p></li>
+<li><p><strong>n_thresholds</strong> – the number of thresholds to produce</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a panda dataframe with rows of the form (threshold, tn, tp, fn, fp)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.make_tn_fp_fn_tp_tag_lists">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">make_tn_fp_fn_tp_tag_lists</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">truth</span></em>, <em class="sig-param"><span class="n">scores</span></em>, <em class="sig-param"><span class="n">threshold</span></em>, <em class="sig-param"><span class="n">tags</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#make_tn_fp_fn_tp_tag_lists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.make_tn_fp_fn_tp_tag_lists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary with the keys being tp, tn, fp and fn and the corresponding values are the indices of the scores/truth/tags
+for the given threshold. If a list of tags of the sounds corresponding to each scores is given, the values of the dict will
+be those tags rather than indices</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.pair_metrics_to_reference">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">pair_metrics_to_reference</code><span class="sig-paren">(</span><em class="sig-param">pair_metrics={'x': 'TPR', 'y': 'FPR'}, outlier_proportion=0.2, label='chance line', base_statistics_dict={'ACC': &lt;function &lt;lambda&gt;&gt;, 'BM': &lt;function &lt;lambda&gt;&gt;, 'F1': &lt;function &lt;lambda&gt;&gt;, 'FDR': &lt;function &lt;lambda&gt;&gt;, 'FNR': &lt;function &lt;lambda&gt;&gt;, 'FOR': &lt;function &lt;lambda&gt;&gt;, 'FPR': &lt;function &lt;lambda&gt;&gt;, 'MK': &lt;function &lt;lambda&gt;&gt;, 'NMCC': &lt;function &lt;lambda&gt;&gt;, 'NPV': &lt;function &lt;lambda&gt;&gt;, 'PPV': &lt;function &lt;lambda&gt;&gt;, 'TNR': &lt;function &lt;lambda&gt;&gt;, 'TPR': &lt;function &lt;lambda&gt;&gt;, 'TS': &lt;function &lt;lambda&gt;&gt;}, synonyms={'ACC': ['accuracy', 'acc'], 'BM': ['informedness', 'bookmaker_informedness', 'bi', 'BI', 'bm'], 'F1': ['f1_score', 'f1', 'F1_score'], 'FDR': ['false_discovery_rate', 'fdr'], 'FNR': ['miss_rate', 'false_negative_rate', 'fnr'], 'FOR': ['false_omission_rate', 'for'], 'FPR': ['fall_out', 'false_positive_rate', 'fpr'], 'MK': ['markedness', 'mk'], 'NMCC': ['normalized_Matthews_correlation_coefficient', 'nmcc'], 'NPV': ['negative_predictive_value', 'npv'], 'PPV': ['precision', 'positive_predictive_value', 'ppv'], 'TNR': ['specificity', 'SPC', 'true_negative_rate', 'selectivity', 'tnr'], 'TPR': ['recall', 'sensitivity', 'true_positive_rate', 'hit_rate', 'tpr'], 'TS': ['threat_score', 'critical_success_index', 'CSI', 'csi', 'ts']}</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#pair_metrics_to_reference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.pair_metrics_to_reference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility to compute the reference/chance curve for a pair metrics type curve. Note that for certain combination
+of metrics, the curve may be a point.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.parallel_sort">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">parallel_sort</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterable_list</span></em>, <em class="sig-param"><span class="n">sort_idx</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#parallel_sort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.parallel_sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort several lists in iterable_list in parallel, according to the the list of index sort_idx
+:param iterable_list: list of list, all the lists have the same length
+:param sort_idx: int, the index of the list to sort by
+:return: a list sorted tuples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parallel_sort</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]])</span>
+<span class="go">[(1, 2, 3), (&#39;c&#39;, &#39;a&#39;, &#39;b&#39;)]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parallel_sort</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">]],</span> <span class="n">sort_idx</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">[(1, 3, 2), (&#39;c&#39;, &#39;b&#39;, &#39;a&#39;), (7, 9, 10)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.pick_equally_spaced_points">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">pick_equally_spaced_points</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">values</span></em>, <em class="sig-param"><span class="n">n_points</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#pick_equally_spaced_points"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.pick_equally_spaced_points" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>values</strong> – a list of values</p></li>
+<li><p><strong>n_points</strong> – the number of indices to choose</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of indices to choose from the list values in order for these picked values
+to be as equally spaced as possible, starting with the first value and ending with the final value</p>
+</dd>
+</dl>
+<p>DO NOT TRUST THIS FUNCTION! It is made only for increasing values and is only somewhat accurate if the values
+are “fine” compared to the number of point n_points. It works well for what it is intended: finding equally spaced
+points on a precision/recall curve if many points are available on the curve.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pick_equally_spaced_points</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">array([0, 1, 2])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pick_equally_spaced_points</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">300</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">array([  0, 150, 299])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pick_equally_spaced_points</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="mi">3</span><span class="p">)</span>
+<span class="go">array([0, 3, 5])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.plot_confusion_matrix">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">plot_confusion_matrix</code><span class="sig-paren">(</span><em class="sig-param">y_true</em>, <em class="sig-param">y_pred</em>, <em class="sig-param">fig=None</em>, <em class="sig-param">ax=None</em>, <em class="sig-param">classes=None</em>, <em class="sig-param">normalize=False</em>, <em class="sig-param">title=None</em>, <em class="sig-param">cmap=&lt;matplotlib.colors.LinearSegmentedColormap object&gt;</em>, <em class="sig-param">saving_path=None</em>, <em class="sig-param">figsize=(10</em>, <em class="sig-param">10)</em>, <em class="sig-param">color_bar=False</em>, <em class="sig-param">plot=True</em>, <em class="sig-param">cm=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#plot_confusion_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.plot_confusion_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function prints and plots the confusion matrix.
+Normalization can be applied by setting <cite>normalize=True</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.plot_freqs_stats">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">plot_freqs_stats</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">upper_frequency</span><span class="o">=</span><span class="default_value">22050</span></em>, <em class="sig-param"><span class="n">n_bins</span><span class="o">=</span><span class="default_value">1025</span></em>, <em class="sig-param"><span class="n">normalized</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#plot_freqs_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.plot_freqs_stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>X is intended to be the list/array of spectra, the function plots the mean, max and min of each frequency.
+If normalized, the min/max/mean entries are all divided by the the minimum value in the mean array.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.plot_outlier_metric_curve">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">plot_outlier_metric_curve</code><span class="sig-paren">(</span><em class="sig-param">truth, scores, pair_metrics={'x': 'TPR', 'y': 'PPV'}, plot_curve=True, curve_legend_name=None, title=None, plot_table_points_on_curve=False, plot_chance_line=True, plot_table=False, n_points_for_table=10, axis_name_dict=None, saving_root=None, outlier_proportion=None, wiggle=False, table_dpi=300, base_statistics_dict={'ACC': &lt;function &lt;lambda&gt;&gt;, 'BM': &lt;function &lt;lambda&gt;&gt;, 'F1': &lt;function &lt;lambda&gt;&gt;, 'FDR': &lt;function &lt;lambda&gt;&gt;, 'FNR': &lt;function &lt;lambda&gt;&gt;, 'FOR': &lt;function &lt;lambda&gt;&gt;, 'FPR': &lt;function &lt;lambda&gt;&gt;, 'MK': &lt;function &lt;lambda&gt;&gt;, 'NMCC': &lt;function &lt;lambda&gt;&gt;, 'NPV': &lt;function &lt;lambda&gt;&gt;, 'PPV': &lt;function &lt;lambda&gt;&gt;, 'TNR': &lt;function &lt;lambda&gt;&gt;, 'TPR': &lt;function &lt;lambda&gt;&gt;, 'TS': &lt;function &lt;lambda&gt;&gt;}, synonyms={'ACC': ['accuracy', 'acc'], 'BM': ['informedness', 'bookmaker_informedness', 'bi', 'BI', 'bm'], 'F1': ['f1_score', 'f1', 'F1_score'], 'FDR': ['false_discovery_rate', 'fdr'], 'FNR': ['miss_rate', 'false_negative_rate', 'fnr'], 'FOR': ['false_omission_rate', 'for'], 'FPR': ['fall_out', 'false_positive_rate', 'fpr'], 'MK': ['markedness', 'mk'], 'NMCC': ['normalized_Matthews_correlation_coefficient', 'nmcc'], 'NPV': ['negative_predictive_value', 'npv'], 'PPV': ['precision', 'positive_predictive_value', 'ppv'], 'TNR': ['specificity', 'SPC', 'true_negative_rate', 'selectivity', 'tnr'], 'TPR': ['recall', 'sensitivity', 'true_positive_rate', 'hit_rate', 'tpr'], 'TS': ['threat_score', 'critical_success_index', 'CSI', 'csi', 'ts']}, return_rauc=True, add_point_left=None, add_point_right=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#plot_outlier_metric_curve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.plot_outlier_metric_curve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plots one outlier scores metric against another one. The metrics name can be any names in the base_statistics_dict
+or the synonyms dict. The chance line/curve is automatically computed and displayed along with a table
+of equally spaced point on the curve.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>truth</strong> – an array of 0/1, the ground truth: 0 for normal, 1 for outlier</p></li>
+<li><p><strong>scores</strong> – the scores as predicted by our model. Higher scores is expected to correspond to outliers.</p></li>
+<li><p><strong>pair_metrics</strong> – A dictionary with two keys, one for each of the metrics to represent. (x/y on the x/y axis)</p></li>
+<li><p><strong>plot_curve</strong> – boolean, whether to plot the curve</p></li>
+<li><p><strong>curve_legend_name</strong> – the name of the curve as displayed in the legend</p></li>
+<li><p><strong>title</strong> – the title of the curve, by default the name of the metrics</p></li>
+<li><p><strong>plot_table_points_on_curve</strong> – whether to display dots on the rauc curve corresponding to points in the table</p></li>
+<li><p><strong>plot_chance_line</strong> – boolean, whether or not the display the chance line</p></li>
+<li><p><strong>plot_table</strong> – boolean, whether or not to plot the table, useful to share nice pics with customers</p></li>
+<li><p><strong>n_points_for_table</strong> – int, the number of equally spaced points for the table</p></li>
+<li><p><strong>axis_name_dict</strong> – a dictionary specifying the name to display on the x/y axis. If set to None, the names in
+pair_metrics are used</p></li>
+<li><p><strong>saving_root</strong> – if set, path to the folder where the pictures will be saved.</p></li>
+<li><p><strong>outlier_proportion</strong> – None or a float between 0 and 1. If a float is chosen either the normal scores or the
+anomaly scores will be copied over to achieve the requested proportion of outlier</p></li>
+<li><p><strong>wiggle</strong> – boolean, whether the scores will be slightly modified in order to avoid duplicate. Can
+help in drawing the curve when too many scores are the same. Most often
+the problem wiggle_scores solves arise from using sklearn OneClassSVM for the scores
+computation</p></li>
+<li><p><strong>table_dpi</strong> – int, the higher the finer the pic</p></li>
+<li><p><strong>base_statistics_dict</strong> – the dictionary of possible metrics with the functions computing the metrics from
+the tn_fp_fn_tp counts. See above.</p></li>
+<li><p><strong>synonyms</strong> – a dictionary containing the synonymous, allowing the user to refer to the metrics in different
+terms</p></li>
+<li><p><strong>return_rauc</strong> – boolean, whether or not to return the area under the curve</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.rebalance_scores">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">rebalance_scores</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">test_scores</span></em>, <em class="sig-param"><span class="n">test_truth</span></em>, <em class="sig-param"><span class="n">outlier_proportion</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#rebalance_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.rebalance_scores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Re-balances the ratio of normal/outlier scores by copying the normal/outliers scores when needed.
+This is useful to compute real life precision/recall and other such metrics when the actual proportion
+of outlier/normal is known but not achieved in the test set.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.rebalancing_normal_outlier_ratio">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">rebalancing_normal_outlier_ratio</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">normal_scores</span></em>, <em class="sig-param"><span class="n">outlier_scores</span></em>, <em class="sig-param"><span class="n">percent_outliers</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#rebalancing_normal_outlier_ratio"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.rebalancing_normal_outlier_ratio" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rebalance artificially the ratio outlier/(normal + outlier) to the specified percent_outliers.
+Does this by copying data points, use with caution!
+:param normal_scores:
+:param outlier_scores:
+:param percent_outliers:
+:return:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.render_mpl_table">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">render_mpl_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">col_width</span><span class="o">=</span><span class="default_value">3.0</span></em>, <em class="sig-param"><span class="n">row_height</span><span class="o">=</span><span class="default_value">0.625</span></em>, <em class="sig-param"><span class="n">font_size</span><span class="o">=</span><span class="default_value">14</span></em>, <em class="sig-param"><span class="n">header_color</span><span class="o">=</span><span class="default_value">'#40466e'</span></em>, <em class="sig-param"><span class="n">row_colors</span><span class="o">=</span><span class="default_value">['#f1f1f2', 'w']</span></em>, <em class="sig-param"><span class="n">edge_color</span><span class="o">=</span><span class="default_value">'w'</span></em>, <em class="sig-param"><span class="n">bbox</span><span class="o">=</span><span class="default_value">[0, 0, 1, 1]</span></em>, <em class="sig-param"><span class="n">header_columns</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">ax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">path_to_save</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">round_decimals</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">cols_to_round</span><span class="o">=</span><span class="default_value">()</span></em>, <em class="sig-param"><span class="n">cols_to_int</span><span class="o">=</span><span class="default_value">'all_other'</span></em>, <em class="sig-param"><span class="n">dpi</span><span class="o">=</span><span class="default_value">300</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#render_mpl_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.render_mpl_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Take a pandas dataframe and represents it with a picture. This allows to save a .png version of the dataframe.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.smooth_scores">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">smooth_scores</code><span class="sig-paren">(</span><em class="sig-param">scores</em>, <em class="sig-param">window_size=2</em>, <em class="sig-param">window_step=None</em>, <em class="sig-param">smooth_func=&lt;function mean&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#smooth_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.smooth_scores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Smooth an iterable of score by applying smooth_funct to each window of size window_size.
+If scores is smaller than window_size, an empty list is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scores</strong> – list, the scores to smooth</p></li>
+<li><p><strong>window_size</strong> – int, the size of the window</p></li>
+<li><p><strong>smooth_funct</strong> – function, the function applied to the windows</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a new list of scores</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">smooth_scores</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="n">window_size</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="go">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">smooth_scores</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">window_size</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="go">[1.5]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">smooth_scores</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">window_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">window_step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">smooth_func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">))</span>
+<span class="go">[2, 3]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.split_on_consecutive">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">split_on_consecutive</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arr_to_split</span></em>, <em class="sig-param"><span class="n">arr_for_consec</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#split_on_consecutive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.split_on_consecutive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split arr_to_split based on the entries of arr_for_consec. Each segment of consecutive
+equal entries in arr_for_consec will induce a split</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">split_on_consecutive</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="go">[array([1, 1]), array([2])]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">split_on_consecutive</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="go">[array([&#39;a&#39;, &#39;b&#39;], dtype=&#39;&lt;U1&#39;), array([&#39;c&#39;], dtype=&#39;&lt;U1&#39;), array([&#39;d&#39;, &#39;e&#39;, &#39;f&#39;], dtype=&#39;&lt;U1&#39;), array([&#39;g&#39;], dtype=&#39;&lt;U1&#39;)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.vlines">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">vlines</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">ymin</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">ymax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">marker</span><span class="o">=</span><span class="default_value">'o'</span></em>, <em class="sig-param"><span class="n">marker_kwargs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">colors</span><span class="o">=</span><span class="default_value">'k'</span></em>, <em class="sig-param"><span class="n">linestyles</span><span class="o">=</span><span class="default_value">'solid'</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#vlines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.vlines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot vlines in a more intuitive way than the default matplotlib version</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.wiggle_scores">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">wiggle_scores</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scores</span></em>, <em class="sig-param"><span class="n">truth</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#wiggle_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.wiggle_scores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort scores from low to high while keeping truth aligned with it. The original values
+in scores which are present multiple times are spread out equally between their value and
+the next larger score.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scores</strong> – a list of scores</p></li>
+<li><p><strong>truth</strong> – a list of 0/1, for normal/abnormal</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>scores and truth list sorted from low to high score and where the scores have been
+wiggled</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wiggle_scores</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="go">(array([1. , 1.5, 2. ]), array([0, 0, 0]))</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">wiggle_scores</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="go">(array([1. , 1.5, 2. , 4. ]), array([0, 0, 0, 1]))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="oplot.plot_stats.wiggle_values_keep_order">
+<code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">wiggle_values_keep_order</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">values</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#wiggle_values_keep_order"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.wiggle_values_keep_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wiggles the values in a list of scores so has to remove any duplicate values while keeping the same order.
+This is intended to use with plot_outlier_metric_curve in order to smooth the curve in situations where scores
+are repeating a lot</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wiggle_values_keep_order</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+<span class="go">array([1. , 1.5, 2. , 3. , 3.5, 4. , 5. , 5.5])</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>values</strong> – a list of floats in general</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a new list of float, where the values have been moved around a little, without altering their order</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="plot_data_set.html" class="btn btn-neutral float-left" title="oplot.plot_data_set" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ui_scores_mapping.html" class="btn btn-neutral float-right" title="oplot.ui_scores_mapping" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

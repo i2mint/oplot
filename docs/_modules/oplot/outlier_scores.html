@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>oplot.outlier_scores &mdash; oplot 0.1.2 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/toggleprompt.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> oplot
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot.html">oplot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/matrix.html">oplot.matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/multi_plot.html">oplot.multi_plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/multiplots.html">oplot.multiplots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/my.html">oplot.my</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/outlier_scores.html">oplot.outlier_scores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/plot_audio.html">oplot.plot_audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/plot_data_set.html">oplot.plot_data_set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/plot_stats.html">oplot.plot_stats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/ui_scores_mapping.html">oplot.ui_scores_mapping</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/util.html">oplot.util</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">oplot</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>oplot.outlier_scores</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for oplot.outlier_scores</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Visualizing various regions in a list of scores. E.g. adding colored regions</span>
+<span class="sd">corresponding to percentiles to a timeline of outlier scores&quot;&quot;&quot;</span>
+
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+
+<span class="c1"># The code bellow is intended to add some visual interpretation to outliers scores display on a timeline</span>
+<span class="c1"># See: https://www.dropbox.com/s/g6lxxovop3sibto/013-outlier_scores_functions.ipynb?dl=0</span>
+<span class="c1"># for a demo of usage</span>
+
+
+<div class="viewcode-block" id="sort_scores_truth"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.sort_scores_truth">[docs]</a><span class="k">def</span> <span class="nf">sort_scores_truth</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">truth</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sort the aligned scores and truth arrays from lowest to largest</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># scores + index pairs</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">scores</span><span class="p">))</span>
+    <span class="n">z</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">sorted_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">score</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">z</span><span class="p">])</span>
+    <span class="n">sorted_truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">truth</span><span class="p">[</span><span class="n">score</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">for</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">z</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">sorted_scores</span><span class="p">,</span> <span class="n">sorted_truth</span></div>
+
+
+<div class="viewcode-block" id="get_confused_part"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.get_confused_part">[docs]</a><span class="k">def</span> <span class="nf">get_confused_part</span><span class="p">(</span><span class="n">sorted_scores</span><span class="p">,</span> <span class="n">sorted_truth</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the scores in the confused zone, i.e. scores whose range of values contains normal and anormal samples.</span>
+<span class="sd">    :param sorted_scores: an array of outlier scores, higher is more abnormal</span>
+<span class="sd">    :param sorted_truth:  an array of 0 for normal and 1 for abnormal</span>
+<span class="sd">    :return: an array of scores</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">max_zero</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">sorted_scores</span><span class="p">[</span><span class="n">sorted_truth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">min_one</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">sorted_scores</span><span class="p">[</span><span class="n">sorted_truth</span> <span class="o">==</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">confused_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">sorted_scores</span> <span class="o">&lt;</span> <span class="n">max_zero</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">sorted_scores</span> <span class="o">&gt;</span> <span class="n">min_one</span><span class="p">)</span>
+    <span class="n">confused_part</span> <span class="o">=</span> <span class="n">sorted_scores</span><span class="p">[</span><span class="n">confused_mask</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">confused_part</span></div>
+
+
+<div class="viewcode-block" id="find_last_normal_idx"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.find_last_normal_idx">[docs]</a><span class="k">def</span> <span class="nf">find_last_normal_idx</span><span class="p">(</span><span class="n">sorted_truth</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the index of the last 0 in the sorted_truth array</span>
+<span class="sd">    :param sorted_truth: an array of 0 or 1</span>
+<span class="sd">    :return: an int, the last idx of a 0 in sorted_truth</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">sorted_truth</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_truth</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_truth</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">sorted_truth</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="mi">2</span></div>
+
+
+<div class="viewcode-block" id="find_prop_markers"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.find_prop_markers">[docs]</a><span class="k">def</span> <span class="nf">find_prop_markers</span><span class="p">(</span>
+    <span class="n">sorted_scores</span><span class="p">,</span> <span class="n">sorted_truth</span><span class="p">,</span> <span class="n">ratio_markers</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">add_full_out_zone</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find the score thresholds starting at which the proportion of n_normal / n_total</span>
+<span class="sd">    is on or below the values in ratio_markers. If the proportion is never reached, the</span>
+<span class="sd">    proportions are skipped and the thresholds array is shorter than the ratio_markers tuple</span>
+<span class="sd">    If add_full_out_zone is set to True, the zone where all scores are from abnormal sound is added and</span>
+<span class="sd">    any zone above that one is removed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">tot_normal</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">marker_idx</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">marker</span> <span class="o">=</span> <span class="n">ratio_markers</span><span class="p">[</span><span class="n">marker_idx</span><span class="p">]</span>
+    <span class="n">thresholds</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">stop_at_idx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_scores</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">add_full_out_zone</span><span class="p">:</span>
+        <span class="n">stop_at_idx</span> <span class="o">=</span> <span class="n">find_last_normal_idx</span><span class="p">(</span><span class="n">sorted_truth</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sorted_truth</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;=</span> <span class="n">stop_at_idx</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">val</span><span class="p">:</span>
+                <span class="n">tot_normal</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">ratio</span> <span class="o">=</span> <span class="n">tot_normal</span> <span class="o">/</span> <span class="p">(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ratio</span> <span class="o">&lt;</span> <span class="n">marker</span><span class="p">:</span>
+                <span class="n">thresholds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+                <span class="n">marker_idx</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">marker</span> <span class="o">=</span> <span class="n">ratio_markers</span><span class="p">[</span><span class="n">marker_idx</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">add_full_out_zone</span><span class="p">:</span>
+                        <span class="n">thresholds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stop_at_idx</span><span class="p">)</span>
+                    <span class="n">thresholds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">thresholds</span><span class="p">)</span>
+                    <span class="n">sorted_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sorted_scores</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">sorted_scores</span><span class="p">[</span><span class="n">thresholds</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">if</span> <span class="n">add_full_out_zone</span><span class="p">:</span>
+        <span class="n">thresholds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stop_at_idx</span><span class="p">)</span>
+    <span class="n">thresholds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">thresholds</span><span class="p">)</span>
+    <span class="n">sorted_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sorted_scores</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sorted_scores</span><span class="p">[</span><span class="n">thresholds</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="get_percentiles"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.get_percentiles">[docs]</a><span class="k">def</span> <span class="nf">get_percentiles</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">n_percentiles</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A function computing the n_percentiles of scores. If n_percentiles is larger than</span>
+<span class="sd">    len(scores), the scores are interpolated.</span>
+
+<span class="sd">    &gt;&gt;&gt; arr = [1, 2, 3, 4]</span>
+<span class="sd">    &gt;&gt;&gt; get_percentiles(arr, n_percentiles=1)</span>
+<span class="sd">    array([3])</span>
+<span class="sd">    &gt;&gt;&gt; get_percentiles(arr, n_percentiles=2)</span>
+<span class="sd">    array([2, 3])</span>
+<span class="sd">    &gt;&gt;&gt; get_percentiles(arr, n_percentiles=3)</span>
+<span class="sd">    array([2, 3, 4])</span>
+<span class="sd">    &gt;&gt;&gt; get_percentiles(arr, n_percentiles=4)</span>
+<span class="sd">    array([1, 2, 3, 4])</span>
+<span class="sd">    &gt;&gt;&gt; get_percentiles(arr, n_percentiles=5)</span>
+<span class="sd">    array([1.5, 2. , 2.5, 3. , 3.5])</span>
+<span class="sd">    &gt;&gt;&gt; get_percentiles(arr, n_percentiles=6)</span>
+<span class="sd">    array([1.5, 2. , 2.5, 3. , 3.5, 4. ])</span>
+<span class="sd">    &gt;&gt;&gt; get_percentiles(arr, n_percentiles=7)</span>
+<span class="sd">    array([1. , 1.5, 2. , 2.5, 3. , 3.5, 4. ])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">sorted_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+    <span class="n">n_scores</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_scores</span><span class="p">)</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">n_percentiles</span> <span class="o">-</span> <span class="n">n_scores</span>
+    <span class="k">if</span> <span class="n">diff</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">n_refine</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">diff</span> <span class="o">/</span> <span class="p">(</span><span class="n">n_scores</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span>
+        <span class="n">scores_steps</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">/</span> <span class="p">(</span><span class="n">n_refine</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">sorted_scores</span><span class="p">)]</span>
+        <span class="n">extended_scores</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">score</span><span class="p">,</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sorted_scores</span><span class="p">,</span> <span class="n">scores_steps</span><span class="p">):</span>
+            <span class="n">extended_scores</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">score</span> <span class="o">+</span> <span class="n">step</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_refine</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)])</span>
+        <span class="n">extended_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sorted_scores</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">sorted_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">extended_scores</span><span class="p">)</span>
+    <span class="n">n_scores</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_scores</span><span class="p">)</span>
+    <span class="n">percentiles_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">n_scores</span> <span class="o">/</span> <span class="p">(</span><span class="n">n_percentiles</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_percentiles</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">sorted_scores</span><span class="p">[</span><span class="n">percentiles_idx</span><span class="p">]</span></div>
+
+
+<span class="c1"># to use on train data</span>
+<div class="viewcode-block" id="get_confusion_zones_percentiles"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.get_confusion_zones_percentiles">[docs]</a><span class="k">def</span> <span class="nf">get_confusion_zones_percentiles</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">truth</span><span class="p">,</span> <span class="n">n_percentiles</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the percentiles of the normal scores in the confused zone.</span>
+<span class="sd">    :param scores: an array of outlier scores</span>
+<span class="sd">    :param truth: an array of 0 for normal and 1 for abnormal</span>
+<span class="sd">    :param n_percentiles: the number of percentiles required</span>
+<span class="sd">    :return: an array of scores marking the boundary of the percentile zones</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+    <span class="n">truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">truth</span><span class="p">)</span>
+    <span class="n">scores_normal</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="n">truth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">scores_anomaly</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="n">truth</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">max_normal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">scores_normal</span><span class="p">)</span>
+    <span class="n">min_anomaly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">scores_anomaly</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">max_normal</span> <span class="o">&lt;</span> <span class="n">min_anomaly</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">max_normal</span><span class="p">,</span> <span class="n">min_anomaly</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">n_percentiles</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">min_anomaly</span><span class="p">,</span> <span class="n">max_normal</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">confused_normal_scores</span> <span class="o">=</span> <span class="n">scores_normal</span><span class="p">[</span>
+            <span class="p">(</span><span class="n">min_anomaly</span> <span class="o">&lt;=</span> <span class="n">scores_normal</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">scores_normal</span> <span class="o">&lt;=</span> <span class="n">max_normal</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">confused_anomaly_scores</span> <span class="o">=</span> <span class="n">scores_anomaly</span><span class="p">[</span>
+            <span class="p">(</span><span class="n">min_anomaly</span> <span class="o">&lt;=</span> <span class="n">scores_anomaly</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">scores_normal</span> <span class="o">&lt;=</span> <span class="n">max_normal</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">confused_normal_scores</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">confused_anomaly_scores</span><span class="p">):</span>
+            <span class="n">most_numerous</span> <span class="o">=</span> <span class="n">confused_normal_scores</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">most_numerous</span> <span class="o">=</span> <span class="n">confused_anomaly_scores</span>
+        <span class="n">percentiles</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">get_percentiles</span><span class="p">(</span><span class="n">most_numerous</span><span class="p">,</span> <span class="n">n_percentiles</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">max_normal</span> <span class="ow">in</span> <span class="n">percentiles</span><span class="p">:</span>
+            <span class="n">percentiles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">max_normal</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">min_anomaly</span> <span class="ow">in</span> <span class="n">percentiles</span><span class="p">:</span>
+            <span class="n">percentiles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">min_anomaly</span><span class="p">)</span>
+        <span class="n">percentiles</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">percentiles</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_confusion_zones_std"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.get_confusion_zones_std">[docs]</a><span class="k">def</span> <span class="nf">get_confusion_zones_std</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">truth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_zones</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">std_per_zone</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get a list of zones boundaries based on the standard deviation of the normal scores</span>
+<span class="sd">    :param scores: an array of outlier scores</span>
+<span class="sd">    :param truth: an array of 0 for normal and 1 for abnormal</span>
+<span class="sd">    :param n_zones: the number of zones required</span>
+<span class="sd">    :param std_per_zone: the number of standard deviation per zone</span>
+<span class="sd">    :return: an array of scores marking the boundary of the percentile zones</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">truth</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">scores</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">truth</span><span class="p">)</span>
+    <span class="n">normal_scores</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="n">truth</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">normal_scores</span><span class="p">)</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">normal_scores</span><span class="p">)</span>
+
+    <span class="n">zones</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mean</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">std</span> <span class="o">*</span> <span class="n">std_per_zone</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_zones</span><span class="p">)])</span>
+    <span class="k">return</span> <span class="n">zones</span></div>
+
+
+<div class="viewcode-block" id="plot_scores_and_zones"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.plot_scores_and_zones">[docs]</a><span class="k">def</span> <span class="nf">plot_scores_and_zones</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">zones</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot the scores on a timeline with color according to which zone they belong too, green under the first</span>
+<span class="sd">    value in zones, red above the last and a shade from green to red.</span>
+<span class="sd">    :param scores: an array of scores</span>
+<span class="sd">    :param zones: the limit of the zones</span>
+<span class="sd">    :param box: limits to display the plot</span>
+<span class="sd">    :param title: name of the plot</span>
+<span class="sd">    :param lines: whether to show lines at the limit of the zones</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+
+    <span class="c1"># plotting all the green points:</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">scores</span><span class="p">))</span>
+    <span class="n">green_mask</span> <span class="o">=</span> <span class="n">scores</span> <span class="o">&lt;=</span> <span class="n">zones</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">green_scores</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="n">green_mask</span><span class="p">]</span>
+    <span class="n">green_idx</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span><span class="n">green_mask</span><span class="p">]</span>
+
+    <span class="n">red_mask</span> <span class="o">=</span> <span class="n">scores</span> <span class="o">&gt;=</span> <span class="n">zones</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">red_scores</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="n">red_mask</span><span class="p">]</span>
+    <span class="n">red_idx</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span><span class="n">red_mask</span><span class="p">]</span>
+
+    <span class="n">green_red_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">red_idx</span><span class="p">,</span> <span class="n">green_idx</span><span class="p">))</span>
+    <span class="n">yellow_idx</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">red_mask</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_not</span><span class="p">(</span><span class="n">green_mask</span><span class="p">))</span>
+    <span class="p">]</span>
+    <span class="n">yellow_scores</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="n">yellow_idx</span><span class="p">]</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">green_idx</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">green_scores</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+    <span class="c1"># plotting all the red points:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">red_idx</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">red_scores</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+
+    <span class="c1"># plotting everything in between:</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">zones</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># labels = [100 * 1 / (i + 1) for i in range(len(zones))]</span>
+        <span class="k">for</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">yellow_scores</span><span class="p">:</span>
+            <span class="n">color</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">zones</span> <span class="o">&lt;</span> <span class="n">score</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">yellow_scores</span>
+    <span class="k">if</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">zone</span> <span class="ow">in</span> <span class="n">zones</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">zone</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">yellow_idx</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">yellow_scores</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Wistia&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">box</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">min_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+        <span class="n">max_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">max_</span> <span class="o">-</span> <span class="n">min_</span>
+        <span class="n">box</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">scores</span><span class="p">),</span> <span class="n">min_</span> <span class="o">-</span> <span class="mf">0.05</span> <span class="o">*</span> <span class="n">diff</span><span class="p">,</span> <span class="n">max_</span> <span class="o">+</span> <span class="mf">0.05</span> <span class="o">*</span> <span class="n">diff</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">box</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
