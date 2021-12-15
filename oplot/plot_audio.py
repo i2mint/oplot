@@ -34,17 +34,17 @@ def plot_lines(
 
         An initial plot
 
-        >>> fig, ax = plt.subplots()
-        ...     ax.plot([1, 2, 3])
+        fig, ax = plt.subplots()
+        ... ax.plot([1, 2, 3])
 
         Adding vertical lines to the plot
 
-        >>> plot_vlines(ax,
-        ...     lines_loc=[1,2],
-        ...     line_type='horiz',
-        ...     colors=['b', 'r'],
-        ...     line_widths=[0.5, 2],
-        ...     labels=['thin blue', 'wide red'])
+        plot_vlines(ax,
+        ... lines_loc=[1,2],
+        ... line_type='horiz',
+        ... colors=['b', 'r'],
+        ... line_widths=[0.5, 2],
+        ... labels=['thin blue', 'wide red'])
 
     """
 
