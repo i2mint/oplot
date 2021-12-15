@@ -141,7 +141,8 @@ def fixed_step_chunker(
         >>> A  # and that thing is:
         [[2, 3, 4]]
 
-        # testing chk_step > chk_size with return_tail=FALSE, stop and start_at NOT PRESENT
+        Testing chk_step > chk_size with return_tail=FALSE, stop and start_at NOT PRESENT
+
         >>> f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=4, start_at=None, stop_at=None, return_tail=False)
         >>> it = list(range(1, 17, 1))
         >>> A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)
