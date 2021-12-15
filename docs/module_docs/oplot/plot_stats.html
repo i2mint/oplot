@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>oplot.plot_stats &mdash; oplot 0.1.5 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <title>oplot.plot_stats &mdash; oplot 0.1.6 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
@@ -209,10 +209,18 @@ of metrics, the curve may be a point.</p>
 <dl class="py function">
 <dt id="oplot.plot_stats.parallel_sort">
 <code class="sig-prename descclassname">oplot.plot_stats.</code><code class="sig-name descname">parallel_sort</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">iterable_list</span></em>, <em class="sig-param"><span class="n">sort_idx</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_stats.html#parallel_sort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_stats.parallel_sort" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sort several lists in iterable_list in parallel, according to the the list of index sort_idx
-:param iterable_list: list of list, all the lists have the same length
-:param sort_idx: int, the index of the list to sort by
-:return: a list sorted tuples</p>
+<dd><p>Sort several lists in iterable_list in parallel, according to the the list of index sort_idx</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iterable_list</strong> – list of list, all the lists have the same length</p></li>
+<li><p><strong>sort_idx</strong> – int, the index of the list to sort by</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list sorted tuples</p>
+</dd>
+</dl>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parallel_sort</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]])</span>
 <span class="go">[(1, 2, 3), (&#39;c&#39;, &#39;a&#39;, &#39;b&#39;)]</span>
 </pre></div>
