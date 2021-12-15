@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>oplot.matrix &mdash; oplot 0.1.2 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <title>oplot.matrix &mdash; oplot 0.1.3 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
@@ -94,11 +94,19 @@
 <code class="sig-prename descclassname">oplot.matrix.</code><code class="sig-name descname">hierarchical_cluster_sorted_heatmap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em>, <em class="sig-param"><span class="n">only_return_sorted_df</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">seaborn_heatmap_kwargs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/matrix.html#hierarchical_cluster_sorted_heatmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.matrix.hierarchical_cluster_sorted_heatmap" title="Permalink to this definition">¶</a></dt>
 <dd><p>A function to plot a square df (i.e. same indices and columns) that contains distances/similarities as it’s values,
 as a heatmap whose indices and columns are sorted according to a hierarchical clustering
-(based on the distances listed in the df).
-:param df: The distance (or similarity) square matrix
-:param only_return_sorted_df: Default False. Set to True to return the df instead of the heatmap
-:param seaborn_heatmap_kwargs: the arguments to use in seaborn.heatmap (default is dict(cbar=False))
-:return: whatever sns.heatmap returns, or the sorted df if only_return_sorted_df=True</p>
+(based on the distances listed in the df).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> – The distance (or similarity) square matrix</p></li>
+<li><p><strong>only_return_sorted_df</strong> – Default False. Set to True to return the df instead of the heatmap</p></li>
+<li><p><strong>seaborn_heatmap_kwargs</strong> – the arguments to use in seaborn.heatmap (default is dict(cbar=False))</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>whatever sns.heatmap returns, or the sorted df if only_return_sorted_df=True</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
