@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>oplot.plot_audio &mdash; oplot 0.1.4 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <title>oplot.plot_audio &mdash; oplot 0.1.5 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
@@ -98,28 +98,34 @@
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Function to draw vertical or horizontal lines on an ax</span>
-<span class="sd">    :param ax: the matplolib axis on which to draw</span>
-<span class="sd">    :param lines_loc: the location of the lines</span>
-<span class="sd">    :param labels: a list of floats, the labels of the lines, optionsl</span>
-<span class="sd">    :param colors: a list of strings, the colors of the lines</span>
-<span class="sd">    :param line_widths: a list of floats, the widths of the lines</span>
-<span class="sd">    :param def_col: default color if no list of colors if provided</span>
-<span class="sd">    :param line_type: &#39;vert&#39; or &#39;horiz</span>
-<span class="sd">    :return:</span>
 
-<span class="sd">    --------------EXAMPLE OF USAGE---------------</span>
+<span class="sd">    Args:</span>
 
-<span class="sd">    # an initial plot</span>
-<span class="sd">    fig, ax = plt.subplots()</span>
-<span class="sd">    ax.plot([1, 2, 3])</span>
+<span class="sd">        ax: the matplolib axis on which to draw</span>
+<span class="sd">        lines_loc: the location of the lines</span>
+<span class="sd">        labels: a list of floats, the labels of the lines, optionsl</span>
+<span class="sd">        colors: a list of strings, the colors of the lines</span>
+<span class="sd">        line_widths: a list of floats, the widths of the lines</span>
+<span class="sd">        def_col: default color if no list of colors if provided</span>
+<span class="sd">        line_type: &#39;vert&#39; or &#39;horiz</span>
 
-<span class="sd">    # adding vertical lines to the plot</span>
-<span class="sd">    plot_vlines(ax,</span>
-<span class="sd">                lines_loc=[1,2],</span>
-<span class="sd">                line_type=&#39;horiz&#39;,</span>
-<span class="sd">                colors=[&#39;b&#39;, &#39;r&#39;],</span>
-<span class="sd">                line_widths=[0.5, 2],</span>
-<span class="sd">                labels=[&#39;thin blue&#39;, &#39;wide red&#39;])</span>
+<span class="sd">    Examples:</span>
+<span class="sd">        </span>
+
+<span class="sd">        An initial plot</span>
+
+<span class="sd">        fig, ax = plt.subplots()</span>
+<span class="sd">        ... ax.plot([1, 2, 3])</span>
+
+<span class="sd">        Adding vertical lines to the plot</span>
+
+<span class="sd">        plot_vlines(ax,</span>
+<span class="sd">        ... lines_loc=[1,2],</span>
+<span class="sd">        ... line_type=&#39;horiz&#39;,</span>
+<span class="sd">        ... colors=[&#39;b&#39;, &#39;r&#39;],</span>
+<span class="sd">        ... line_widths=[0.5, 2],</span>
+<span class="sd">        ... labels=[&#39;thin blue&#39;, &#39;wide red&#39;])</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">line_type</span> <span class="o">==</span> <span class="s1">&#39;vert&#39;</span><span class="p">:</span>
@@ -141,13 +147,12 @@
 
 <div class="viewcode-block" id="plot_spectro"><a class="viewcode-back" href="../../module_docs/oplot/plot_audio.html#oplot.plot_audio.plot_spectro">[docs]</a><span class="k">def</span> <span class="nf">plot_spectro</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">wf</span><span class="p">,</span> <span class="n">chk_size</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span> <span class="n">noverlap</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="mi">44100</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">    :param ax:</span>
-<span class="sd">    :param wf:</span>
-<span class="sd">    :param chk_size:</span>
-<span class="sd">    :param noverlap:</span>
-<span class="sd">    :param sr:</span>
-<span class="sd">    :return:</span>
+<span class="sd">    Args:</span>
+<span class="sd">        ax</span>
+<span class="sd">        wf</span>
+<span class="sd">        chk_size</span>
+<span class="sd">        noverlap</span>
+<span class="sd">        sr</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">specgram</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">wf</span><span class="p">,</span> <span class="n">NFFT</span><span class="o">=</span><span class="n">chk_size</span><span class="p">,</span> <span class="n">noverlap</span><span class="o">=</span><span class="n">noverlap</span><span class="p">,</span> <span class="n">Fs</span><span class="o">=</span><span class="n">sr</span><span class="p">)</span></div>
 
@@ -159,7 +164,6 @@
 <span class="sd">    :param wf:</span>
 <span class="sd">    :param wf_line_width:</span>
 <span class="sd">    :param wf_color:</span>
-<span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">wf</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">wf_line_width</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">wf_color</span><span class="p">)</span></div>
 

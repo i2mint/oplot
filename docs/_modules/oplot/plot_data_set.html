@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>oplot.plot_data_set &mdash; oplot 0.1.4 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <title>oplot.plot_data_set &mdash; oplot 0.1.5 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
@@ -89,10 +89,10 @@
 
 <span class="sd">y_conf = []</span>
 <span class="sd">for i in range(len(y)):</span>
-<span class="sd">    if y[i] == 0 or y[i] == 2:</span>
-<span class="sd">        y_conf.append(0)</span>
-<span class="sd">    else:</span>
-<span class="sd">        y_conf.append(1)</span>
+<span class="sd">...if y[i] == 0 or y[i] == 2:</span>
+<span class="sd">...    y_conf.append(0)</span>
+<span class="sd">...else:</span>
+<span class="sd">...    y_conf.append(1)</span>
 <span class="sd">y_conf = np.array(y_conf)</span>
 
 <span class="sd">scatter_and_color_according_to_y(X, y_conf, col=&#39;rainbow&#39;, dim_reduct=&#39;LDA&#39;, projection=&#39;3d&#39;)</span>
@@ -346,6 +346,7 @@
 <div class="viewcode-block" id="save_figs_to_pdf"><a class="viewcode-back" href="../../module_docs/oplot/plot_data_set.html#oplot.plot_data_set.save_figs_to_pdf">[docs]</a><span class="k">def</span> <span class="nf">save_figs_to_pdf</span><span class="p">(</span><span class="n">figs</span><span class="p">,</span> <span class="n">pdf_filepath</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Save figures to a single pdf</span>
+
 <span class="sd">    :param figs:</span>
 <span class="sd">    :param pdf_filepath:</span>
 <span class="sd">    :return:</span>
@@ -407,6 +408,7 @@
 <div class="viewcode-block" id="ratio_comparison_vlines"><a class="viewcode-back" href="../../module_docs/oplot/plot_data_set.html#oplot.plot_data_set.ratio_comparison_vlines">[docs]</a><span class="k">def</span> <span class="nf">ratio_comparison_vlines</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">c1</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots vlines of y1/y2.</span>
+
 <span class="sd">    :param y1: numerator</span>
 <span class="sd">    :param y2: denominator</span>
 <span class="sd">    :param c1: color of numerator</span>

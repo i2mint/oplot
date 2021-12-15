@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>oplot.plot_data_set &mdash; oplot 0.1.4 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <title>oplot.plot_data_set &mdash; oplot 0.1.5 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
@@ -87,35 +87,47 @@
 <p>from sklearn.datasets import make_blobs</p>
 <p>X, y = make_blobs(n_samples=300, n_features=4, centers=3, cluster_std=1.0)</p>
 <p>y_conf = []
-for i in range(len(y)):</p>
-<blockquote>
-<div><dl class="simple">
-<dt>if y[i] == 0 or y[i] == 2:</dt><dd><p>y_conf.append(0)</p>
-</dd>
-<dt>else:</dt><dd><p>y_conf.append(1)</p>
-</dd>
-</dl>
-</div></blockquote>
-<p>y_conf = np.array(y_conf)</p>
+for i in range(len(y)):
+…if y[i] == 0 or y[i] == 2:
+…    y_conf.append(0)
+…else:
+…    y_conf.append(1)
+y_conf = np.array(y_conf)</p>
 <p>scatter_and_color_according_to_y(X, y_conf, col=’rainbow’, dim_reduct=’LDA’, projection=’3d’)</p>
 <dl class="py function">
 <dt id="oplot.plot_data_set.ratio_comparison_vlines">
 <code class="sig-prename descclassname">oplot.plot_data_set.</code><code class="sig-name descname">ratio_comparison_vlines</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">y1</span></em>, <em class="sig-param"><span class="n">y2</span></em>, <em class="sig-param"><span class="n">c1</span><span class="o">=</span><span class="default_value">'b'</span></em>, <em class="sig-param"><span class="n">c2</span><span class="o">=</span><span class="default_value">'k'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_data_set.html#ratio_comparison_vlines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_data_set.ratio_comparison_vlines" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plots vlines of y1/y2.
-:param y1: numerator
-:param y2: denominator
-:param c1: color of numerator
-:param c2: color of denominator (will be a straight horizontal line placed at 1)
-:return: what plt.plot returns</p>
+<dd><p>Plots vlines of y1/y2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y1</strong> – numerator</p></li>
+<li><p><strong>y2</strong> – denominator</p></li>
+<li><p><strong>c1</strong> – color of numerator</p></li>
+<li><p><strong>c2</strong> – color of denominator (will be a straight horizontal line placed at 1)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>what plt.plot returns</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="oplot.plot_data_set.save_figs_to_pdf">
 <code class="sig-prename descclassname">oplot.plot_data_set.</code><code class="sig-name descname">save_figs_to_pdf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">figs</span></em>, <em class="sig-param"><span class="n">pdf_filepath</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_data_set.html#save_figs_to_pdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_data_set.save_figs_to_pdf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save figures to a single pdf
-:param figs:
-:param pdf_filepath:
-:return:</p>
+<dd><p>Save figures to a single pdf</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>figs</strong> – </p></li>
+<li><p><strong>pdf_filepath</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">

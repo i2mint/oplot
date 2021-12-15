@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>oplot.plot_audio &mdash; oplot 0.1.4 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <title>oplot.plot_audio &mdash; oplot 0.1.5 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
@@ -86,28 +86,31 @@
 <dl class="py function">
 <dt id="oplot.plot_audio.plot_lines">
 <code class="sig-prename descclassname">oplot.plot_audio.</code><code class="sig-name descname">plot_lines</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ax</span></em>, <em class="sig-param"><span class="n">lines_loc</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">color</span><span class="o">=</span><span class="default_value">'r'</span></em>, <em class="sig-param"><span class="n">line_width</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">line_style</span><span class="o">=</span><span class="default_value">'-'</span></em>, <em class="sig-param"><span class="n">line_type</span><span class="o">=</span><span class="default_value">'vert'</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_audio.html#plot_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_audio.plot_lines" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to draw vertical or horizontal lines on an ax
-:param ax: the matplolib axis on which to draw
-:param lines_loc: the location of the lines
-:param labels: a list of floats, the labels of the lines, optionsl
-:param colors: a list of strings, the colors of the lines
-:param line_widths: a list of floats, the widths of the lines
-:param def_col: default color if no list of colors if provided
-:param line_type: ‘vert’ or ‘horiz
-:return:</p>
-<p>————–EXAMPLE OF USAGE—————</p>
-<p># an initial plot
-fig, ax = plt.subplots()
-ax.plot([1, 2, 3])</p>
-<p># adding vertical lines to the plot
-plot_vlines(ax,</p>
-<blockquote>
-<div><p>lines_loc=[1,2],
-line_type=’horiz’,
-colors=[‘b’, ‘r’],
-line_widths=[0.5, 2],
-labels=[‘thin blue’, ‘wide red’])</p>
-</div></blockquote>
+<dd><p>Function to draw vertical or horizontal lines on an ax</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> – the matplolib axis on which to draw</p></li>
+<li><p><strong>lines_loc</strong> – the location of the lines</p></li>
+<li><p><strong>labels</strong> – a list of floats, the labels of the lines, optionsl</p></li>
+<li><p><strong>colors</strong> – a list of strings, the colors of the lines</p></li>
+<li><p><strong>line_widths</strong> – a list of floats, the widths of the lines</p></li>
+<li><p><strong>def_col</strong> – default color if no list of colors if provided</p></li>
+<li><p><strong>line_type</strong> – ‘vert’ or ‘horiz</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>An initial plot</p>
+<p>fig, ax = plt.subplots()
+… ax.plot([1, 2, 3])</p>
+<p>Adding vertical lines to the plot</p>
+<p>plot_vlines(ax,
+… lines_loc=[1,2],
+… line_type=’horiz’,
+… colors=[‘b’, ‘r’],
+… line_widths=[0.5, 2],
+… labels=[‘thin blue’, ‘wide red’])</p>
 </dd></dl>
 
 <dl class="py function">
@@ -123,9 +126,6 @@ labels=[‘thin blue’, ‘wide red’])</p>
 <li><p><strong>sr</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
 </dl>
 </dd></dl>
 
@@ -140,9 +140,6 @@ labels=[‘thin blue’, ‘wide red’])</p>
 <li><p><strong>wf_line_width</strong> – </p></li>
 <li><p><strong>wf_color</strong> – </p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
 </dd>
 </dl>
 </dd></dl>
