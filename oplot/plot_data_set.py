@@ -9,10 +9,10 @@ X, y = make_blobs(n_samples=300, n_features=4, centers=3, cluster_std=1.0)
 
 y_conf = []
 for i in range(len(y)):
-    if y[i] == 0 or y[i] == 2:
-        y_conf.append(0)
-    else:
-        y_conf.append(1)
+...if y[i] == 0 or y[i] == 2:
+...    y_conf.append(0)
+...else:
+...    y_conf.append(1)
 y_conf = np.array(y_conf)
 
 scatter_and_color_according_to_y(X, y_conf, col='rainbow', dim_reduct='LDA', projection='3d')
@@ -266,6 +266,7 @@ def scatter_and_color_according_to_y(
 def save_figs_to_pdf(figs, pdf_filepath=None):
     """
     Save figures to a single pdf
+
     :param figs:
     :param pdf_filepath:
     :return:
@@ -327,6 +328,7 @@ def side_by_side_bar(
 def ratio_comparison_vlines(y1, y2, c1='b', c2='k'):
     """
     Plots vlines of y1/y2.
+
     :param y1: numerator
     :param y2: denominator
     :param c1: color of numerator
