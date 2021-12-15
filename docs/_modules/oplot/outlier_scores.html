@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>oplot.outlier_scores &mdash; oplot 0.1.3 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <title>oplot.outlier_scores &mdash; oplot 0.1.4 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
@@ -107,6 +107,7 @@
 <div class="viewcode-block" id="get_confused_part"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.get_confused_part">[docs]</a><span class="k">def</span> <span class="nf">get_confused_part</span><span class="p">(</span><span class="n">sorted_scores</span><span class="p">,</span> <span class="n">sorted_truth</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the scores in the confused zone, i.e. scores whose range of values contains normal and anormal samples.</span>
+<span class="sd">    </span>
 <span class="sd">    :param sorted_scores: an array of outlier scores, higher is more abnormal</span>
 <span class="sd">    :param sorted_truth:  an array of 0 for normal and 1 for abnormal</span>
 <span class="sd">    :return: an array of scores</span>
@@ -122,6 +123,7 @@
 <div class="viewcode-block" id="find_last_normal_idx"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.find_last_normal_idx">[docs]</a><span class="k">def</span> <span class="nf">find_last_normal_idx</span><span class="p">(</span><span class="n">sorted_truth</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the index of the last 0 in the sorted_truth array</span>
+<span class="sd">    </span>
 <span class="sd">    :param sorted_truth: an array of 0 or 1</span>
 <span class="sd">    :return: an int, the last idx of a 0 in sorted_truth</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -219,6 +221,7 @@
 <div class="viewcode-block" id="get_confusion_zones_percentiles"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.get_confusion_zones_percentiles">[docs]</a><span class="k">def</span> <span class="nf">get_confusion_zones_percentiles</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">truth</span><span class="p">,</span> <span class="n">n_percentiles</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the percentiles of the normal scores in the confused zone.</span>
+<span class="sd">    </span>
 <span class="sd">    :param scores: an array of outlier scores</span>
 <span class="sd">    :param truth: an array of 0 for normal and 1 for abnormal</span>
 <span class="sd">    :param n_percentiles: the number of percentiles required</span>
@@ -258,6 +261,7 @@
 <div class="viewcode-block" id="get_confusion_zones_std"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.get_confusion_zones_std">[docs]</a><span class="k">def</span> <span class="nf">get_confusion_zones_std</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">truth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_zones</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">std_per_zone</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get a list of zones boundaries based on the standard deviation of the normal scores</span>
+<span class="sd">    </span>
 <span class="sd">    :param scores: an array of outlier scores</span>
 <span class="sd">    :param truth: an array of 0 for normal and 1 for abnormal</span>
 <span class="sd">    :param n_zones: the number of zones required</span>
@@ -282,6 +286,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot the scores on a timeline with color according to which zone they belong too, green under the first</span>
 <span class="sd">    value in zones, red above the last and a shade from green to red.</span>
+<span class="sd">    </span>
 <span class="sd">    :param scores: an array of scores</span>
 <span class="sd">    :param zones: the limit of the zones</span>
 <span class="sd">    :param box: limits to display the plot</span>

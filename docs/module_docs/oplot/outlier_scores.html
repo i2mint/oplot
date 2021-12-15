@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>oplot.outlier_scores &mdash; oplot 0.1.3 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <title>oplot.outlier_scores &mdash; oplot 0.1.4 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
@@ -87,9 +87,15 @@ corresponding to percentiles to a timeline of outlier scores</p>
 <dl class="py function">
 <dt id="oplot.outlier_scores.find_last_normal_idx">
 <code class="sig-prename descclassname">oplot.outlier_scores.</code><code class="sig-name descname">find_last_normal_idx</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sorted_truth</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/outlier_scores.html#find_last_normal_idx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.outlier_scores.find_last_normal_idx" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the index of the last 0 in the sorted_truth array
-:param sorted_truth: an array of 0 or 1
-:return: an int, the last idx of a 0 in sorted_truth</p>
+<dd><p>Return the index of the last 0 in the sorted_truth array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sorted_truth</strong> – an array of 0 or 1</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an int, the last idx of a 0 in sorted_truth</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -105,31 +111,55 @@ any zone above that one is removed.</p>
 <dl class="py function">
 <dt id="oplot.outlier_scores.get_confused_part">
 <code class="sig-prename descclassname">oplot.outlier_scores.</code><code class="sig-name descname">get_confused_part</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sorted_scores</span></em>, <em class="sig-param"><span class="n">sorted_truth</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/outlier_scores.html#get_confused_part"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.outlier_scores.get_confused_part" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the scores in the confused zone, i.e. scores whose range of values contains normal and anormal samples.
-:param sorted_scores: an array of outlier scores, higher is more abnormal
-:param sorted_truth:  an array of 0 for normal and 1 for abnormal
-:return: an array of scores</p>
+<dd><p>Return the scores in the confused zone, i.e. scores whose range of values contains normal and anormal samples.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sorted_scores</strong> – an array of outlier scores, higher is more abnormal</p></li>
+<li><p><strong>sorted_truth</strong> – an array of 0 for normal and 1 for abnormal</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an array of scores</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="oplot.outlier_scores.get_confusion_zones_percentiles">
 <code class="sig-prename descclassname">oplot.outlier_scores.</code><code class="sig-name descname">get_confusion_zones_percentiles</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scores</span></em>, <em class="sig-param"><span class="n">truth</span></em>, <em class="sig-param"><span class="n">n_percentiles</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/outlier_scores.html#get_confusion_zones_percentiles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.outlier_scores.get_confusion_zones_percentiles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the percentiles of the normal scores in the confused zone.
-:param scores: an array of outlier scores
-:param truth: an array of 0 for normal and 1 for abnormal
-:param n_percentiles: the number of percentiles required
-:return: an array of scores marking the boundary of the percentile zones</p>
+<dd><p>Get the percentiles of the normal scores in the confused zone.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scores</strong> – an array of outlier scores</p></li>
+<li><p><strong>truth</strong> – an array of 0 for normal and 1 for abnormal</p></li>
+<li><p><strong>n_percentiles</strong> – the number of percentiles required</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an array of scores marking the boundary of the percentile zones</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="oplot.outlier_scores.get_confusion_zones_std">
 <code class="sig-prename descclassname">oplot.outlier_scores.</code><code class="sig-name descname">get_confusion_zones_std</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scores</span></em>, <em class="sig-param"><span class="n">truth</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_zones</span><span class="o">=</span><span class="default_value">6</span></em>, <em class="sig-param"><span class="n">std_per_zone</span><span class="o">=</span><span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/outlier_scores.html#get_confusion_zones_std"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.outlier_scores.get_confusion_zones_std" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get a list of zones boundaries based on the standard deviation of the normal scores
-:param scores: an array of outlier scores
-:param truth: an array of 0 for normal and 1 for abnormal
-:param n_zones: the number of zones required
-:param std_per_zone: the number of standard deviation per zone
-:return: an array of scores marking the boundary of the percentile zones</p>
+<dd><p>Get a list of zones boundaries based on the standard deviation of the normal scores</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scores</strong> – an array of outlier scores</p></li>
+<li><p><strong>truth</strong> – an array of 0 for normal and 1 for abnormal</p></li>
+<li><p><strong>n_zones</strong> – the number of zones required</p></li>
+<li><p><strong>std_per_zone</strong> – the number of standard deviation per zone</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an array of scores marking the boundary of the percentile zones</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -160,13 +190,21 @@ len(scores), the scores are interpolated.</p>
 <dt id="oplot.outlier_scores.plot_scores_and_zones">
 <code class="sig-prename descclassname">oplot.outlier_scores.</code><code class="sig-name descname">plot_scores_and_zones</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scores</span></em>, <em class="sig-param"><span class="n">zones</span></em>, <em class="sig-param"><span class="n">box</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lines</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/outlier_scores.html#plot_scores_and_zones"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.outlier_scores.plot_scores_and_zones" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot the scores on a timeline with color according to which zone they belong too, green under the first
-value in zones, red above the last and a shade from green to red.
-:param scores: an array of scores
-:param zones: the limit of the zones
-:param box: limits to display the plot
-:param title: name of the plot
-:param lines: whether to show lines at the limit of the zones
-:return:</p>
+value in zones, red above the last and a shade from green to red.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scores</strong> – an array of scores</p></li>
+<li><p><strong>zones</strong> – the limit of the zones</p></li>
+<li><p><strong>box</strong> – limits to display the plot</p></li>
+<li><p><strong>title</strong> – name of the plot</p></li>
+<li><p><strong>lines</strong> – whether to show lines at the limit of the zones</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
