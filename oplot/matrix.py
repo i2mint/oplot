@@ -131,6 +131,7 @@ def heatmap(
     **kwargs
 ):
     """Heatmap plot of (X, y) sklearn-like data"""
+    X = np.array(X)
     n_items, n_cols = X.shape
     if col_labels is not None:
         if col_labels is not False:
