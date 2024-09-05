@@ -275,7 +275,7 @@ def get_figsize_to_fit(shape: Tuple[int, int], max_size=DFLT_MAX_FIGSIZE):
 def heatmap_sns(
     df: pd.DataFrame,
     *,
-    cmap: str = "Oranges",
+    cmap: str = 'Oranges',
     xlabel: str = None,
     ylabel: str = None,
     xlabel_fontsize: int = 12,
@@ -289,9 +289,9 @@ def heatmap_sns(
     vert_lines: Union[int, list] = 5,
     horiz_lines: Union[int, list] = 5,
     linewidths: float = 0.5,
-    linecolor: str = "white",
-    major_line_color: str = "#D3D3D3",
-    major_line_style: str = "-",
+    linecolor: str = 'white',
+    major_line_color: str = '#D3D3D3',
+    major_line_style: str = '-',
     vmin: float = 0.2,  # To enhance contrast in color mapping
     vmax: float = 1,  # To enhance contrast in color mapping
 ):
@@ -361,14 +361,14 @@ def heatmap_sns(
     )  # Shift x-ticks to center of cells
 
     plt.gca().set_xticklabels(
-        df.columns, rotation=x_tick_rotation, fontsize=x_tick_fontsize, ha="center"
+        df.columns, rotation=x_tick_rotation, fontsize=x_tick_fontsize, ha='center'
     )
 
     plt.gca().set_yticks(
         [y + 0.5 for y in range(len(df.index))]
     )  # Shift y-ticks to center of cells
     plt.gca().set_yticklabels(
-        df.index, rotation=y_tick_rotation, fontsize=y_tick_fontsize, va="center"
+        df.index, rotation=y_tick_rotation, fontsize=y_tick_fontsize, va='center'
     )
 
     plt.gca().xaxis.set_label_position('top')

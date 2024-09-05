@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>oplot.outlier_scores &mdash; oplot 0.1.9 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <title>oplot.outlier_scores &mdash; oplot 0.1.10 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+  
         <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
         <script src="../../_static/toggleprompt.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
@@ -28,17 +32,21 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> oplot
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            oplot
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot.html">oplot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/matrix.html">oplot.matrix</a></li>
@@ -66,7 +74,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
       <li class="breadcrumb-item active">oplot.outlier_scores</li>
       <li class="wy-breadcrumbs-aside">
@@ -92,7 +100,7 @@
 
 
 <div class="viewcode-block" id="sort_scores_truth"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.sort_scores_truth">[docs]</a><span class="k">def</span> <span class="nf">sort_scores_truth</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">truth</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Sort the aligned scores and truth arrays from lowest to largest</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -105,7 +113,7 @@
 
 
 <div class="viewcode-block" id="get_confused_part"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.get_confused_part">[docs]</a><span class="k">def</span> <span class="nf">get_confused_part</span><span class="p">(</span><span class="n">sorted_scores</span><span class="p">,</span> <span class="n">sorted_truth</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the scores in the confused zone, i.e. scores whose range of values contains normal and anormal samples.</span>
 <span class="sd">    </span>
 <span class="sd">    :param sorted_scores: an array of outlier scores, higher is more abnormal</span>
@@ -121,7 +129,7 @@
 
 
 <div class="viewcode-block" id="find_last_normal_idx"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.find_last_normal_idx">[docs]</a><span class="k">def</span> <span class="nf">find_last_normal_idx</span><span class="p">(</span><span class="n">sorted_truth</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the index of the last 0 in the sorted_truth array</span>
 <span class="sd">    </span>
 <span class="sd">    :param sorted_truth: an array of 0 or 1</span>
@@ -137,7 +145,7 @@
 <div class="viewcode-block" id="find_prop_markers"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.find_prop_markers">[docs]</a><span class="k">def</span> <span class="nf">find_prop_markers</span><span class="p">(</span>
     <span class="n">sorted_scores</span><span class="p">,</span> <span class="n">sorted_truth</span><span class="p">,</span> <span class="n">ratio_markers</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">add_full_out_zone</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Find the score thresholds starting at which the proportion of n_normal / n_total</span>
 <span class="sd">    is on or below the values in ratio_markers. If the proportion is never reached, the</span>
 <span class="sd">    proportions are skipped and the thresholds array is shorter than the ratio_markers tuple</span>
@@ -178,7 +186,7 @@
 
 
 <div class="viewcode-block" id="get_percentiles"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.get_percentiles">[docs]</a><span class="k">def</span> <span class="nf">get_percentiles</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">n_percentiles</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A function computing the n_percentiles of scores. If n_percentiles is larger than</span>
 <span class="sd">    len(scores), the scores are interpolated.</span>
 
@@ -219,7 +227,7 @@
 
 <span class="c1"># to use on train data</span>
 <div class="viewcode-block" id="get_confusion_zones_percentiles"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.get_confusion_zones_percentiles">[docs]</a><span class="k">def</span> <span class="nf">get_confusion_zones_percentiles</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">truth</span><span class="p">,</span> <span class="n">n_percentiles</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the percentiles of the normal scores in the confused zone.</span>
 <span class="sd">    </span>
 <span class="sd">    :param scores: an array of outlier scores</span>
@@ -259,7 +267,7 @@
 
 
 <div class="viewcode-block" id="get_confusion_zones_std"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.get_confusion_zones_std">[docs]</a><span class="k">def</span> <span class="nf">get_confusion_zones_std</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">truth</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_zones</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">std_per_zone</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get a list of zones boundaries based on the standard deviation of the normal scores</span>
 <span class="sd">    </span>
 <span class="sd">    :param scores: an array of outlier scores</span>
@@ -283,7 +291,7 @@
 
 
 <div class="viewcode-block" id="plot_scores_and_zones"><a class="viewcode-back" href="../../module_docs/oplot/outlier_scores.html#oplot.outlier_scores.plot_scores_and_zones">[docs]</a><span class="k">def</span> <span class="nf">plot_scores_and_zones</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">zones</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lines</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot the scores on a timeline with color according to which zone they belong too, green under the first</span>
 <span class="sd">    value in zones, red above the last and a shade from green to red.</span>
 <span class="sd">    </span>

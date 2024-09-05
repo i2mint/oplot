@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>oplot.plot_audio &mdash; oplot 0.1.9 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <title>oplot.plot_audio &mdash; oplot 0.1.10 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+  
         <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
         <script src="../../_static/toggleprompt.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
@@ -31,17 +35,21 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> oplot
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            oplot
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../oplot.html">oplot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="matrix.html">oplot.matrix</a></li>
@@ -49,7 +57,14 @@
 <li class="toctree-l1"><a class="reference internal" href="multiplots.html">oplot.multiplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="my.html">oplot.my</a></li>
 <li class="toctree-l1"><a class="reference internal" href="outlier_scores.html">oplot.outlier_scores</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">oplot.plot_audio</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">oplot.plot_audio</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#oplot.plot_audio.plot_lines"><code class="docutils literal notranslate"><span class="pre">plot_lines()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#oplot.plot_audio.plot_spectro"><code class="docutils literal notranslate"><span class="pre">plot_spectro()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#oplot.plot_audio.plot_wf"><code class="docutils literal notranslate"><span class="pre">plot_wf()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#oplot.plot_audio.plot_wf_and_spectro"><code class="docutils literal notranslate"><span class="pre">plot_wf_and_spectro()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#oplot.plot_audio.plot_wf_with_lines"><code class="docutils literal notranslate"><span class="pre">plot_wf_with_lines()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="plot_data_set.html">oplot.plot_data_set</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot_stats.html">oplot.plot_stats</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ui_scores_mapping.html">oplot.ui_scores_mapping</a></li>
@@ -69,7 +84,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">oplot.plot_audio</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/module_docs/oplot/plot_audio.rst.txt" rel="nofollow"> View page source</a>
@@ -81,14 +96,14 @@
            <div itemprop="articleBody">
              
   <section id="module-oplot.plot_audio">
-<span id="oplot-plot-audio"></span><h1>oplot.plot_audio<a class="headerlink" href="#module-oplot.plot_audio" title="Permalink to this headline">¶</a></h1>
+<span id="oplot-plot-audio"></span><h1>oplot.plot_audio<a class="headerlink" href="#module-oplot.plot_audio" title="Permalink to this heading"></a></h1>
 <p>Functions intended to plot waveform and spectra plus some timestamps information as vertical lines on the plots</p>
 <dl class="py function">
-<dt id="oplot.plot_audio.plot_lines">
-<code class="sig-prename descclassname">oplot.plot_audio.</code><code class="sig-name descname">plot_lines</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ax</span></em>, <em class="sig-param"><span class="n">lines_loc</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">color</span><span class="o">=</span><span class="default_value">'r'</span></em>, <em class="sig-param"><span class="n">line_width</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">line_style</span><span class="o">=</span><span class="default_value">'-'</span></em>, <em class="sig-param"><span class="n">line_type</span><span class="o">=</span><span class="default_value">'vert'</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_audio.html#plot_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_audio.plot_lines" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="oplot.plot_audio.plot_lines">
+<span class="sig-prename descclassname"><span class="pre">oplot.plot_audio.</span></span><span class="sig-name descname"><span class="pre">plot_lines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lines_loc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'r'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'-'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'vert'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_audio.html#plot_lines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oplot.plot_audio.plot_lines" title="Permalink to this definition"></a></dt>
 <dd><p>Function to draw vertical or horizontal lines on an ax</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ax</strong> – the matplolib axis on which to draw</p></li>
 <li><p><strong>lines_loc</strong> – the location of the lines</p></li>
@@ -114,10 +129,10 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="oplot.plot_audio.plot_spectro">
-<code class="sig-prename descclassname">oplot.plot_audio.</code><code class="sig-name descname">plot_spectro</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ax</span></em>, <em class="sig-param"><span class="n">wf</span></em>, <em class="sig-param"><span class="n">chk_size</span><span class="o">=</span><span class="default_value">2048</span></em>, <em class="sig-param"><span class="n">noverlap</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">sr</span><span class="o">=</span><span class="default_value">44100</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_audio.html#plot_spectro"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_audio.plot_spectro" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="oplot.plot_audio.plot_spectro">
+<span class="sig-prename descclassname"><span class="pre">oplot.plot_audio.</span></span><span class="sig-name descname"><span class="pre">plot_spectro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chk_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2048</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noverlap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">44100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_audio.html#plot_spectro"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oplot.plot_audio.plot_spectro" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ax</strong> – </p></li>
 <li><p><strong>wf</strong> – </p></li>
@@ -130,10 +145,10 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="oplot.plot_audio.plot_wf">
-<code class="sig-prename descclassname">oplot.plot_audio.</code><code class="sig-name descname">plot_wf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ax</span></em>, <em class="sig-param"><span class="n">wf</span></em>, <em class="sig-param"><span class="n">wf_line_width</span><span class="o">=</span><span class="default_value">0.8</span></em>, <em class="sig-param"><span class="n">wf_color</span><span class="o">=</span><span class="default_value">'b'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_audio.html#plot_wf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_audio.plot_wf" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="oplot.plot_audio.plot_wf">
+<span class="sig-prename descclassname"><span class="pre">oplot.plot_audio.</span></span><span class="sig-name descname"><span class="pre">plot_wf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ax</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wf_line_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wf_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'b'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_audio.html#plot_wf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oplot.plot_audio.plot_wf" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ax</strong> – </p></li>
 <li><p><strong>wf</strong> – </p></li>
@@ -145,10 +160,10 @@
 </dd></dl>
 
 <dl class="py function">
-<dt id="oplot.plot_audio.plot_wf_and_spectro">
-<code class="sig-prename descclassname">oplot.plot_audio.</code><code class="sig-name descname">plot_wf_and_spectro</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">wf</span></em>, <em class="sig-param"><span class="n">figsize</span><span class="o">=</span><span class="default_value">(40, 8)</span></em>, <em class="sig-param"><span class="n">chk_size</span><span class="o">=</span><span class="default_value">2048</span></em>, <em class="sig-param"><span class="n">noverlap</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">sr</span><span class="o">=</span><span class="default_value">44100</span></em>, <em class="sig-param"><span class="n">spectra_ylim</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">wf_y_lim</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">wf_x_lim</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">spectra_xlim</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_sec_per_tick</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vert_lines_samp</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vert_lines_sec</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vert_lines_colors</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vert_lines_labels</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vert_lines_width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vert_lines_style</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">alpha_lines</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_tick_dec</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">wf_line_width</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">wf_color</span><span class="o">=</span><span class="default_value">'b'</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">title_font_size</span><span class="o">=</span><span class="default_value">10</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_audio.html#plot_wf_and_spectro"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_audio.plot_wf_and_spectro" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="oplot.plot_audio.plot_wf_and_spectro">
+<span class="sig-prename descclassname"><span class="pre">oplot.plot_audio.</span></span><span class="sig-name descname"><span class="pre">plot_wf_and_spectro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(40,</span> <span class="pre">8)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chk_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2048</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noverlap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">44100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectra_ylim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wf_y_lim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wf_x_lim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectra_xlim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sec_per_tick</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vert_lines_samp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vert_lines_sec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vert_lines_colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vert_lines_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vert_lines_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vert_lines_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_lines</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_tick_dec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wf_line_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wf_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'b'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_audio.html#plot_wf_and_spectro"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oplot.plot_audio.plot_wf_and_spectro" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>wf</strong> – </p></li>
 <li><p><strong>figsize</strong> – </p></li>
@@ -174,17 +189,17 @@
 <li><p><strong>title_font_size</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt id="oplot.plot_audio.plot_wf_with_lines">
-<code class="sig-prename descclassname">oplot.plot_audio.</code><code class="sig-name descname">plot_wf_with_lines</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">wf</span></em>, <em class="sig-param"><span class="n">figsize</span><span class="o">=</span><span class="default_value">(40, 10)</span></em>, <em class="sig-param"><span class="n">sr</span><span class="o">=</span><span class="default_value">44100</span></em>, <em class="sig-param"><span class="n">wf_y_lim</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">wf_x_lim</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_sec_per_tick</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vert_lines_samp</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vert_lines_sec</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vert_lines_colors</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vert_lines_labels</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vert_lines_width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vert_lines_style</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">alpha_lines</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">n_tick_dec</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">wf_line_width</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">wf_color</span><span class="o">=</span><span class="default_value">'b'</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">title_font_size</span><span class="o">=</span><span class="default_value">10</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_audio.html#plot_wf_with_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.plot_audio.plot_wf_with_lines" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="oplot.plot_audio.plot_wf_with_lines">
+<span class="sig-prename descclassname"><span class="pre">oplot.plot_audio.</span></span><span class="sig-name descname"><span class="pre">plot_wf_with_lines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(40,</span> <span class="pre">10)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">44100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wf_y_lim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wf_x_lim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_sec_per_tick</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vert_lines_samp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vert_lines_sec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vert_lines_colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vert_lines_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vert_lines_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vert_lines_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha_lines</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_tick_dec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wf_line_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wf_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'b'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_audio.html#plot_wf_with_lines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oplot.plot_audio.plot_wf_with_lines" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>wf</strong> – </p></li>
 <li><p><strong>figsize</strong> – </p></li>
@@ -206,7 +221,7 @@
 <li><p><strong>title_font_size</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p></p>
 </dd>
 </dl>

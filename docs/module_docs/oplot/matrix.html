@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>oplot.matrix &mdash; oplot 0.1.9 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <title>oplot.matrix &mdash; oplot 0.1.10 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+  
         <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
         <script src="../../_static/toggleprompt.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
@@ -31,20 +35,33 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> oplot
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            oplot
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../oplot.html">oplot</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">oplot.matrix</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">oplot.matrix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#oplot.matrix.get_figsize_to_fit"><code class="docutils literal notranslate"><span class="pre">get_figsize_to_fit()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#oplot.matrix.heatmap"><code class="docutils literal notranslate"><span class="pre">heatmap()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#oplot.matrix.heatmap_sns"><code class="docutils literal notranslate"><span class="pre">heatmap_sns()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#oplot.matrix.hierarchical_cluster_sorted_heatmap"><code class="docutils literal notranslate"><span class="pre">hierarchical_cluster_sorted_heatmap()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#oplot.matrix.plot_simil_mat_with_labels"><code class="docutils literal notranslate"><span class="pre">plot_simil_mat_with_labels()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#oplot.matrix.vlines_ranges"><code class="docutils literal notranslate"><span class="pre">vlines_ranges()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#oplot.matrix.xy_boxplot"><code class="docutils literal notranslate"><span class="pre">xy_boxplot()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="multi_plot.html">oplot.multi_plot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="multiplots.html">oplot.multiplots</a></li>
 <li class="toctree-l1"><a class="reference internal" href="my.html">oplot.my</a></li>
@@ -69,7 +86,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">oplot.matrix</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/module_docs/oplot/matrix.rst.txt" rel="nofollow"> View page source</a>
@@ -81,50 +98,103 @@
            <div itemprop="articleBody">
              
   <section id="module-oplot.matrix">
-<span id="oplot-matrix"></span><h1>oplot.matrix<a class="headerlink" href="#module-oplot.matrix" title="Permalink to this headline">¶</a></h1>
+<span id="oplot-matrix"></span><h1>oplot.matrix<a class="headerlink" href="#module-oplot.matrix" title="Permalink to this heading"></a></h1>
 <p>Plotting matrices and matrix-structured data</p>
 <dl class="py function">
-<dt id="oplot.matrix.heatmap">
-<code class="sig-prename descclassname">oplot.matrix.</code><code class="sig-name descname">heatmap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">y</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">col_labels</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">figsize</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">cmap</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">return_gcf</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">ax</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">xlabel_top</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">ylabel_left</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">xlabel_bottom</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">ylabel_right</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/matrix.html#heatmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.matrix.heatmap" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="oplot.matrix.get_figsize_to_fit">
+<span class="sig-prename descclassname"><span class="pre">oplot.matrix.</span></span><span class="sig-name descname"><span class="pre">get_figsize_to_fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/matrix.html#get_figsize_to_fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oplot.matrix.get_figsize_to_fit" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate a proportional figsize based on the dimensions of the dataframe, with the larger dimension
+capped at <cite>max_size</cite>.</p>
+<p>Parameters:
+- shape: shape of the matrix (rows, cols).
+- max_size: The maximum size for the larger dimension (default 9).</p>
+<p>Returns:
+- A tuple representing the figsize (width, height).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oplot.matrix.heatmap">
+<span class="sig-prename descclassname"><span class="pre">oplot.matrix.</span></span><span class="sig-name descname"><span class="pre">heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_gcf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel_top</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel_left</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel_bottom</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel_right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/matrix.html#heatmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oplot.matrix.heatmap" title="Permalink to this definition"></a></dt>
 <dd><p>Heatmap plot of (X, y) sklearn-like data</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="oplot.matrix.hierarchical_cluster_sorted_heatmap">
-<code class="sig-prename descclassname">oplot.matrix.</code><code class="sig-name descname">hierarchical_cluster_sorted_heatmap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">df</span></em>, <em class="sig-param"><span class="n">only_return_sorted_df</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">seaborn_heatmap_kwargs</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/matrix.html#hierarchical_cluster_sorted_heatmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.matrix.hierarchical_cluster_sorted_heatmap" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="oplot.matrix.heatmap_sns">
+<span class="sig-prename descclassname"><span class="pre">oplot.matrix.</span></span><span class="sig-name descname"><span class="pre">heatmap_sns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Oranges'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel_fontsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel_fontsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_tick_fontsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_tick_fontsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_tick_rotation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">90</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_tick_rotation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_colorbar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vert_lines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">horiz_lines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linewidths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linecolor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'white'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">major_line_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'#D3D3D3'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">major_line_style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'-'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vmax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/matrix.html#heatmap_sns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oplot.matrix.heatmap_sns" title="Permalink to this definition"></a></dt>
+<dd><p>A reusable heatmap function to visualize numerical dataframes with customizable options, including adding
+vertical and horizontal lines for better readability.</p>
+<p>Parameters:
+- df: The dataframe to plot.
+- cmap: The color map to use (default “Oranges”).
+- xlabel: Optional label for the x-axis.
+- ylabel: Optional label for the y-axis.
+- xlabel_fontsize: Font size for x-axis label (default 12).
+- ylabel_fontsize: Font size for y-axis label (default 12).
+- tick_fontsize: Font size for tick labels (default 10).
+- figsize: Dimensions of the figure (if a tuple) or max dimension size if int (default is 9)
+- rotation: Rotation angle for x-tick labels (default 90).
+- show_colorbar: Whether to display the colorbar (default False).
+- vert_lines: Vertical lines either as an int (step), a list of positions, or None (default 5).
+- horiz_lines: Horizontal lines either as an int (step), a list of positions, or None (default 5).
+- linewidths: Line width between cells (default 0.5).
+- linecolor: Color of the grid lines (default “white”).
+- major_line_color: Color of major grid lines (default “#D3D3D3”).
+- major_line_style: Style of major grid lines (default “-“).
+- vmin: Minimum color value for heatmap (default 0.2 for better contrast).
+- vmax: Maximum color value for heatmap (default 1 for better contrast).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s1">&#39;ABCDEFGHIJ&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Using default vertical and horizontal lines every 5 rows and columns
+&gt;&gt;&gt; heatmap_sns(df)  # doctest: +SKIP</p>
+<p>Customizing the intervals for vertical and horizontal lines</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">heatmap_sns</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">vert_lines</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">horiz_lines</span><span class="o">=</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">])</span>  
+</pre></div>
+</div>
+<p>Specifying exact positions for vertical and horizontal lines</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">heatmap_sns</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">vert_lines</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="n">horiz_lines</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Blues&quot;</span><span class="p">,</span> <span class="n">show_colorbar</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oplot.matrix.hierarchical_cluster_sorted_heatmap">
+<span class="sig-prename descclassname"><span class="pre">oplot.matrix.</span></span><span class="sig-name descname"><span class="pre">hierarchical_cluster_sorted_heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_return_sorted_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seaborn_heatmap_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/matrix.html#hierarchical_cluster_sorted_heatmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oplot.matrix.hierarchical_cluster_sorted_heatmap" title="Permalink to this definition"></a></dt>
 <dd><p>A function to plot a square df (i.e. same indices and columns) that contains distances/similarities as it’s values,
 as a heatmap whose indices and columns are sorted according to a hierarchical clustering
 (based on the distances listed in the df).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> – The distance (or similarity) square matrix</p></li>
 <li><p><strong>only_return_sorted_df</strong> – Default False. Set to True to return the df instead of the heatmap</p></li>
 <li><p><strong>seaborn_heatmap_kwargs</strong> – the arguments to use in seaborn.heatmap (default is dict(cbar=False))</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>whatever sns.heatmap returns, or the sorted df if only_return_sorted_df=True</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt id="oplot.matrix.plot_simil_mat_with_labels">
-<code class="sig-prename descclassname">oplot.matrix.</code><code class="sig-name descname">plot_simil_mat_with_labels</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">simil_mat</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">inner_class_ordering</span><span class="o">=</span><span class="default_value">'mean_shift_clusters'</span></em>, <em class="sig-param"><span class="n">brightness</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">figsize</span><span class="o">=</span><span class="default_value">(10, 10)</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/matrix.html#plot_simil_mat_with_labels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.matrix.plot_simil_mat_with_labels" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="oplot.matrix.plot_simil_mat_with_labels">
+<span class="sig-prename descclassname"><span class="pre">oplot.matrix.</span></span><span class="sig-name descname"><span class="pre">plot_simil_mat_with_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">simil_mat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inner_class_ordering</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mean_shift_clusters'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">brightness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(10,</span> <span class="pre">10)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/matrix.html#plot_simil_mat_with_labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oplot.matrix.plot_simil_mat_with_labels" title="Permalink to this definition"></a></dt>
 <dd><p>A function that plots similarity matrices, grouping labels together and sorting by descending sum of similarities
 within a group.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="oplot.matrix.vlines_ranges">
-<code class="sig-prename descclassname">oplot.matrix.</code><code class="sig-name descname">vlines_ranges</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">aggr</span><span class="o">=</span><span class="default_value">('min', 'median', 'max')</span></em>, <em class="sig-param"><span class="n">axis</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/matrix.html#vlines_ranges"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.matrix.vlines_ranges" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="oplot.matrix.vlines_ranges">
+<span class="sig-prename descclassname"><span class="pre">oplot.matrix.</span></span><span class="sig-name descname"><span class="pre">vlines_ranges</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('min',</span> <span class="pre">'median',</span> <span class="pre">'max')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/matrix.html#vlines_ranges"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oplot.matrix.vlines_ranges" title="Permalink to this definition"></a></dt>
 <dd><p>vlines plot statistics of X matrix data</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="oplot.matrix.xy_boxplot">
-<code class="sig-prename descclassname">oplot.matrix.</code><code class="sig-name descname">xy_boxplot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">y</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">col_labels</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">grid_size</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/matrix.html#xy_boxplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#oplot.matrix.xy_boxplot" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="oplot.matrix.xy_boxplot">
+<span class="sig-prename descclassname"><span class="pre">oplot.matrix.</span></span><span class="sig-name descname"><span class="pre">xy_boxplot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grid_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/matrix.html#xy_boxplot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oplot.matrix.xy_boxplot" title="Permalink to this definition"></a></dt>
 <dd><p>Boxplot of X (sklearn-like) data, grouped by y (if given)</p>
 </dd></dl>
 
