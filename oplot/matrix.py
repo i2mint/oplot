@@ -1,5 +1,7 @@
 """Plotting matrices and matrix-structured data"""
 
+from typing import Union, Tuple
+
 import matplotlib.patches as patches
 import matplotlib.pylab as plt
 
@@ -128,7 +130,7 @@ def heatmap(
     ylabel_left=True,
     xlabel_bottom=True,
     ylabel_right=True,
-    **kwargs
+    **kwargs,
 ):
     """Heatmap plot of (X, y) sklearn-like data"""
     X = np.array(X)
@@ -239,6 +241,158 @@ def labeled_heatmap(X, y=None, col_labels=None):
     plt.gca().xaxis.set_tick_params(labeltop='on')
 
 
+DFLT_MAX_FIGSIZE = 11
+
+
+def get_figsize_to_fit(shape: Tuple[int, int], max_size=DFLT_MAX_FIGSIZE):
+    """
+    Calculate a proportional figsize based on the dimensions of the dataframe, with the larger dimension
+    capped at `max_size`.
+
+    Parameters:
+    - shape: shape of the matrix (rows, cols).
+    - max_size: The maximum size for the larger dimension (default 9).
+
+    Returns:
+    - A tuple representing the figsize (width, height).
+    """
+    rows, cols = shape
+
+    # Ratio of width to height
+    aspect_ratio = cols / rows if rows > 0 else 1  # Avoid divide by zero
+
+    # Determine which dimension is the largest and scale accordingly
+    if cols > rows:
+        width = max_size
+        height = max_size / aspect_ratio
+    else:
+        height = max_size
+        width = max_size * aspect_ratio
+
+    return (min(width, max_size), min(height, max_size))
+
+
+def heatmap_sns(
+    df: pd.DataFrame,
+    *,
+    cmap: str = "Oranges",
+    xlabel: str = None,
+    ylabel: str = None,
+    xlabel_fontsize: int = 12,
+    ylabel_fontsize: int = 12,
+    x_tick_fontsize: int = 10,
+    y_tick_fontsize: int = 10,
+    figsize: Union[int, Tuple[int, int]] = DFLT_MAX_FIGSIZE,
+    x_tick_rotation: int = 90,
+    y_tick_rotation: int = 0,
+    show_colorbar: bool = False,
+    vert_lines: Union[int, list] = 5,
+    horiz_lines: Union[int, list] = 5,
+    linewidths: float = 0.5,
+    linecolor: str = "white",
+    major_line_color: str = "#D3D3D3",
+    major_line_style: str = "-",
+    vmin: float = 0.2,  # To enhance contrast in color mapping
+    vmax: float = 1,  # To enhance contrast in color mapping
+):
+    """
+    A reusable heatmap function to visualize numerical dataframes with customizable options, including adding
+    vertical and horizontal lines for better readability.
+
+    Parameters:
+    - df: The dataframe to plot.
+    - cmap: The color map to use (default "Oranges").
+    - xlabel: Optional label for the x-axis.
+    - ylabel: Optional label for the y-axis.
+    - xlabel_fontsize: Font size for x-axis label (default 12).
+    - ylabel_fontsize: Font size for y-axis label (default 12).
+    - tick_fontsize: Font size for tick labels (default 10).
+    - figsize: Dimensions of the figure (if a tuple) or max dimension size if int (default is 9)
+    - rotation: Rotation angle for x-tick labels (default 90).
+    - show_colorbar: Whether to display the colorbar (default False).
+    - vert_lines: Vertical lines either as an int (step), a list of positions, or None (default 5).
+    - horiz_lines: Horizontal lines either as an int (step), a list of positions, or None (default 5).
+    - linewidths: Line width between cells (default 0.5).
+    - linecolor: Color of the grid lines (default "white").
+    - major_line_color: Color of major grid lines (default "#D3D3D3").
+    - major_line_style: Style of major grid lines (default "-").
+    - vmin: Minimum color value for heatmap (default 0.2 for better contrast).
+    - vmax: Maximum color value for heatmap (default 1 for better contrast).
+
+
+    >>> import numpy as np
+    >>> import pandas as pd
+    >>> df = pd.DataFrame(np.random.rand(20, 10), columns=list('ABCDEFGHIJ'))
+
+    Using default vertical and horizontal lines every 5 rows and columns
+    >>> heatmap_sns(df)  # doctest: +SKIP
+
+    Customizing the intervals for vertical and horizontal lines
+
+    >>> heatmap_sns(df, vert_lines=3, horiz_lines=[4, 8, 12])  # doctest: +SKIP
+
+    Specifying exact positions for vertical and horizontal lines
+
+    >>> heatmap_sns(df, vert_lines=[2, 5, 8], horiz_lines=[1, 6, 11], cmap="Blues", show_colorbar=True)  # doctest: +SKIP
+
+    """
+
+    import seaborn as sns
+
+    if isinstance(figsize, int):
+        max_figsize = figsize
+        figsize = get_figsize_to_fit(df.shape, max_size=max_figsize)
+
+    plt.figure(figsize=figsize)
+
+    # Create the heatmap with contrast settings for better cell visibility
+    sns.heatmap(
+        df,
+        cmap=cmap,
+        linewidths=linewidths,
+        linecolor=linecolor,
+        cbar=show_colorbar,
+        vmin=vmin,
+        vmax=vmax,
+    )
+
+    plt.gca().set_xticks(
+        [x + 0.5 for x in range(len(df.columns))]
+    )  # Shift x-ticks to center of cells
+
+    plt.gca().set_xticklabels(
+        df.columns, rotation=x_tick_rotation, fontsize=x_tick_fontsize, ha="center"
+    )
+
+    plt.gca().set_yticks(
+        [y + 0.5 for y in range(len(df.index))]
+    )  # Shift y-ticks to center of cells
+    plt.gca().set_yticklabels(
+        df.index, rotation=y_tick_rotation, fontsize=y_tick_fontsize, va="center"
+    )
+
+    plt.gca().xaxis.set_label_position('top')
+    plt.gca().xaxis.tick_top()
+
+    if xlabel:
+        plt.xlabel(xlabel, fontsize=xlabel_fontsize)
+
+    if ylabel:
+        plt.ylabel(ylabel, fontsize=ylabel_fontsize)
+
+    if vert_lines is not None:
+        if isinstance(vert_lines, int):
+            vert_lines = list(range(0, df.shape[1], vert_lines))
+        for pos in vert_lines:
+            plt.axvline(pos, color=major_line_color, lw=2, ls=major_line_style)
+
+    if horiz_lines is not None:
+        if isinstance(horiz_lines, int):
+            horiz_lines = list(range(0, df.shape[0], horiz_lines))
+        for pos in horiz_lines:
+            plt.axhline(pos, color=major_line_color, lw=2, ls=major_line_style)
+
+
 def plot_simil_mat_with_labels(
     simil_mat,
     y,
@@ -314,7 +468,7 @@ def hierarchical_cluster_sorted_heatmap(
     A function to plot a square df (i.e. same indices and columns) that contains distances/similarities as it's values,
     as a heatmap whose indices and columns are sorted according to a hierarchical clustering
     (based on the distances listed in the df).
-    
+
     :param df: The distance (or similarity) square matrix
     :param only_return_sorted_df: Default False. Set to True to return the df instead of the heatmap
     :param seaborn_heatmap_kwargs: the arguments to use in seaborn.heatmap (default is dict(cbar=False))
