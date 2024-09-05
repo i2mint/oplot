@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>oplot.plot_stats &mdash; oplot 0.1.9 documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/graphviz.css" type="text/css" />
+  <title>oplot.plot_stats &mdash; oplot 0.1.10 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+  
         <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
         <script src="../../_static/toggleprompt.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
@@ -28,17 +32,21 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> oplot
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            oplot
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot.html">oplot</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/oplot/matrix.html">oplot.matrix</a></li>
@@ -66,7 +74,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
       <li class="breadcrumb-item active">oplot.plot_stats</li>
       <li class="wy-breadcrumbs-aside">
@@ -95,7 +103,7 @@
 
 
 <div class="viewcode-block" id="plot_freqs_stats"><a class="viewcode-back" href="../../module_docs/oplot/plot_stats.html#oplot.plot_stats.plot_freqs_stats">[docs]</a><span class="k">def</span> <span class="nf">plot_freqs_stats</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">upper_frequency</span><span class="o">=</span><span class="mi">22050</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">1025</span><span class="p">,</span> <span class="n">normalized</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    X is intended to be the list/array of spectra, the function plots the mean, max and min of each frequency.</span>
 <span class="sd">    If normalized, the min/max/mean entries are all divided by the the minimum value in the mean array.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -137,7 +145,7 @@
     <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Blues</span><span class="p">,</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Makes a heatmap plot of the matrix_results where the entries are rounded.</span>
 <span class="sd">    If matrix_results is upper or lower diagonal and make_symmetric is set to true,</span>
 <span class="sd">    plot will be made symmetric by copying the strict upper or lower half.</span>
@@ -189,7 +197,7 @@
     <span class="n">plot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="n">cm</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function prints and plots the confusion matrix.</span>
 <span class="sd">    Normalization can be applied by setting `normalize=True`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -250,7 +258,7 @@
 
 
 <div class="viewcode-block" id="list_mult"><a class="viewcode-back" href="../../module_docs/oplot/plot_stats.html#oplot.plot_stats.list_mult">[docs]</a><span class="k">def</span> <span class="nf">list_mult</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">mult</span><span class="p">,</span> <span class="n">random_remainder</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extend the multiplication of lists by an integer naturally to float.</span>
 <span class="sd">    EX: [1,2] * 1.5 = [1,2,1]</span>
 <span class="sd">    If random_remainder is set to True, the decimal part of the new list will be chose at random from l.</span>
@@ -265,7 +273,7 @@
 
 
 <div class="viewcode-block" id="rebalancing_normal_outlier_ratio"><a class="viewcode-back" href="../../module_docs/oplot/plot_stats.html#oplot.plot_stats.rebalancing_normal_outlier_ratio">[docs]</a><span class="k">def</span> <span class="nf">rebalancing_normal_outlier_ratio</span><span class="p">(</span><span class="n">normal_scores</span><span class="p">,</span> <span class="n">outlier_scores</span><span class="p">,</span> <span class="n">percent_outliers</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Rebalance artificially the ratio outlier/(normal + outlier) to the specified percent_outliers.</span>
 <span class="sd">    Does this by copying data points, use with caution!</span>
 <span class="sd">    :param normal_scores:</span>
@@ -292,7 +300,7 @@
 
 
 <div class="viewcode-block" id="rebalance_scores"><a class="viewcode-back" href="../../module_docs/oplot/plot_stats.html#oplot.plot_stats.rebalance_scores">[docs]</a><span class="k">def</span> <span class="nf">rebalance_scores</span><span class="p">(</span><span class="n">test_scores</span><span class="p">,</span> <span class="n">test_truth</span><span class="p">,</span> <span class="n">outlier_proportion</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Re-balances the ratio of normal/outlier scores by copying the normal/outliers scores when needed.</span>
 <span class="sd">    This is useful to compute real life precision/recall and other such metrics when the actual proportion</span>
 <span class="sd">    of outlier/normal is known but not achieved in the test set.</span>
@@ -309,7 +317,7 @@
 
 
 <div class="viewcode-block" id="get_tn_fp_fn_tp"><a class="viewcode-back" href="../../module_docs/oplot/plot_stats.html#oplot.plot_stats.get_tn_fp_fn_tp">[docs]</a><span class="k">def</span> <span class="nf">get_tn_fp_fn_tp</span><span class="p">(</span><span class="n">truth</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    compute the counts of true negative, false positive, false negative and true positive as predicted</span>
 <span class="sd">    by the outlier score for the given threshold</span>
 <span class="sd">    :param truth: a list of 0 and 1&#39;s, 0 meaning normal and 1 meaning outlier</span>
@@ -328,7 +336,7 @@
 <div class="viewcode-block" id="make_tables_tn_fp_fn_tp"><a class="viewcode-back" href="../../module_docs/oplot/plot_stats.html#oplot.plot_stats.make_tables_tn_fp_fn_tp">[docs]</a><span class="k">def</span> <span class="nf">make_tables_tn_fp_fn_tp</span><span class="p">(</span>
     <span class="n">truth</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">threshold_range</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_thresholds</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Make a table of counts of tn, fp, fn, tp for n_thresholds equally spaced in threshold_range</span>
 
 <span class="sd">    :param truth:  a list of 0 and 1&#39;s, 0 meaning normal and 1 meaning outlier</span>
@@ -367,7 +375,7 @@
 
 
 <div class="viewcode-block" id="make_tn_fp_fn_tp_tag_lists"><a class="viewcode-back" href="../../module_docs/oplot/plot_stats.html#oplot.plot_stats.make_tn_fp_fn_tp_tag_lists">[docs]</a><span class="k">def</span> <span class="nf">make_tn_fp_fn_tp_tag_lists</span><span class="p">(</span><span class="n">truth</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a dictionary with the keys being tp, tn, fp and fn and the corresponding values are the indices of the scores/truth/tags</span>
 <span class="sd">    for the given threshold. If a list of tags of the sounds corresponding to each scores is given, the values of the dict will</span>
 <span class="sd">    be those tags rather than indices</span>
@@ -418,7 +426,7 @@
     <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Plot vlines in a more intuitive way than the default matplotlib version&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot vlines in a more intuitive way than the default matplotlib version&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">ymax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">ymax</span> <span class="o">=</span> <span class="n">x</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ymax</span><span class="p">))</span>
@@ -460,7 +468,7 @@
     <span class="n">xticks_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">xticks_rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots all scores grouped by their y values in order specified by y_order or np.unique(y) is left to None.</span>
 <span class="sd">    :param scores: an array of outlier scores</span>
 <span class="sd">    :param y: an array of tags, each tag will get its own color on the plot and its name on the legend</span>
@@ -556,7 +564,7 @@
 
 
 <div class="viewcode-block" id="pick_equally_spaced_points"><a class="viewcode-back" href="../../module_docs/oplot/plot_stats.html#oplot.plot_stats.pick_equally_spaced_points">[docs]</a><span class="k">def</span> <span class="nf">pick_equally_spaced_points</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">n_points</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :param values: a list of values</span>
 <span class="sd">    :param n_points: the number of indices to choose</span>
 <span class="sd">    :return: a list of indices to choose from the list values in order for these picked values</span>
@@ -608,7 +616,7 @@
     <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Take a pandas dataframe and represents it with a picture. This allows to save a .png version of the dataframe.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">round_decimals</span><span class="p">:</span>
@@ -699,7 +707,7 @@
     <span class="n">base_statistics_dict</span><span class="o">=</span><span class="n">base_statistics_dict</span><span class="p">,</span>
     <span class="n">synonyms</span><span class="o">=</span><span class="n">synonyms</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Utility to compute the reference/chance curve for a pair metrics type curve. Note that for certain combination</span>
 <span class="sd">    of metrics, the curve may be a point.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -735,7 +743,7 @@
 
 
 <div class="viewcode-block" id="wiggle_values_keep_order"><a class="viewcode-back" href="../../module_docs/oplot/plot_stats.html#oplot.plot_stats.wiggle_values_keep_order">[docs]</a><span class="k">def</span> <span class="nf">wiggle_values_keep_order</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wiggles the values in a list of scores so has to remove any duplicate values while keeping the same order.</span>
 <span class="sd">    This is intended to use with plot_outlier_metric_curve in order to smooth the curve in situations where scores</span>
 <span class="sd">    are repeating a lot</span>
@@ -771,7 +779,7 @@
 
 
 <div class="viewcode-block" id="cumulative_tn_fp_fn_tp"><a class="viewcode-back" href="../../module_docs/oplot/plot_stats.html#oplot.plot_stats.cumulative_tn_fp_fn_tp">[docs]</a><span class="k">def</span> <span class="nf">cumulative_tn_fp_fn_tp</span><span class="p">(</span><span class="n">truth</span><span class="p">,</span> <span class="n">scores</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Compute efficiently the cumulative tn, fp, fn and tp &quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute efficiently the cumulative tn, fp, fn and tp &quot;&quot;&quot;</span>
 
     <span class="n">truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">truth</span><span class="p">)</span>
     <span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
@@ -791,7 +799,7 @@
 
 
 <div class="viewcode-block" id="wiggle_scores"><a class="viewcode-back" href="../../module_docs/oplot/plot_stats.html#oplot.plot_stats.wiggle_scores">[docs]</a><span class="k">def</span> <span class="nf">wiggle_scores</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">truth</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Sort scores from low to high while keeping truth aligned with it. The original values</span>
 <span class="sd">    in scores which are present multiple times are spread out equally between their value and</span>
 <span class="sd">    the next larger score.</span>
@@ -838,7 +846,7 @@
     <span class="n">add_point_left</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">add_point_right</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots one outlier scores metric against another one. The metrics name can be any names in the base_statistics_dict</span>
 <span class="sd">    or the synonyms dict. The chance line/curve is automatically computed and displayed along with a table</span>
 <span class="sd">    of equally spaced point on the curve.</span>
@@ -1010,7 +1018,7 @@
 
 
 <div class="viewcode-block" id="area_under_points"><a class="viewcode-back" href="../../module_docs/oplot/plot_stats.html#oplot.plot_stats.area_under_points">[docs]</a><span class="k">def</span> <span class="nf">area_under_points</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Given a list of pair corresponding to the x and y coordinates of the points, find the</span>
 <span class="sd">    area under the curve of the (simplest) piecewise linear function passing by all the points</span>
 
@@ -1036,7 +1044,7 @@
 
 
 <div class="viewcode-block" id="smooth_scores"><a class="viewcode-back" href="../../module_docs/oplot/plot_stats.html#oplot.plot_stats.smooth_scores">[docs]</a><span class="k">def</span> <span class="nf">smooth_scores</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">window_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">window_step</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">smooth_func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Smooth an iterable of score by applying smooth_funct to each window of size window_size.</span>
 <span class="sd">    If scores is smaller than window_size, an empty list is returned.</span>
 
@@ -1062,7 +1070,7 @@
 
 
 <div class="viewcode-block" id="split_on_consecutive"><a class="viewcode-back" href="../../module_docs/oplot/plot_stats.html#oplot.plot_stats.split_on_consecutive">[docs]</a><span class="k">def</span> <span class="nf">split_on_consecutive</span><span class="p">(</span><span class="n">arr_to_split</span><span class="p">,</span> <span class="n">arr_for_consec</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Split arr_to_split based on the entries of arr_for_consec. Each segment of consecutive</span>
 <span class="sd">    equal entries in arr_for_consec will induce a split</span>
 
@@ -1082,7 +1090,7 @@
 
 
 <div class="viewcode-block" id="apply_function_on_consecutive"><a class="viewcode-back" href="../../module_docs/oplot/plot_stats.html#oplot.plot_stats.apply_function_on_consecutive">[docs]</a><span class="k">def</span> <span class="nf">apply_function_on_consecutive</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">arr_for_consec</span><span class="p">,</span> <span class="n">func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">     Apply func to each block of consecutive value in scores if the corresponding values in arr_for_consec are constant</span>
 <span class="sd">    :param scores: a list of floats</span>
 <span class="sd">    :param arr_for_consec: an array of values defining the blocks</span>
@@ -1107,7 +1115,7 @@
 
 
 <div class="viewcode-block" id="parallel_sort"><a class="viewcode-back" href="../../module_docs/oplot/plot_stats.html#oplot.plot_stats.parallel_sort">[docs]</a><span class="k">def</span> <span class="nf">parallel_sort</span><span class="p">(</span><span class="n">iterable_list</span><span class="p">,</span> <span class="n">sort_idx</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Sort several lists in iterable_list in parallel, according to the the list of index sort_idx</span>
 <span class="sd">    </span>
 <span class="sd">    :param iterable_list: list of list, all the lists have the same length</span>
