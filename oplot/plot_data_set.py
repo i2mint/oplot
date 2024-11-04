@@ -20,19 +20,142 @@ scatter_and_color_according_to_y(X, y_conf, col='rainbow', dim_reduct='LDA', pro
 
 """
 
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.decomposition import PCA
-from sklearn.manifold import TSNE
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-from mpl_toolkits.mplot3d import Axes3D
+import itertools
 import warnings
 from os.path import expanduser
 from time import gmtime, strftime
 import datetime
+from typing import Any, Mapping, Iterable, Optional, Dict, Callable, Union, Tuple
+
+import numpy as np
+import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 import matplotlib.patches as mpatches
 import matplotlib
+
+from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+
+import seaborn as sns
+
+
+def ensure_dict(obj: Any) -> Mapping:
+    if isinstance(obj, Mapping):
+        return obj
+    else:
+        if isinstance(obj, Iterable):
+            return dict(enumerate(obj))
+        else:
+            raise ValueError(f"Cannot convert {obj} to a dictionary.")
+
+
+def density_distribution(
+    data_dict: Mapping[str, np.ndarray],
+    *,
+    ax: Optional[plt.Axes] = None,
+    axvline_kwargs: Optional[Dict[str, Dict[str, Any]]] = None,
+    line_width: int = 3,
+    location_func: Callable = np.mean,
+    location_linestyle: str = '--',
+    display_location_text: bool = True,
+    colors: tuple = ('blue', 'orange', 'green', 'red', 'purple', 'brown'),
+    density_plot_func: Callable = sns.kdeplot,
+    density_plot_kwargs: Optional[Dict[str, Any]] = None,
+    text_kwargs: Optional[Union[Dict[str, Any], Iterable[Tuple[str, Any]]]] = (
+        ('x', 0.05),
+        ('y', 0.05),
+        ('bbox', dict(facecolor='white', alpha=0.5)),
+    ),
+    mean_line_kwargs: Optional[Dict[str, Any]] = None,
+):
+    """
+    Plot density plots for each array in data_dict and add vertical lines for the mean 
+    of each distribution.
+
+    Args:
+        data_dict (dict): A dictionary where keys are labels and values are arrays to plot.
+        ax (plt.Axes, optional): Matplotlib Axes object to plot on. If None, a new figure and axis will be created.
+        axvline_kwargs (dict, optional): A dictionary where keys are labels and values
+            are dictionaries of axvline kwargs.
+            If not provided, default colors and linestyle will be used.
+        line_width (int, optional): Width of the density plot lines.
+        display_means (bool, optional): Whether to display the means as text on the plot.
+        means_linestyle (str, optional): Linestyle for the mean vertical lines.
+        colors (tuple, optional): Tuple of colors to cycle through for the plots.
+        density_plot_func (Callable, optional): Function to use for density plotting.
+        density_plot_kwargs (dict, optional): Additional keyword arguments for density_plot_func.
+        text_kwargs (dict, optional): Additional keyword arguments for plt.text.
+        mean_line_kwargs (dict, optional): Additional keyword arguments for plt.axvline.
+
+    Example:
+
+        >>> import numpy as np
+        >>> data_dict = {
+        ...     'dist1': np.random.normal(0, 1, 100),
+        ...     'dist2': np.random.normal(5, 2, 100)
+        ... }
+        >>> density_distribution(data_dict)
+        >>> # This will plot the density distributions of dist1 and dist2 with vertical lines at their means.
+
+        >>> fig, ax = plt.subplots()
+        >>> density_distribution(data_dict, ax=ax, display_location_text=False, colors=('red', 'blue'))
+        >>> # This will plot the density distributions on the provided axis.
+        
+    """
+    # Define default colors and linestyle
+    colors_cycle = itertools.cycle(colors)
+
+    # Ensure data_dict is a dictionary
+    data_dict = ensure_dict(data_dict)
+
+    # Create a new figure and axis if ax is not provided
+    if ax is None:
+        fig, ax = plt.subplots()
+
+    # Plot density plots and add vertical lines for the mean of each distribution
+    for label, array in data_dict.items():
+        color = next(colors_cycle)
+        density_plot_func(
+            array, label=label, color=color, ax=ax, **(density_plot_kwargs or {})
+        )
+
+        # Make lines thicker if there are any lines plotted
+        if ax.lines:
+            ax.lines[-1].set_linewidth(line_width)
+
+        # Calculate and display location value
+        if location_func:
+            mean_value = location_func(array)
+            linestyle = location_linestyle
+
+            # Get axvline kwargs for the current label
+            if axvline_kwargs and label in axvline_kwargs:
+                kwargs = axvline_kwargs[label]
+                color = kwargs.get('color', color)
+                linestyle = kwargs.get('linestyle', linestyle)
+
+            # Add vertical line for the location
+            ax.axvline(
+                mean_value, color=color, linestyle=linestyle, **(mean_line_kwargs or {})
+            )
+
+        if display_location_text:
+            text_kwargs = dict(
+                (('x', 0.05), ('y', 0.05), ('bbox', dict(facecolor='white', alpha=0.5)))
+            )
+            # Add text box displaying the mean of each distribution
+            text_str = "\n".join(
+                [f"{label}: {np.mean(array):.2f}" for label, array in data_dict.items()]
+            )
+            ax.text(
+                s=text_str,
+                transform=ax.transAxes,
+                **text_kwargs,
+            )
+
+    # Add legend
+    ax.legend()
 
 
 def scatter_and_color_according_to_y(
@@ -49,7 +172,7 @@ def scatter_and_color_according_to_y(
     super_alpha=10,
     cmap_col='viridis',
     *args,
-    **kwargs
+    **kwargs,
 ):
     """
     :param X: an array of feature vectors
@@ -143,9 +266,9 @@ def scatter_and_color_according_to_y(
         else:
             X = X[:, :proj_dim]
 
-    if col is 'rainbow':
+    if col == 'rainbow':
         colors = matplotlib.cm.rainbow(np.linspace(0, 1, n_tags))
-    if col is 'random':
+    if col == 'random':
         colors = matplotlib.colors.hsv_to_rgb(np.random.rand(n_tags, 3))
 
     if projection == '1d':
@@ -165,7 +288,7 @@ def scatter_and_color_according_to_y(
                     linewidths=0.05,
                     marker='+',
                     *args,
-                    **kwargs
+                    **kwargs,
                 )
                 if legend:
                     handle = mpatches.Patch(color=c, label=i)
@@ -191,7 +314,7 @@ def scatter_and_color_according_to_y(
                     c=[c],
                     alpha=alpha,
                     *args,
-                    **kwargs
+                    **kwargs,
                 )
                 if legend:
                     handle = mpatches.Patch(color=c, label=i)
@@ -235,7 +358,7 @@ def scatter_and_color_according_to_y(
                 c=y,
                 alpha=alpha,
                 *args,
-                **kwargs
+                **kwargs,
             )
             fig.colorbar(p)
 
