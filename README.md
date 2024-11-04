@@ -153,7 +153,7 @@ Plot this with all the defaults:
 density_distribution(data_dict)
 ```
 
-![image](https://github.com/user-attachments/assets/8062469d-564e-40f4-9b94-9db1f4ab1e04)
+![image](https://github.com/i2mint/oplot/raw/main/https://github.com/user-attachments/assets/8062469d-564e-40f4-9b94-9db1f4ab1e04)
 
 
 Plot this with a bunch of configurations:
@@ -182,7 +182,7 @@ ax.set_title('Customized Density Plot')
 plt.show()
 ```
 
-![image](https://github.com/user-attachments/assets/a105d82e-7c35-41ea-a9a4-b276ed845ca9)
+![image](https://github.com/i2mint/oplot/raw/main/https://github.com/user-attachments/assets/a105d82e-7c35-41ea-a9a4-b276ed845ca9)
 
 
 
