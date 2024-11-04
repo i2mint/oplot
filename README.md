@@ -41,7 +41,7 @@ taking an ax as input and drawing something on it.
 
 For example:
 
-![](https://github.com/i2mint/oplot/readme_plots/Screen_Shot_2021-01-06_at_06.23.21.png)
+![](https://github.com/i2mint/oplot/blob/master/readme_plots/Screen_Shot_2021-01-06_at_06.23.21.png)
 
 ```
 from oplot import ax_func_to_plot
@@ -93,7 +93,7 @@ y = [sigmoid_map(i) for i in x]
 
 plt.plot(x, y)
 ```
-<img src="https://github.com/i2mint/oplot/readme_plots/Screen Shot 2021-01-06 at 07.21.26.png" width="320">
+<img src="https://github.com/i2mint/oplot/blob/master/readme_plots/Screen Shot 2021-01-06 at 07.21.26.png" width="320">
 
 
 # outlier_scores.py
@@ -107,7 +107,7 @@ from oplot import plot_scores_and_zones
 scores = np.random.random(200)
 plot_scores_and_zones(scores, zones=[0, 0.25, 0.5, 0.9])
 ```
-<img src="https://github.com/i2mint/oplot/readme_plots/Screen_Shot_2021-01-06_at_08.32.16.png" width="320">
+<img src="https://github.com/i2mint/oplot/blob/master/readme_plots/Screen_Shot_2021-01-06_at_08.32.16.png" width="320">
 
 find_prop_markers, get_confusion_zone_percentiles and get_confusion_zones_std provides tools
 to find statistically meaningfull zones.
@@ -124,7 +124,7 @@ b) the aligned spectra
 
 Parameters allows to add vertical markers to the plot like in the example below.
 
-<img src="https://github.com/i2mint/oplot/readme_plots/Screen_Shot_2021-01-06_at_09.08.55.png" width="800">
+<img src="https://github.com/i2mint/oplot/blob/master/readme_plots/Screen_Shot_2021-01-06_at_09.08.55.png" width="800">
 
 
 # plot_data_set.py
@@ -211,7 +211,7 @@ scatter_and_color_according_to_y(X, y,
 
 
 
-<img src="https://github.com/i2mint/oplot/readme_plots/Screen_Shot_2021-01-06_at_11.36.02.png" width="320">
+<img src="https://github.com/i2mint/oplot/blob/master/readme_plots/Screen_Shot_2021-01-06_at_11.36.02.png" width="320">
 
 ```
 from oplot import scatter_and_color_according_to_y
@@ -222,7 +222,7 @@ scatter_and_color_according_to_y(X, y,
 ```
 
 
-<img src="https://github.com/i2mint/oplot/readme_plots/Screen_Shot_2021-01-06_at_11.36.07.png" width="320">
+<img src="https://github.com/i2mint/oplot/blob/master/readme_plots/Screen_Shot_2021-01-06_at_11.36.07.png" width="320">
 
 There is also that little one, which I don't remeber ever using and needs some work:
 
@@ -232,7 +232,7 @@ from oplot import side_by_side_bar
 side_by_side_bar([[1,2,3], [4,5,6]], list_names=['you', 'me'])
 ```
 
-<img src="https://github.com/i2mint/oplot/readme_plots/Screen_Shot_2021-01-06_at_11.56.42.png" width="320">
+<img src="https://github.com/i2mint/oplot/blob/master/readme_plots/Screen_Shot_2021-01-06_at_11.56.42.png" width="320">
 
 
 ## plot_stats.py
@@ -257,7 +257,7 @@ y[:50] = (y[:50] + 1) % 4
 
 plot_confusion_matrix(y, truth)
 ```
-<img src="https://github.com/i2mint/oplot/readme_plots/Screen_Shot_2021-01-06_at_12.59.52.png" width="320">
+<img src="https://github.com/i2mint/oplot/blob/master/readme_plots/Screen_Shot_2021-01-06_at_12.59.52.png" width="320">
 
 make_normal_outlier_timeline plots the scores with a color/legend given by
 the aligned list truth
@@ -270,7 +270,7 @@ tags = np.array(['normal'] * 20 + ['outlier'] * 15 + ['crazy'] * (len(scores) - 
 make_normal_outlier_timeline(tags, scores)
 ```
 
-<img src="https://github.com/i2mint/oplot/readme_plots/Screen_Shot_2021-01-07_at_05.46.39.png" width="800">
+<img src="https://github.com/i2mint/oplot/blob/master/readme_plots/Screen_Shot_2021-01-07_at_05.46.39.png" width="800">
 
 
 make_tables_tn_fp_fn_tp is convenient to obtain True Positive and False Negative
@@ -283,7 +283,7 @@ scores = np.arange(-1, 3, 0.1)
 truth = scores > 2.5
 make_tables_tn_fp_fn_tp(truth, scores)
 ```
-<img src="https://github.com/i2mint/oplot/readme_plots/Screen_Shot_2021-01-07_at_05.51.23.png" width="320">
+<img src="https://github.com/i2mint/oplot/blob/master/readme_plots/Screen_Shot_2021-01-07_at_05.51.23.png" width="320">
 
 render_mpl_table takes any pandas dataframe and turn it into a pretty plot 
 which can then be saved as a pdf for example.
@@ -296,7 +296,7 @@ truth = scores > 2.5
 df = make_tables_tn_fp_fn_tp(truth, scores)
 render_mpl_table(df)
 ```
-<img src="https://github.com/i2mint/oplot/readme_plots/Screen_Shot_2021-01-07_at_05.54.23.png" width="320">
+<img src="https://github.com/i2mint/oplot/blob/master/readme_plots/Screen_Shot_2021-01-07_at_05.54.23.png" width="320">
 
 plot_outlier_metric_curve plots ROC type. You specify which pair of statistics
 you want to display along with a list of scores and truth (0 for negative, 1 for positive).
@@ -313,7 +313,7 @@ pair_metrics={'x': 'recall', 'y': 'precision'}
 plot_outlier_metric_curve(truth, scores,
                           pair_metrics=pair_metrics)
 ```
-<img src="https://github.com/i2mint/oplot/readme_plots/Screen_Shot_2021-01-07_at_06.04.52.png" width="320">
+<img src="https://github.com/i2mint/oplot/blob/master/readme_plots/Screen_Shot_2021-01-07_at_06.04.52.png" width="320">
 
 
 There are many choices for the statistics to display, some pairs making more or
@@ -326,7 +326,7 @@ pair_metrics={'x': 'false_positive_rate', 'y': 'false_negative_rate'}
 plot_outlier_metric_curve(truth, scores,
                           pair_metrics=pair_metrics)
 ```
-<img src="https://github.com/i2mint/oplot/readme_plots/Screen_Shot_2021-01-07_at_06.11.13.png" width="320">
+<img src="https://github.com/i2mint/oplot/blob/master/readme_plots/Screen_Shot_2021-01-07_at_06.11.13.png" width="320">
 
 
 
