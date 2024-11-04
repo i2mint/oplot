@@ -70,9 +70,8 @@ def density_distribution(
     mean_line_kwargs: Optional[Dict[str, Any]] = None,
 ):
     """
-    Plot density plots for each array in data_dict and add vertical lines for the mean 
-    of each distribution.
-
+    Plots the density distribution of different data sets (arrays).
+    
     Args:
         data_dict (dict): A dictionary where keys are labels and values are arrays to plot.
         ax (plt.Axes, optional): Matplotlib Axes object to plot on. If None, a new figure and axis will be created.

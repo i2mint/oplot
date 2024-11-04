@@ -128,14 +128,74 @@ Parameters allows to add vertical markers to the plot like in the example below.
 
 # plot_data_set.py
 
-The main function here is scatter_and_color_according_to_y, which makes a 2d
+
+## density_distribution
+
+ Plots the density distribution of different data sets (arrays).
+
+Example of a data dict with data having two different distributions:
+
+```python
+data_dict = {
+    'Unicorn Heights': np.random.normal(loc=6, scale=1, size=1000),
+    'Dragon Wingspan': np.concatenate(
+        [
+            np.random.normal(loc=3, scale=0.5, size=500),
+            np.random.normal(loc=7, scale=0.5, size=500),
+        ]
+    ),
+}
+```
+
+Plot this with all the defaults:
+
+```python
+density_distribution(data_dict)
+```
+
+![image](https://github.com/user-attachments/assets/8062469d-564e-40f4-9b94-9db1f4ab1e04)
+
+
+Plot this with a bunch of configurations:
+
+```python
+from matplotlib import pyplot as plt
+
+# Plot with customized arguments
+fig, ax = plt.subplots(figsize=(10, 6))
+density_distribution(
+    data_dict,
+    ax=ax,
+    axvline_kwargs={
+        'Unicorn Heights': {'color': 'magenta', 'linestyle': ':'},
+        'Dragon Wingspan': {'color': 'cyan', 'linestyle': '-.'},
+    },
+    line_width=2,
+    location_linestyle='-.',
+    colors=('magenta', 'cyan'),
+    density_plot_func=sns.histplot,
+    density_plot_kwargs={'fill': True},
+    text_kwargs={'x': 0.1, 'y': 0.9, 'bbox': dict(facecolor='yellow', alpha=0.5)},
+    mean_line_kwargs={'linewidth': 2},
+)
+ax.set_title('Customized Density Plot')
+plt.show()
+```
+
+![image](https://github.com/user-attachments/assets/a105d82e-7c35-41ea-a9a4-b276ed845ca9)
+
+
+
+## scatter_and_color_according_to_y
+
+Next, we have a look at `scatter_and_color_according_to_y`, which makes a 2d
 or 3d scatter plot with color representing the class. The dimension reduction 
 is controled by the paramters projection and dim_reduct.
 
 from oplot.plot_data_set import scatter_and_color_according_to_y
 from sklearn.datasets import make_classification
 
-```
+```python
 from oplot import scatter_and_color_according_to_y
 
 X, y = make_classification(n_samples=500,
