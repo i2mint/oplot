@@ -1,28 +1,26 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>oplot.plot_data_set &mdash; oplot 0.1.11 documentation</title>
+  <title>oplot.plot_data_set &mdash; oplot 0.1.12 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
-        <script src="../../_static/toggleprompt.js"></script>
-        <script src="../../_static/clipboard.min.js"></script>
-        <script src="../../_static/copybutton.js"></script>
+      <script src="../../_static/jquery.js"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+      <script src="../../_static/doctools.js"></script>
+      <script src="../../_static/sphinx_highlight.js"></script>
+      <script src="../../_static/toggleprompt.js"></script>
+      <script src="../../_static/clipboard.min.js"></script>
+      <script src="../../_static/copybutton.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -59,6 +57,7 @@
 <li class="toctree-l1"><a class="reference internal" href="outlier_scores.html">oplot.outlier_scores</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plot_audio.html">oplot.plot_audio</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">oplot.plot_data_set</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#oplot.plot_data_set.density_distribution"><code class="docutils literal notranslate"><span class="pre">density_distribution()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#oplot.plot_data_set.ratio_comparison_vlines"><code class="docutils literal notranslate"><span class="pre">ratio_comparison_vlines()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#oplot.plot_data_set.save_figs_to_pdf"><code class="docutils literal notranslate"><span class="pre">save_figs_to_pdf()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#oplot.plot_data_set.scatter_and_color_according_to_y"><code class="docutils literal notranslate"><span class="pre">scatter_and_color_according_to_y()</span></code></a></li>
@@ -108,6 +107,46 @@ for i in range(len(y)):
 …    y_conf.append(1)
 y_conf = np.array(y_conf)</p>
 <p>scatter_and_color_according_to_y(X, y_conf, col=’rainbow’, dim_reduct=’LDA’, projection=’3d’)</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="oplot.plot_data_set.density_distribution">
+<span class="sig-prename descclassname"><span class="pre">oplot.plot_data_set.</span></span><span class="sig-name descname"><span class="pre">density_distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data_dict:</span> <span class="pre">~typing.Mapping[str,</span> <span class="pre">~numpy.ndarray],</span> <span class="pre">*,</span> <span class="pre">ax:</span> <span class="pre">~matplotlib.axes._axes.Axes</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">axvline_kwargs:</span> <span class="pre">~typing.Dict[str,</span> <span class="pre">~typing.Dict[str,</span> <span class="pre">~typing.Any]]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">line_width:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">3,</span> <span class="pre">location_func:</span> <span class="pre">~typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">mean&gt;,</span> <span class="pre">location_linestyle:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'--',</span> <span class="pre">display_location_text:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True,</span> <span class="pre">colors:</span> <span class="pre">tuple</span> <span class="pre">=</span> <span class="pre">('blue',</span> <span class="pre">'orange',</span> <span class="pre">'green',</span> <span class="pre">'red',</span> <span class="pre">'purple',</span> <span class="pre">'brown'),</span> <span class="pre">density_plot_func:</span> <span class="pre">~typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">kdeplot&gt;,</span> <span class="pre">density_plot_kwargs:</span> <span class="pre">~typing.Dict[str,</span> <span class="pre">~typing.Any]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">text_kwargs:</span> <span class="pre">~typing.Dict[str,</span> <span class="pre">~typing.Any]</span> <span class="pre">|</span> <span class="pre">~typing.Iterable[~typing.Tuple[str,</span> <span class="pre">~typing.Any]]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">(('x',</span> <span class="pre">0.05),</span> <span class="pre">('y',</span> <span class="pre">0.05),</span> <span class="pre">('bbox',</span> <span class="pre">{'facecolor':</span> <span class="pre">'white',</span> <span class="pre">'alpha':</span> <span class="pre">0.5})),</span> <span class="pre">mean_line_kwargs:</span> <span class="pre">~typing.Dict[str,</span> <span class="pre">~typing.Any]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_data_set.html#density_distribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oplot.plot_data_set.density_distribution" title="Permalink to this definition"></a></dt>
+<dd><p>Plots the density distribution of different data sets (arrays).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_dict</strong> (<em>dict</em>) – A dictionary where keys are labels and values are arrays to plot.</p></li>
+<li><p><strong>ax</strong> (<em>plt.Axes</em><em>, </em><em>optional</em>) – Matplotlib Axes object to plot on. If None, a new figure and axis will be created.</p></li>
+<li><p><strong>axvline_kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – A dictionary where keys are labels and values
+are dictionaries of axvline kwargs.
+If not provided, default colors and linestyle will be used.</p></li>
+<li><p><strong>line_width</strong> (<em>int</em><em>, </em><em>optional</em>) – Width of the density plot lines.</p></li>
+<li><p><strong>display_means</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to display the means as text on the plot.</p></li>
+<li><p><strong>means_linestyle</strong> (<em>str</em><em>, </em><em>optional</em>) – Linestyle for the mean vertical lines.</p></li>
+<li><p><strong>colors</strong> (<em>tuple</em><em>, </em><em>optional</em>) – Tuple of colors to cycle through for the plots.</p></li>
+<li><p><strong>density_plot_func</strong> (<em>Callable</em><em>, </em><em>optional</em>) – Function to use for density plotting.</p></li>
+<li><p><strong>density_plot_kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional keyword arguments for density_plot_func.</p></li>
+<li><p><strong>text_kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional keyword arguments for plt.text.</p></li>
+<li><p><strong>mean_line_kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional keyword arguments for plt.axvline.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span>
+<span class="gp">... </span>    <span class="s1">&#39;dist1&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="s1">&#39;dist2&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">density_distribution</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># This will plot the density distributions of dist1 and dist2 with vertical lines at their means.</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">density_distribution</span><span class="p">(</span><span class="n">data_dict</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">display_location_text</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># This will plot the density distributions on the provided axis.</span>
+</pre></div>
+</div>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="oplot.plot_data_set.ratio_comparison_vlines">
 <span class="sig-prename descclassname"><span class="pre">oplot.plot_data_set.</span></span><span class="sig-name descname"><span class="pre">ratio_comparison_vlines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'b'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'k'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/plot_data_set.html#ratio_comparison_vlines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oplot.plot_data_set.ratio_comparison_vlines" title="Permalink to this definition"></a></dt>

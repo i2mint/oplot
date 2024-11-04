@@ -47,7 +47,7 @@ def ensure_dict(obj: Any) -> Mapping:
         if isinstance(obj, Iterable):
             return dict(enumerate(obj))
         else:
-            raise ValueError(f"Cannot convert {obj} to a dictionary.")
+            raise ValueError(f'Cannot convert {obj} to a dictionary.')
 
 
 def density_distribution(
@@ -144,13 +144,11 @@ def density_distribution(
                 (('x', 0.05), ('y', 0.05), ('bbox', dict(facecolor='white', alpha=0.5)))
             )
             # Add text box displaying the mean of each distribution
-            text_str = "\n".join(
-                [f"{label}: {np.mean(array):.2f}" for label, array in data_dict.items()]
+            text_str = '\n'.join(
+                [f'{label}: {np.mean(array):.2f}' for label, array in data_dict.items()]
             )
             ax.text(
-                s=text_str,
-                transform=ax.transAxes,
-                **text_kwargs,
+                s=text_str, transform=ax.transAxes, **text_kwargs,
             )
 
     # Add legend
