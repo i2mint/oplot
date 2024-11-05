@@ -1,7 +1,6 @@
-# Oplot is a repository for all our existing and future python plotting related tools.
 
-Feel free to modify/improve any of the functions. Most of them are work in progress
-yet already very convenient. Below is a demo of the type of plots you can get.
+`oplot` is a medley of various plotting and visualization functions, with 
+`matplotlib` and `seaborn` in the background.
 
 
 # matrix.py
@@ -26,6 +25,7 @@ heatmap(d)
 <img src="https://user-images.githubusercontent.com/1906276/127305086-94c54108-4ff2-471d-b808-89e0ae0f51d9.png" width="320">
 
 Lot's more control is available. Signature is
+
 ```python
 (X, y=None, col_labels=None, figsize=None, cmap=None, return_gcf=False, 
 ax=None, xlabel_top=True, ylabel_left=True, xlabel_bottom=True, 
@@ -43,6 +43,7 @@ For example:
 
 ![](https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_06.23.21.png) oplot import ax_func_to_plot
 
+```python
 # ax_func just takes a matplotlib axix and draws something on it
 def ax_func(ax):
     ax.plot([1, 5, 3])
@@ -77,7 +78,7 @@ over a predefined range, allowing for little "distortion" over a range of
 particular interest.
 
 
-```
+```python
 from oplot import make_ui_score_mapping
 import numpy as np
 
@@ -90,6 +91,7 @@ y = [sigmoid_map(i) for i in x]
 
 plt.plot(x, y)
 ```
+
 <img src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen Shot 2021-01-06 at 07.21.26.png" width="320">
 
 
@@ -98,7 +100,7 @@ plt.plot(x, y)
 This module contains functions to plot outlier scores with colors corresponding
 to chosen thresholds.
 
-```
+```python
 from oplot import plot_scores_and_zones
 
 scores = np.random.random(200)
@@ -210,7 +212,7 @@ scatter_and_color_according_to_y(X, y,
 
 <img src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_11.36.02.png" width="320">
 
-```
+```python
 from oplot import scatter_and_color_according_to_y
 
 scatter_and_color_according_to_y(X, y,
@@ -223,7 +225,7 @@ scatter_and_color_according_to_y(X, y,
 
 There is also that little one, which I don't remeber ever using and needs some work:
 
-```
+```python
 from oplot import side_by_side_bar
 
 side_by_side_bar([[1,2,3], [4,5,6]], list_names=['you', 'me'])
@@ -239,7 +241,7 @@ results.
 The confusion matrix is a classic easy one, below is a modification of an
 sklearn function:
 
-```
+```python
 from oplot.plot_stats import plot_confusion_matrix
 from sklearn.datasets import make_classification
 
@@ -254,12 +256,13 @@ y[:50] = (y[:50] + 1) % 4
 
 plot_confusion_matrix(y, truth)
 ```
+
 <img src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_12.59.52.png" width="320">
 
-make_normal_outlier_timeline plots the scores with a color/legend given by
+`make_normal_outlier_timeline` plots the scores with a color/legend given by
 the aligned list truth
 
-```
+```python
 from oplot.plot_stats import make_normal_outlier_timeline
 
 scores = np.arange(-1, 3, 0.1)
@@ -270,22 +273,23 @@ make_normal_outlier_timeline(tags, scores)
 <img src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_05.46.39.png" width="800">
 
 
-make_tables_tn_fp_fn_tp is convenient to obtain True Positive and False Negative
+`make_tables_tn_fp_fn_tp` is convenient to obtain True Positive and False Negative
 tables. The range of thresholds is induced from the data.
 
-```
+```python
 from oplot.plot_stats import make_tables_tn_fp_fn_tp
 
 scores = np.arange(-1, 3, 0.1)
 truth = scores > 2.5
 make_tables_tn_fp_fn_tp(truth, scores)
 ```
+
 <img src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_05.51.23.png" width="320">
 
-render_mpl_table takes any pandas dataframe and turn it into a pretty plot 
+`render_mpl_table` takes any pandas dataframe and turn it into a pretty plot 
 which can then be saved as a pdf for example.
 
-```
+```python
 from oplot.plot_stats import make_tables_tn_fp_fn_tp, render_mpl_table
 
 scores = np.arange(-1, 3, 0.1)
@@ -295,11 +299,11 @@ render_mpl_table(df)
 ```
 <img src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_05.54.23.png" width="320">
 
-plot_outlier_metric_curve plots ROC type. You specify which pair of statistics
+`plot_outlier_metric_curve` plots ROC type. You specify which pair of statistics
 you want to display along with a list of scores and truth (0 for negative, 1 for positive).
 The chance line is computed and displayed by default and the total area is returned.
 
-```
+```python
 from oplot.plot_stats import plot_outlier_metric_curve
 
 # list of scores with higher average scores for positive events
@@ -310,19 +314,21 @@ pair_metrics={'x': 'recall', 'y': 'precision'}
 plot_outlier_metric_curve(truth, scores,
                           pair_metrics=pair_metrics)
 ```
+
 <img src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_06.04.52.png" width="320">
 
 
 There are many choices for the statistics to display, some pairs making more or
 less sense, some not at all.
 
-```
+```python
 from oplot.plot_stats import plot_outlier_metric_curve
 
 pair_metrics={'x': 'false_positive_rate', 'y': 'false_negative_rate'}
 plot_outlier_metric_curve(truth, scores,
                           pair_metrics=pair_metrics)
 ```
+
 <img src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_06.11.13.png" width="320">
 
 
@@ -330,7 +336,7 @@ plot_outlier_metric_curve(truth, scores,
 
 The full list of usable statistics along with synonymous:
 
-```
+```python
 # all these scores except for MCC gives a score between 0 and 1.
 # I normalized MMC into what I call NNMC in order to keep the same scale for all.
 base_statistics_dict = {'TPR': lambda tn, fp, fn, tp: tp / (tp + fn),
