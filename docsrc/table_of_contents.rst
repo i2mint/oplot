@@ -10,6 +10,7 @@
    module_docs/oplot/outlier_scores
    module_docs/oplot/plot_audio
    module_docs/oplot/plot_data_set
+   module_docs/oplot/plot_mappings
    module_docs/oplot/plot_stats
    module_docs/oplot/ui_scores_mapping
    module_docs/oplot/util
