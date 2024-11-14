@@ -1,5 +1,6 @@
 """Plot mappings (e.g. dicts, Series, etc.)"""
 
+
 def dict_bar_plot(
     d: dict,
     title='',
@@ -16,7 +17,7 @@ def dict_bar_plot(
 ):
     """
     Plot a bar plot from a dictionary.
-    
+
     Parameters
 
     d : dict or pd.Series
@@ -24,7 +25,7 @@ def dict_bar_plot(
     title : str
         Title of the plot.
     figsize : tuple
-        Size of the plot. 
+        Size of the plot.
     numeric_x_axis : bool
         If True, x-axis is treated as numeric.
     xlabel : str
@@ -40,9 +41,9 @@ def dict_bar_plot(
     annotations_font_size_width_factor : float
         Factor to adjust font size based on bar width.
     annotations_rotation : int
-        Rotation of annotations.    
-    
-    
+        Rotation of annotations.
+
+
     """
     import seaborn as sns
     import pandas as pd
@@ -118,12 +119,14 @@ def dict_bar_plot(
     # Add annotations if provided
     if annotations:
         if annotations_cutoff_length:
+
             def new_annotations():
                 for k, v in annotations.items():
                     if len(v) > annotations_cutoff_length:
                         yield k, v[:annotations_cutoff_length] + '...'
                     else:
                         yield k, v
+
             annotations = dict(new_annotations())
 
         y_offset = y_max * 0.01  # Small offset above the bar
@@ -134,8 +137,10 @@ def dict_bar_plot(
                 y_pos = bar.get_height() + y_offset
                 if annotations_font_size is None:
                     # Adjust font size based on bar width
-                    annotations_font_size = max(8, bar.get_width() * annotations_font_size_width_factor)
-                
+                    annotations_font_size = max(
+                        8, bar.get_width() * annotations_font_size_width_factor
+                    )
+
                 plt.text(
                     x_pos,
                     y_pos,
@@ -150,9 +155,3 @@ def dict_bar_plot(
 
     plt.show()
 
-
-t = grouped_by_year['number_of_songs'].to_dict()
-annotations = {2015: 'First year', 2020: 'Last year'}
-annotations = {k: v[0] for k, v in grouped_by_year['name_and_artist'].to_dict().items()}
-
-dict_bar_plot(t, annotations=annotations, annotations_cutoff_length=20, title='Number of songs per year')
