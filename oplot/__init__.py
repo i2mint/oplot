@@ -20,3 +20,4 @@ from oplot.matrix import (
     plot_simil_mat_with_labels,
     hierarchical_cluster_sorted_heatmap,
 )
+from oplot.plot_mappings import dict_bar_plot
