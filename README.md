@@ -445,6 +445,9 @@ ax.set_title('KDE Plot with Boundary Condition: y ≤ x')
 plt.show()
 ```
 
+![image](https://github.com/user-attachments/assets/4c67d06f-0907-4a9e-9b95-2f12870a205e)
+
+
 ## Plot Without Boundary Condition
 
 
@@ -466,6 +469,10 @@ ax.set_title('KDE Plot without Boundary Condition')
 # Show the plot
 plt.show()
 ```
+
+
+![image](https://github.com/user-attachments/assets/8ea779cf-7dc0-4aae-a3e1-194abf2046bd)
+
 
 ### Output
 
@@ -501,6 +508,9 @@ plt.show()
 ```
 
 
+![image](https://github.com/user-attachments/assets/32d06bc2-cd9f-4680-88ec-5dd3d9a79abd)
+
+
 ## Circular Boundary Condition
 
 
@@ -526,4 +536,8 @@ ax.set_title('KDE Plot with Circular Boundary Condition')
 # Show the plot
 plt.show()
 ```
-a
+
+
+![image](https://github.com/user-attachments/assets/e28fe762-98fe-4401-8c69-0863d176da78)
+
+
