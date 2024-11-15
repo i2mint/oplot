@@ -59,14 +59,20 @@ def kdeplot_w_boundary_condition(
     >>> import numpy as np
     >>> import pandas as pd
     >>> import matplotlib.pyplot as plt
-    >>> # Generate sample data
+    
+    Generate sample data
+
     >>> np.random.seed(42)
     >>> x = np.random.normal(0, 1, 500)
     >>> y = np.random.normal(0, 1, 500)
     >>> data = pd.DataFrame({'x': x, 'y': y})
-    >>> # Define a boundary condition
+    
+    Define a boundary condition
+    
     >>> boundary_condition = lambda X, Y: Y <= X
-    >>> # Plot using the custom KDE function
+    
+    Plot using the custom KDE function
+    
     >>> ax = kdeplot_w_boundary_condition(
     ...     data=data,
     ...     x='x',
@@ -76,6 +82,7 @@ def kdeplot_w_boundary_condition(
     ...     cmap='viridis',
     ...     levels=15
     ... )
+
     """
 
     if ax is None:
@@ -139,11 +146,6 @@ def kdeplot_w_boundary_condition(
     # Plot the density
     if ax is None:
         ax = plt.gca()
-
-    # Plotting the contours
-    levels = kwargs.pop('levels', 10)
-    fill = kwargs.pop('fill', True)
-    cmap = kwargs.pop('cmap', None)
 
     if fill:
         contour_func = ax.contourf

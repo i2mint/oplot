@@ -420,6 +420,7 @@ data = pd.DataFrame({'x': x, 'y': y})
 ## Plot with Boundary Condition `y ≤ x`
 
 ```python
+from oplot import kdeplot_w_boundary_condition
 import matplotlib.pyplot as plt
 
 # Define the boundary condition function
@@ -442,10 +443,12 @@ ax.set_title('KDE Plot with Boundary Condition: y ≤ x')
 
 # Show the plot
 plt.show()
+```
 
-Plot Without Boundary Condition
+## Plot Without Boundary Condition
 
-# Plot without boundary condition
+
+```python
 ax = kdeplot_w_boundary_condition(
     data=data,
     x='x',
@@ -495,9 +498,13 @@ ax.set_title('KDE Plot with Boundary Condition: y ≥ x')
 
 # Show the plot
 plt.show()
+```
 
-Circular Boundary Condition
 
+## Circular Boundary Condition
+
+
+```python
 # Define a circular boundary condition function
 boundary_condition = lambda X, Y: (X - 2)**2 + (Y - 2)**2 <= 3**2
 
@@ -519,61 +526,4 @@ ax.set_title('KDE Plot with Circular Boundary Condition')
 # Show the plot
 plt.show()
 ```
-
-## With Datetime Data
-
-If you want to test the function with datetime data, here’s how you might do it:
-
-```python
-import pandas as pd
-
-# Generate datetime data for x
-date_start = pd.to_datetime('2021-01-01')
-x_dates = pd.date_range(date_start, periods=len(x), freq='D')
-
-# Use the original y values
-data_datetime = pd.DataFrame({'x': x_dates, 'y': y})
-
-# Define a boundary condition (e.g., y ≤ day number of x)
-boundary_condition = lambda X, Y: Y <= X.toordinal()
-
-# Plot using the custom KDE function
-ax = kdeplot_w_boundary_condition(
-    data=data_datetime,
-    x='x',
-    y='y',
-    boundary_condition=boundary_condition,
-    fill=True,
-    cmap='viridis',
-    figsize=(8, 6),
-    levels=15
-)
-
-# Add a title
-ax.set_title('KDE Plot with Datetime x-axis')
-
-# Show the plot
-plt.show()
-```
-
-### Notes:
-
-	•	Datetime Handling: When dealing with datetime data, ensure that the boundary condition function can handle datetime objects. In the example above, X.toordinal() converts datetime objects to ordinal numbers for comparison.
-	•	Boundary Conditions: You can define any custom boundary condition as a function that accepts two arrays X and Y and returns a boolean array of the same shape.
-
-## Conclusion
-
-By generating sample data from two Gaussian distributions and applying different boundary conditions, you can thoroughly test the kdeplot_w_boundary_condition function.
-
-This function allows you to:
-	•	Visualize KDE plots with custom boundary conditions: Mask out regions of the density plot based on any logical condition you define.
-	•	Handle datetime data appropriately: Convert datetime objects for KDE computation and format axes labels for plotting.
-	•	Customize the plot: Adjust parameters such as levels, fill, cmap, and figsize to tailor the visualization to your needs.
-
-Feel free to experiment with different datasets and boundary conditions to explore the capabilities of the function further. If you encounter any issues or have questions about specific parts of the code, please let me know, and I’ll be happy to help!
-
-
-
-
-
-
+a
