@@ -1,5 +1,6 @@
 """Plots that are frequently useful to us"""
 
+from oplot.distributions import kdeplot_w_boundary_condition
 from oplot.multiplots import ax_func_to_plot
 from oplot.ui_scores_mapping import make_ui_score_mapping
 from oplot.outlier_scores import plot_scores_and_zones
