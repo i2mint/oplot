@@ -3,6 +3,7 @@
    :caption: Contents:
 
    module_docs/oplot
+   module_docs/oplot/distributions
    module_docs/oplot/matrix
    module_docs/oplot/multi_plot
    module_docs/oplot/multiplots

@@ -88,7 +88,7 @@ def kdeplot_w_boundary_condition(
     if ax is None:
         fig, ax = plt.subplots(figsize=figsize)
     else:
-        assert figsize is None, "figsize should not be provided if ax is provided."
+        assert figsize is None, 'figsize should not be provided if ax is provided.'
 
     if boundary_condition is None:
         return sns.kdeplot(
@@ -102,7 +102,7 @@ def kdeplot_w_boundary_condition(
         if isinstance(y, str):
             y = data[y]
     if x is None or y is None:
-        raise ValueError("Both x and y must be provided.")
+        raise ValueError('Both x and y must be provided.')
 
     x = np.asarray(x)
     y = np.asarray(y)
@@ -141,7 +141,7 @@ def kdeplot_w_boundary_condition(
         mask = boundary_condition(X, Y)
         Z = np.where(mask, Z, 0)
     else:
-        raise ValueError("A boundary_condition function must be provided.")
+        raise ValueError('A boundary_condition function must be provided.')
 
     # Plot the density
     if ax is None:
@@ -177,4 +177,3 @@ def kdeplot_w_boundary_condition(
     ax.set_ylabel(kwargs.get('ylabel', 'y'))
 
     return ax
-
