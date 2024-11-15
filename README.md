@@ -537,7 +537,4 @@ ax.set_title('KDE Plot with Circular Boundary Condition')
 plt.show()
 ```
 
-
-![image](https://github.com/user-attachments/assets/e28fe762-98fe-4401-8c69-0863d176da78)
-
-
+<img src="https://github.com/user-attachments/assets/e28fe762-98fe-4401-8c69-0863d176da78" width="320">
