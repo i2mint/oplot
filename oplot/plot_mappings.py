@@ -154,4 +154,3 @@ def dict_bar_plot(
                 print(f"Warning: Key '{key}' in annotations not found in d dict.")
 
     plt.show()
-
