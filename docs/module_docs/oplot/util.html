@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>oplot.util &mdash; oplot 0.1.19 documentation</title>
+  <title>oplot.util &mdash; oplot 0.1.20 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
@@ -60,7 +60,10 @@
 <li class="toctree-l1"><a class="reference internal" href="plot_stats.html">oplot.plot_stats</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ui_scores_mapping.html">oplot.ui_scores_mapping</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">oplot.util</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#oplot.util.cast_inputs"><code class="docutils literal notranslate"><span class="pre">cast_inputs()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#oplot.util.fixed_step_chunker"><code class="docutils literal notranslate"><span class="pre">fixed_step_chunker()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#oplot.util.float_to_timestamp"><code class="docutils literal notranslate"><span class="pre">float_to_timestamp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#oplot.util.timestamp_to_float"><code class="docutils literal notranslate"><span class="pre">timestamp_to_float()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -92,6 +95,29 @@
   <section id="module-oplot.util">
 <span id="oplot-util"></span><h1>oplot.util<a class="headerlink" href="#module-oplot.util" title="Permalink to this heading"></a></h1>
 <p>Utils</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="oplot.util.cast_inputs">
+<span class="sig-prename descclassname"><span class="pre">oplot.util.</span></span><span class="sig-name descname"><span class="pre">cast_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args_cast</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs_cast</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/util.html#cast_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oplot.util.cast_inputs" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a decorator that casts the arguments and keyword arguments of a function
+according to specified casting functions.</p>
+<section id="parameters">
+<h2>Parameters:<a class="headerlink" href="#parameters" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt><a href="#id1"><span class="problematic" id="id2">*</span></a>args_cast<span class="classifier">list of callables</span></dt><dd><p>Functions to cast positional arguments (in order).</p>
+</dd>
+<dt><a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs_cast<span class="classifier">dict of callables</span></dt><dd><p>Mapping of keyword argument names to casting functions.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h2>Returns:<a class="headerlink" href="#returns" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>decorator<span class="classifier">function</span></dt><dd><p>A decorator that wraps the function with argument casting.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="oplot.util.fixed_step_chunker">
 <span class="sig-prename descclassname"><span class="pre">oplot.util.</span></span><span class="sig-name descname"><span class="pre">fixed_step_chunker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">it</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chk_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chk_step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_tail</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/util.html#fixed_step_chunker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oplot.util.fixed_step_chunker" title="Permalink to this definition"></a></dt>
@@ -261,6 +287,51 @@ with items of various types in the iterator</p>
 </pre></div>
 </div>
 </div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oplot.util.float_to_timestamp">
+<span class="sig-prename descclassname"><span class="pre">oplot.util.</span></span><span class="sig-name descname"><span class="pre">float_to_timestamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">floats</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Timestamp('1970-01-01</span> <span class="pre">00:00:00')</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/util.html#float_to_timestamp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oplot.util.float_to_timestamp" title="Permalink to this definition"></a></dt>
+<dd><p>Convert an array-like of floats (days since reference datetime) back to Timestamps.</p>
+<section id="id5">
+<h2>Parameters:<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>floats<span class="classifier">array-like</span></dt><dd><p>A sequence of floats representing days since the reference datetime.</p>
+</dd>
+<dt>reference_time<span class="classifier">pd.Timestamp, optional</span></dt><dd><p>The fixed reference datetime (default: ‘1970-01-01’).</p>
+</dd>
+</dl>
+</section>
+<section id="id6">
+<h2>Returns:<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>pd.Series</dt><dd><p>Array of pandas Timestamps.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oplot.util.timestamp_to_float">
+<span class="sig-prename descclassname"><span class="pre">oplot.util.</span></span><span class="sig-name descname"><span class="pre">timestamp_to_float</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timestamps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Timestamp('1970-01-01</span> <span class="pre">00:00:00')</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/oplot/util.html#timestamp_to_float"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oplot.util.timestamp_to_float" title="Permalink to this definition"></a></dt>
+<dd><p>Convert an array-like of Timestamps to absolute floats representing days
+since a fixed reference datetime.</p>
+<section id="id7">
+<h2>Parameters:<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>timestamps<span class="classifier">array-like</span></dt><dd><p>A sequence of pandas Timestamps or datetime-like objects.</p>
+</dd>
+<dt>reference_time<span class="classifier">pd.Timestamp, optional</span></dt><dd><p>The fixed reference datetime (default: ‘1970-01-01’).</p>
+</dd>
+</dl>
+</section>
+<section id="id8">
+<h2>Returns:<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h2>
+<dl class="simple">
+<dt>numpy.ndarray</dt><dd><p>Array of floats representing days since the reference datetime.</p>
+</dd>
+</dl>
+</section>
 </dd></dl>
 
 </section>

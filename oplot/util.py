@@ -54,7 +54,7 @@ def cast_inputs(*args_cast, **kwargs_cast):
     return decorator
 
 
-def timestamp_to_float(timestamps, reference_time=pd.Timestamp("1970-01-01")):
+def timestamp_to_float(timestamps, reference_time=pd.Timestamp('1970-01-01')):
     """
     Convert an array-like of Timestamps to absolute floats representing days
     since a fixed reference datetime.
@@ -75,7 +75,7 @@ def timestamp_to_float(timestamps, reference_time=pd.Timestamp("1970-01-01")):
     return (timestamps - reference_time).dt.total_seconds() / (24 * 3600)
 
 
-def float_to_timestamp(floats, reference_time=pd.Timestamp("1970-01-01")):
+def float_to_timestamp(floats, reference_time=pd.Timestamp('1970-01-01')):
     """
     Convert an array-like of floats (days since reference datetime) back to Timestamps.
 
