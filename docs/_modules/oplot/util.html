@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>oplot.util &mdash; oplot 0.1.19 documentation</title>
+  <title>oplot.util &mdash; oplot 0.1.20 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
@@ -88,8 +88,102 @@
 <span></span><span class="sd">&quot;&quot;&quot;Utils&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="n">DFLT_DIRPATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># --------------------------------------------------------------------------------------</span>
+<span class="c1"># Data conversion</span>
+
+
+<div class="viewcode-block" id="cast_inputs"><a class="viewcode-back" href="../../module_docs/oplot/util.html#oplot.util.cast_inputs">[docs]</a><span class="k">def</span> <span class="nf">cast_inputs</span><span class="p">(</span><span class="o">*</span><span class="n">args_cast</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs_cast</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a decorator that casts the arguments and keyword arguments of a function</span>
+<span class="sd">    according to specified casting functions.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    ----------</span>
+<span class="sd">    *args_cast : list of callables</span>
+<span class="sd">        Functions to cast positional arguments (in order).</span>
+<span class="sd">    **kwargs_cast : dict of callables</span>
+<span class="sd">        Mapping of keyword argument names to casting functions.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    -------</span>
+<span class="sd">    decorator : function</span>
+<span class="sd">        A decorator that wraps the function with argument casting.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapped_func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="c1"># Apply positional argument casts</span>
+            <span class="n">cast_args</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="nb">tuple</span><span class="p">(</span>
+                    <span class="n">cast</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">if</span> <span class="n">cast</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">arg</span>
+                    <span class="k">for</span> <span class="n">arg</span><span class="p">,</span> <span class="n">cast</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">args_cast</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="o">+</span> <span class="n">args</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">args_cast</span><span class="p">)</span> <span class="p">:]</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Apply keyword argument casts</span>
+            <span class="n">cast_kwargs</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">key</span><span class="p">:</span> <span class="n">kwargs_cast</span><span class="p">[</span><span class="n">key</span><span class="p">](</span><span class="n">value</span><span class="p">)</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">kwargs_cast</span> <span class="k">else</span> <span class="n">value</span>
+                <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">cast_args</span><span class="p">,</span> <span class="o">**</span><span class="n">cast_kwargs</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">wrapped_func</span>
+
+    <span class="k">return</span> <span class="n">decorator</span></div>
+
+
+<div class="viewcode-block" id="timestamp_to_float"><a class="viewcode-back" href="../../module_docs/oplot/util.html#oplot.util.timestamp_to_float">[docs]</a><span class="k">def</span> <span class="nf">timestamp_to_float</span><span class="p">(</span><span class="n">timestamps</span><span class="p">,</span> <span class="n">reference_time</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;1970-01-01&#39;</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert an array-like of Timestamps to absolute floats representing days</span>
+<span class="sd">    since a fixed reference datetime.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    ----------</span>
+<span class="sd">    timestamps : array-like</span>
+<span class="sd">        A sequence of pandas Timestamps or datetime-like objects.</span>
+<span class="sd">    reference_time : pd.Timestamp, optional</span>
+<span class="sd">        The fixed reference datetime (default: &#39;1970-01-01&#39;).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        Array of floats representing days since the reference datetime.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">timestamps</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">timestamps</span><span class="p">)</span>  <span class="c1"># Ensure it&#39;s a Series for pandas operations</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">timestamps</span> <span class="o">-</span> <span class="n">reference_time</span><span class="p">)</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="p">(</span><span class="mi">24</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="float_to_timestamp"><a class="viewcode-back" href="../../module_docs/oplot/util.html#oplot.util.float_to_timestamp">[docs]</a><span class="k">def</span> <span class="nf">float_to_timestamp</span><span class="p">(</span><span class="n">floats</span><span class="p">,</span> <span class="n">reference_time</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span><span class="s1">&#39;1970-01-01&#39;</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert an array-like of floats (days since reference datetime) back to Timestamps.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    ----------</span>
+<span class="sd">    floats : array-like</span>
+<span class="sd">        A sequence of floats representing days since the reference datetime.</span>
+<span class="sd">    reference_time : pd.Timestamp, optional</span>
+<span class="sd">        The fixed reference datetime (default: &#39;1970-01-01&#39;).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.Series</span>
+<span class="sd">        Array of pandas Timestamps.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">floats</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">floats</span><span class="p">)</span>  <span class="c1"># Ensure it&#39;s a numpy array</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">reference_time</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">floats</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">*</span> <span class="mi">3600</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">))</span></div>
+
+
+<span class="c1"># --------------------------------------------------------------------------------------</span>
+<span class="c1"># Segmentation (a.k.a. batching, chunking)</span>
 
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">islice</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Iterable</span>
@@ -104,168 +198,168 @@
     <span class="n">return_tail</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">      a function to get (an iterator of) segments (bt, tt) of chunks from an iterator (or list)</span>
-<span class="sd">      of the for [it_1, it_2...], given a chk_size, chk_step, and a start_at and a stop_at.</span>
-<span class="sd">      The start_at, stop_at act like slices indices for a list: start_at is included and stop_at is excluded</span>
+<span class="sd">    a function to get (an iterator of) segments (bt, tt) of chunks from an iterator (or list)</span>
+<span class="sd">    of the for [it_1, it_2...], given a chk_size, chk_step, and a start_at and a stop_at.</span>
+<span class="sd">    The start_at, stop_at act like slices indices for a list: start_at is included and stop_at is excluded</span>
 
-<span class="sd">      :param it: iterator of elements of any type</span>
-<span class="sd">      :param chk_size: length of the chunks</span>
-<span class="sd">      :param chk_step: step between chunks</span>
-<span class="sd">      :param start_at: index of the first term of the iterator at which we begin building the chunks (inclusive)</span>
-<span class="sd">      :param stop_at: index of the last term from the iterator included in the chunks</span>
-<span class="sd">      :param return_tail: if set to false, only the chunks with max element with index less than stop_at are yielded</span>
-<span class="sd">      if set to true, any chunks with minimum index value no more than stop_at are returned but they contain</span>
-<span class="sd">      term with index no more than stop_at</span>
-<span class="sd">      :return: an iterator of the chunks</span>
+<span class="sd">    :param it: iterator of elements of any type</span>
+<span class="sd">    :param chk_size: length of the chunks</span>
+<span class="sd">    :param chk_step: step between chunks</span>
+<span class="sd">    :param start_at: index of the first term of the iterator at which we begin building the chunks (inclusive)</span>
+<span class="sd">    :param stop_at: index of the last term from the iterator included in the chunks</span>
+<span class="sd">    :param return_tail: if set to false, only the chunks with max element with index less than stop_at are yielded</span>
+<span class="sd">    if set to true, any chunks with minimum index value no more than stop_at are returned but they contain</span>
+<span class="sd">    term with index no more than stop_at</span>
+<span class="sd">    :return: an iterator of the chunks</span>
 
-<span class="sd">      1) If stop_at is not None and return_tail is False:</span>
-<span class="sd">         will return all full chunks with maximum element index less than stop_at</span>
-<span class="sd">         or until the iterator is exhausted. Only full chunks are returned here.</span>
+<span class="sd">    1) If stop_at is not None and return_tail is False:</span>
+<span class="sd">       will return all full chunks with maximum element index less than stop_at</span>
+<span class="sd">       or until the iterator is exhausted. Only full chunks are returned here.</span>
 
-<span class="sd">      2) If stop_at is not None and return_tail is True:</span>
-<span class="sd">         will return all full chunks as above along with possibly cut off chunks</span>
-<span class="sd">         containing one term whose index is stop_at-1 or one (last) term which is the</span>
-<span class="sd">         last element of it</span>
+<span class="sd">    2) If stop_at is not None and return_tail is True:</span>
+<span class="sd">       will return all full chunks as above along with possibly cut off chunks</span>
+<span class="sd">       containing one term whose index is stop_at-1 or one (last) term which is the</span>
+<span class="sd">       last element of it</span>
 
-<span class="sd">      3) If stop_at is None and return_tail is False:</span>
-<span class="sd">         will return all full chunks with maximum element index less or equal to the last</span>
-<span class="sd">         element of it</span>
+<span class="sd">    3) If stop_at is None and return_tail is False:</span>
+<span class="sd">       will return all full chunks with maximum element index less or equal to the last</span>
+<span class="sd">       element of it</span>
 
-<span class="sd">      4) If stop_at is None and return_tail is True:</span>
-<span class="sd">         will return all full chunks with maximum element index less or equal to the last</span>
-<span class="sd">         element of it plus cut off chunks whose maximum term index is the last term of it</span>
+<span class="sd">    4) If stop_at is None and return_tail is True:</span>
+<span class="sd">       will return all full chunks with maximum element index less or equal to the last</span>
+<span class="sd">       element of it plus cut off chunks whose maximum term index is the last term of it</span>
 
-<span class="sd">        Examples:</span>
+<span class="sd">      Examples:</span>
 
-<span class="sd">        &gt;&gt;&gt; list(fixed_step_chunker([1,2,3,4,5,6,7], chk_size=3, chk_step=2))</span>
-<span class="sd">        [[1, 2, 3], [3, 4, 5], [5, 6, 7]]</span>
+<span class="sd">      &gt;&gt;&gt; list(fixed_step_chunker([1,2,3,4,5,6,7], chk_size=3, chk_step=2))</span>
+<span class="sd">      [[1, 2, 3], [3, 4, 5], [5, 6, 7]]</span>
 
-<span class="sd">        Testing chk_step &lt; chk_size with return_tail=TRUE, stop and start_at PRESENT</span>
-<span class="sd">        and stop_at SMALLER than the largest index of it</span>
+<span class="sd">      Testing chk_step &lt; chk_size with return_tail=TRUE, stop and start_at PRESENT</span>
+<span class="sd">      and stop_at SMALLER than the largest index of it</span>
 
-<span class="sd">        &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=1, start_at=2, stop_at=5, return_tail=True)</span>
-<span class="sd">        &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
-<span class="sd">        &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
-<span class="sd">        &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
-<span class="sd">        &gt;&gt;&gt; A  # and that thing is:</span>
-<span class="sd">        [[3, 4, 5], [4, 5], [5]]</span>
+<span class="sd">      &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=1, start_at=2, stop_at=5, return_tail=True)</span>
+<span class="sd">      &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
+<span class="sd">      &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
+<span class="sd">      &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
+<span class="sd">      &gt;&gt;&gt; A  # and that thing is:</span>
+<span class="sd">      [[3, 4, 5], [4, 5], [5]]</span>
 
-<span class="sd">        Testing chk_step &lt; chk_size with return_tail=FALSE, stop and start_at PRESENT</span>
-<span class="sd">        and stop_at SMALLER than the largest index of it</span>
+<span class="sd">      Testing chk_step &lt; chk_size with return_tail=FALSE, stop and start_at PRESENT</span>
+<span class="sd">      and stop_at SMALLER than the largest index of it</span>
 
-<span class="sd">        &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=1, start_at=2, stop_at=5, return_tail=False)</span>
-<span class="sd">        &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
-<span class="sd">        &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
-<span class="sd">        &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
-<span class="sd">        &gt;&gt;&gt; A  # and that thing is:</span>
-<span class="sd">        [[3, 4, 5]]</span>
+<span class="sd">      &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=1, start_at=2, stop_at=5, return_tail=False)</span>
+<span class="sd">      &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
+<span class="sd">      &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
+<span class="sd">      &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
+<span class="sd">      &gt;&gt;&gt; A  # and that thing is:</span>
+<span class="sd">      [[3, 4, 5]]</span>
 
-<span class="sd">        Testing chk_step &lt; chk_size with return_tail=TRUE, stop and start_at PRESENT</span>
-<span class="sd">        and stop_at LARGER than the largest index of it</span>
+<span class="sd">      Testing chk_step &lt; chk_size with return_tail=TRUE, stop and start_at PRESENT</span>
+<span class="sd">      and stop_at LARGER than the largest index of it</span>
 
-<span class="sd">        &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=1, start_at=1, stop_at=20, return_tail=True)</span>
-<span class="sd">        &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
-<span class="sd">        &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
-<span class="sd">        &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
-<span class="sd">        &gt;&gt;&gt; A  # and that thing is:</span>
-<span class="sd">        [[2, 3, 4], [3, 4, 5], [4, 5, 6], [5, 6, 7], [6, 7, 8], [7, 8, 9], [8, 9, 10], [9, 10, 11], [10, 11, 12], [11, 12, 13], [12, 13, 14], [13, 14, 15], [14, 15, 16], [15, 16], [16]]</span>
+<span class="sd">      &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=1, start_at=1, stop_at=20, return_tail=True)</span>
+<span class="sd">      &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
+<span class="sd">      &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
+<span class="sd">      &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
+<span class="sd">      &gt;&gt;&gt; A  # and that thing is:</span>
+<span class="sd">      [[2, 3, 4], [3, 4, 5], [4, 5, 6], [5, 6, 7], [6, 7, 8], [7, 8, 9], [8, 9, 10], [9, 10, 11], [10, 11, 12], [11, 12, 13], [12, 13, 14], [13, 14, 15], [14, 15, 16], [15, 16], [16]]</span>
 
-<span class="sd">        Testing chk_step &lt; chk_size with return_tail=FALSE, stop and start_at PRESENT</span>
-<span class="sd">        and stop_at LARGER than the largest index of it</span>
+<span class="sd">      Testing chk_step &lt; chk_size with return_tail=FALSE, stop and start_at PRESENT</span>
+<span class="sd">      and stop_at LARGER than the largest index of it</span>
 
-<span class="sd">        &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=1, start_at=1, stop_at=20, return_tail=False)</span>
-<span class="sd">        &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
-<span class="sd">        &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
-<span class="sd">        &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
-<span class="sd">        &gt;&gt;&gt; A  # and that thing is:</span>
-<span class="sd">        [[2, 3, 4], [3, 4, 5], [4, 5, 6], [5, 6, 7], [6, 7, 8], [7, 8, 9], [8, 9, 10], [9, 10, 11], [10, 11, 12], [11, 12, 13], [12, 13, 14], [13, 14, 15], [14, 15, 16]]</span>
+<span class="sd">      &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=1, start_at=1, stop_at=20, return_tail=False)</span>
+<span class="sd">      &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
+<span class="sd">      &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
+<span class="sd">      &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
+<span class="sd">      &gt;&gt;&gt; A  # and that thing is:</span>
+<span class="sd">      [[2, 3, 4], [3, 4, 5], [4, 5, 6], [5, 6, 7], [6, 7, 8], [7, 8, 9], [8, 9, 10], [9, 10, 11], [10, 11, 12], [11, 12, 13], [12, 13, 14], [13, 14, 15], [14, 15, 16]]</span>
 
-<span class="sd">        Testing chk_step = chk_size with return_tail=TRUE, stop and start_at PRESENT</span>
-<span class="sd">        and stop_at SMALLER than the largest index of it</span>
+<span class="sd">      Testing chk_step = chk_size with return_tail=TRUE, stop and start_at PRESENT</span>
+<span class="sd">      and stop_at SMALLER than the largest index of it</span>
 
-<span class="sd">        &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=3, start_at=1, stop_at=7, return_tail=True)</span>
-<span class="sd">        &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
-<span class="sd">        &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
-<span class="sd">        &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
-<span class="sd">        &gt;&gt;&gt; A  # and that thing is:</span>
-<span class="sd">        [[2, 3, 4], [5, 6, 7]]</span>
+<span class="sd">      &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=3, start_at=1, stop_at=7, return_tail=True)</span>
+<span class="sd">      &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
+<span class="sd">      &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
+<span class="sd">      &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
+<span class="sd">      &gt;&gt;&gt; A  # and that thing is:</span>
+<span class="sd">      [[2, 3, 4], [5, 6, 7]]</span>
 
-<span class="sd">        Testing chk_size &gt; len(it) with return_tail=False, no stop_at or start_at</span>
+<span class="sd">      Testing chk_size &gt; len(it) with return_tail=False, no stop_at or start_at</span>
 
-<span class="sd">        &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=30, chk_step=3, start_at=None, stop_at=None, return_tail=False)</span>
-<span class="sd">        &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
-<span class="sd">        &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
-<span class="sd">        &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
-<span class="sd">        &gt;&gt;&gt; A  # and that thing is:</span>
-<span class="sd">        []</span>
+<span class="sd">      &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=30, chk_step=3, start_at=None, stop_at=None, return_tail=False)</span>
+<span class="sd">      &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
+<span class="sd">      &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
+<span class="sd">      &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
+<span class="sd">      &gt;&gt;&gt; A  # and that thing is:</span>
+<span class="sd">      []</span>
 
-<span class="sd">        Testing chk_size &gt; len(it) with return_tail=True, no stop_at or start_at</span>
+<span class="sd">      Testing chk_size &gt; len(it) with return_tail=True, no stop_at or start_at</span>
 
-<span class="sd">        &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=30, chk_step=3, start_at=None, stop_at=None, return_tail=True)</span>
-<span class="sd">        &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
-<span class="sd">        &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
-<span class="sd">        &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
-<span class="sd">        &gt;&gt;&gt; A  # and that thing is:</span>
-<span class="sd">        [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [10, 11, 12, 13, 14, 15, 16], [13, 14, 15, 16], [16]]</span>
+<span class="sd">      &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=30, chk_step=3, start_at=None, stop_at=None, return_tail=True)</span>
+<span class="sd">      &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
+<span class="sd">      &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
+<span class="sd">      &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
+<span class="sd">      &gt;&gt;&gt; A  # and that thing is:</span>
+<span class="sd">      [[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [7, 8, 9, 10, 11, 12, 13, 14, 15, 16], [10, 11, 12, 13, 14, 15, 16], [13, 14, 15, 16], [16]]</span>
 
-<span class="sd">        Testing chk_step &gt; chk_size with return_tail=TRUE, stop and start_at PRESENT</span>
-<span class="sd">        and stop_at SMALLER than the largest index of it</span>
+<span class="sd">      Testing chk_step &gt; chk_size with return_tail=TRUE, stop and start_at PRESENT</span>
+<span class="sd">      and stop_at SMALLER than the largest index of it</span>
 
-<span class="sd">        &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=4, start_at=1, stop_at=7, return_tail=True)</span>
-<span class="sd">        &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
-<span class="sd">        &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
-<span class="sd">        &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
-<span class="sd">        &gt;&gt;&gt; A  # and that thing is:</span>
-<span class="sd">        [[2, 3, 4], [6, 7]]</span>
+<span class="sd">      &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=4, start_at=1, stop_at=7, return_tail=True)</span>
+<span class="sd">      &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
+<span class="sd">      &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
+<span class="sd">      &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
+<span class="sd">      &gt;&gt;&gt; A  # and that thing is:</span>
+<span class="sd">      [[2, 3, 4], [6, 7]]</span>
 
-<span class="sd">        Testing chk_step &gt; chk_size with return_tail=FALSE, stop and start_at PRESENT</span>
-<span class="sd">        and stop_at SMALLER than the largest index of it</span>
+<span class="sd">      Testing chk_step &gt; chk_size with return_tail=FALSE, stop and start_at PRESENT</span>
+<span class="sd">      and stop_at SMALLER than the largest index of it</span>
 
-<span class="sd">        &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=4, start_at=1, stop_at=7, return_tail=False)</span>
-<span class="sd">        &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
-<span class="sd">        &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
-<span class="sd">        &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
-<span class="sd">        &gt;&gt;&gt; A  # and that thing is:</span>
-<span class="sd">        [[2, 3, 4]]</span>
+<span class="sd">      &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=4, start_at=1, stop_at=7, return_tail=False)</span>
+<span class="sd">      &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
+<span class="sd">      &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
+<span class="sd">      &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
+<span class="sd">      &gt;&gt;&gt; A  # and that thing is:</span>
+<span class="sd">      [[2, 3, 4]]</span>
 
-<span class="sd">        Testing chk_step &gt; chk_size with return_tail=FALSE, stop and start_at NOT PRESENT</span>
+<span class="sd">      Testing chk_step &gt; chk_size with return_tail=FALSE, stop and start_at NOT PRESENT</span>
 
-<span class="sd">        &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=4, start_at=None, stop_at=None, return_tail=False)</span>
-<span class="sd">        &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
-<span class="sd">        &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
-<span class="sd">        &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
-<span class="sd">        &gt;&gt;&gt; A  # and that thing is:</span>
-<span class="sd">        [[1, 2, 3], [5, 6, 7], [9, 10, 11], [13, 14, 15]]</span>
+<span class="sd">      &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=4, start_at=None, stop_at=None, return_tail=False)</span>
+<span class="sd">      &gt;&gt;&gt; it = list(range(1, 17, 1))</span>
+<span class="sd">      &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
+<span class="sd">      &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
+<span class="sd">      &gt;&gt;&gt; A  # and that thing is:</span>
+<span class="sd">      [[1, 2, 3], [5, 6, 7], [9, 10, 11], [13, 14, 15]]</span>
 
-<span class="sd">        Testing chk_step &gt; chk_size with return_tail=TRUE, stop and start_at NOT PRESENT</span>
+<span class="sd">      Testing chk_step &gt; chk_size with return_tail=TRUE, stop and start_at NOT PRESENT</span>
 
-<span class="sd">        &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=4, start_at=None, stop_at=None, return_tail=True)</span>
-<span class="sd">        &gt;&gt;&gt; it = list(range(1, 19, 1))</span>
-<span class="sd">        &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
-<span class="sd">        &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
-<span class="sd">        &gt;&gt;&gt; A  # and that thing is:</span>
-<span class="sd">        [[1, 2, 3], [5, 6, 7], [9, 10, 11], [13, 14, 15], [17, 18]]</span>
+<span class="sd">      &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=4, start_at=None, stop_at=None, return_tail=True)</span>
+<span class="sd">      &gt;&gt;&gt; it = list(range(1, 19, 1))</span>
+<span class="sd">      &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
+<span class="sd">      &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
+<span class="sd">      &gt;&gt;&gt; A  # and that thing is:</span>
+<span class="sd">      [[1, 2, 3], [5, 6, 7], [9, 10, 11], [13, 14, 15], [17, 18]]</span>
 
-<span class="sd">        Testing chk_step &gt; chk_size with return_tail=TRUE, stop and start_at NOT PRESENT</span>
-<span class="sd">        with negative values in the iterator</span>
+<span class="sd">      Testing chk_step &gt; chk_size with return_tail=TRUE, stop and start_at NOT PRESENT</span>
+<span class="sd">      with negative values in the iterator</span>
 
-<span class="sd">        &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=4, start_at=None, stop_at=None, return_tail=True)</span>
-<span class="sd">        &gt;&gt;&gt; it = list(range(-10, 19, 1))</span>
-<span class="sd">        &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
-<span class="sd">        &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
-<span class="sd">        &gt;&gt;&gt; A  # and that thing is:</span>
-<span class="sd">        [[-10, -9, -8], [-6, -5, -4], [-2, -1, 0], [2, 3, 4], [6, 7, 8], [10, 11, 12], [14, 15, 16], [18]]</span>
+<span class="sd">      &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=4, start_at=None, stop_at=None, return_tail=True)</span>
+<span class="sd">      &gt;&gt;&gt; it = list(range(-10, 19, 1))</span>
+<span class="sd">      &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
+<span class="sd">      &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
+<span class="sd">      &gt;&gt;&gt; A  # and that thing is:</span>
+<span class="sd">      [[-10, -9, -8], [-6, -5, -4], [-2, -1, 0], [2, 3, 4], [6, 7, 8], [10, 11, 12], [14, 15, 16], [18]]</span>
 
-<span class="sd">        Testing chk_step &gt; chk_size with return_tail=TRUE, stop and start_at NOT PRESENT</span>
-<span class="sd">        with items of various types in the iterator</span>
+<span class="sd">      Testing chk_step &gt; chk_size with return_tail=TRUE, stop and start_at NOT PRESENT</span>
+<span class="sd">      with items of various types in the iterator</span>
 
-<span class="sd">        &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=2, start_at=None, stop_at=None, return_tail=True)</span>
-<span class="sd">        &gt;&gt;&gt; it = [&#39;a&#39;, 3, -10, 9.2, str, [1,2,3], set([10,20])]</span>
-<span class="sd">        &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
-<span class="sd">        &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
-<span class="sd">        &gt;&gt;&gt; A  # and that thing is:</span>
-<span class="sd">        [[&#39;a&#39;, 3, -10], [-10, 9.2, &lt;class &#39;str&#39;&gt;], [&lt;class &#39;str&#39;&gt;, [1, 2, 3], {10, 20}], [{10, 20}]]</span>
-<span class="sd">       &quot;&quot;&quot;</span>
+<span class="sd">      &gt;&gt;&gt; f = lambda it: fixed_step_chunker(it, chk_size=3, chk_step=2, start_at=None, stop_at=None, return_tail=True)</span>
+<span class="sd">      &gt;&gt;&gt; it = [&#39;a&#39;, 3, -10, 9.2, str, [1,2,3], set([10,20])]</span>
+<span class="sd">      &gt;&gt;&gt; A = list(f(it)); B = list(f(iter(it)));  # trying the function on it (a list) and iter(it) (and iterator)</span>
+<span class="sd">      &gt;&gt;&gt; assert A == B  # it and iter(it) should give the same thing!</span>
+<span class="sd">      &gt;&gt;&gt; A  # and that thing is:</span>
+<span class="sd">      [[&#39;a&#39;, 3, -10], [-10, 9.2, &lt;class &#39;str&#39;&gt;], [&lt;class &#39;str&#39;&gt;, [1, 2, 3], {10, 20}], [{10, 20}]]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">chk_step</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">chk_step</span> <span class="o">=</span> <span class="n">chk_size</span>
