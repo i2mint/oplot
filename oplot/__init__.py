@@ -21,3 +21,9 @@ from oplot.matrix import (
     hierarchical_cluster_sorted_heatmap,
 )
 from oplot.plot_mappings import dict_bar_plot
+from oplot.util import (
+    cast_inputs,  # A decorator to get versions of functions that cast some inputs before processing
+    timestamp_to_float,  # Convert a timestamp to a float
+    float_to_timestamp,  # Convert a float to a timestamp
+    fixed_step_chunker,  # Chunk a list into fixed-size chunks with a fixed sliding step
+)
