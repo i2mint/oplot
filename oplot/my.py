@@ -1,6 +1,6 @@
 """What matplotlib has already -- but with the interface I'd like"""
 
-from numpy import *
+import nympy as np
 import matplotlib.pylab as plt
 
 
@@ -19,7 +19,7 @@ def vlines(
 ):
     if ymax is None:
         ymax = x
-        x = arange(len(ymax))
+        x = np.arange(len(ymax))
 
         if ymax is None:
             raise ValueError('Need to specify ymax')
@@ -40,3 +40,5 @@ def vlines(
         data=data,
         **kwargs
     )
+
+
