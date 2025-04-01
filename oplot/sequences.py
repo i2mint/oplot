@@ -25,6 +25,7 @@ def bars(
     barplot_kwargs: dict = (),
     density_sigma: int = 20,
     density_line_kwargs: dict = (('color', 'black'),),
+    ax=None,  # Add an ax parameter
 ):
     """
     Create a customizable barplot with optional zero replacement and an overlayed density (smoothed) line.
@@ -75,6 +76,8 @@ def bars(
         (default is 20).
     density_line_kwargs : dict, optional
         Additional keyword arguments for styling the density line (default is { 'color': 'black' }).
+    ax : matplotlib.axes.Axes or None, optional
+        Axes object to draw the plot onto, otherwise creates a new figure and axes (default is None).
 
     Returns
     -------
@@ -82,7 +85,7 @@ def bars(
         The Axes object containing the final plot.
     """
     if y is None:
-        y = data 
+        y = data
         data = _data_frame_not_given
 
     if isinstance(y, (str, int)):
@@ -91,7 +94,7 @@ def bars(
 
     if density_line:  # need to compute this now, before changing y
         y_density = gaussian_filter1d(y, sigma=density_sigma)
-        
+
     # Determine zero replacement: if zero_thickness is None, enable it if x or hue is provided.
     if zero_thickness is None:
         zero_thickness = (x is not None) or (hue is not None)
@@ -114,14 +117,28 @@ def bars(
     # If the sentinel value was used, reset data to None.
     if data is _data_frame_not_given:
         data = None
-    ax = sns.barplot(
-        data=data, x=x, y=y, hue=hue, dodge=dodge, width=width, **dict(barplot_kwargs)
+
+    # Replace the implicit creation of axes by using the provided ax or creating a new one
+    if ax is None:
+        _, ax = plt.subplots(figsize=figsize)
+
+    # Use the provided ax for plotting
+    sns.barplot(
+        data=data,
+        x=x,
+        y=y,
+        hue=hue,
+        dodge=dodge,
+        width=width,
+        ax=ax,
+        **dict(barplot_kwargs),
     )
 
     if x_ticks is not None:
         ax.set_xticks(x_ticks)
 
-    if figsize is not None:
+    # Don't set figure size if ax was provided externally
+    if figsize is not None and ax is None:
         ax.figure.set_size_inches(*figsize)
     if title is not None:
         ax.set_title(title)
@@ -132,7 +149,15 @@ def bars(
 
     if density_line:
         y_density = gaussian_filter1d(y, sigma=density_sigma)
-        sns.lineplot(y=y_density, x=range(len(y)), ax=ax, **dict(density_line_kwargs))
+        if 'linewidth' in density_line_kwargs:
+            density_line_kwargs['linewidth'] = int(density_line_kwargs['linewidth'])
+
+        sns.lineplot(
+            y=y_density,
+            x=range(len(y)),
+            ax=ax,
+            **dict(density_line_kwargs),
+        )
 
     return ax
 
