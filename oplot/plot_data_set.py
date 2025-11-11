@@ -294,8 +294,8 @@ def scatter_and_color_according_to_y(
                         handles=handles, loc='center left', bbox_to_anchor=(1, 0.5)
                     )
         else:
-            ax.scatter(X[:, 0], X[:, second_index], c=y, alpha=alpha, *args, **kwargs)
-            ax.colorbar()
+            sc = ax.scatter(X[:, 0], X[:, second_index], c=y, alpha=alpha, *args, **kwargs)
+            fig.colorbar(sc, ax=ax)
 
     if projection == '2d':
         fig = plt.figure()
@@ -320,8 +320,8 @@ def scatter_and_color_according_to_y(
                         handles=handles, loc='center left', bbox_to_anchor=(1, 0.5)
                     )
         else:
-            ax.scatter(X[:, 0], X[:, second_index], c=y, alpha=alpha, *args, **kwargs)
-            ax.colorbar()
+            sc = ax.scatter(X[:, 0], X[:, second_index], c=y, alpha=alpha, *args, **kwargs)
+            fig.colorbar(sc, ax=ax)
 
     if projection == '3d':
         handles = []
