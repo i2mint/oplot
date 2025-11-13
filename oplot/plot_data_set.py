@@ -25,7 +25,8 @@ import warnings
 from os.path import expanduser
 from time import gmtime, strftime
 import datetime
-from typing import Any, Mapping, Iterable, Optional, Dict, Callable, Union, Tuple
+from typing import Any, Optional, Dict, Union, Tuple
+from collections.abc import Mapping, Iterable, Callable
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -53,21 +54,21 @@ def ensure_dict(obj: Any) -> Mapping:
 def density_distribution(
     data_dict: Mapping[str, np.ndarray],
     *,
-    ax: Optional[plt.Axes] = None,
-    axvline_kwargs: Optional[Dict[str, Dict[str, Any]]] = None,
+    ax: plt.Axes | None = None,
+    axvline_kwargs: dict[str, dict[str, Any]] | None = None,
     line_width: int = 3,
     location_func: Callable = np.mean,
     location_linestyle: str = '--',
     display_location_text: bool = True,
     colors: tuple = ('blue', 'orange', 'green', 'red', 'purple', 'brown'),
     density_plot_func: Callable = sns.kdeplot,
-    density_plot_kwargs: Optional[Dict[str, Any]] = None,
-    text_kwargs: Optional[Union[Dict[str, Any], Iterable[Tuple[str, Any]]]] = (
+    density_plot_kwargs: dict[str, Any] | None = None,
+    text_kwargs: dict[str, Any] | Iterable[tuple[str, Any]] | None = (
         ('x', 0.05),
         ('y', 0.05),
         ('bbox', dict(facecolor='white', alpha=0.5)),
     ),
-    mean_line_kwargs: Optional[Dict[str, Any]] = None,
+    mean_line_kwargs: dict[str, Any] | None = None,
 ):
     """
     Plots the density distribution of different data sets (arrays).
@@ -432,7 +433,7 @@ def side_by_side_bar(
     else:
         assert (
             len(colors) >= n_bars
-        ), "There's not enough colors for the number of bars ({})".format(n_bars)
+        ), f"There's not enough colors for the number of bars ({n_bars})"
     ax = plt.subplot(111)
     # making each of the bar plot
     for i, list_of_values_for_bars in enumerate(list_of_values_for_bars):

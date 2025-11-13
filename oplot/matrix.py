@@ -244,7 +244,7 @@ def labeled_heatmap(X, y=None, col_labels=None):
 DFLT_MAX_FIGSIZE = 11
 
 
-def get_figsize_to_fit(shape: Tuple[int, int], max_size=DFLT_MAX_FIGSIZE):
+def get_figsize_to_fit(shape: tuple[int, int], max_size=DFLT_MAX_FIGSIZE):
     """
     Calculate a proportional figsize based on the dimensions of the dataframe, with the larger dimension
     capped at `max_size`.
@@ -282,12 +282,12 @@ def heatmap_sns(
     ylabel_fontsize: int = 12,
     x_tick_fontsize: int = 10,
     y_tick_fontsize: int = 10,
-    figsize: Union[int, Tuple[int, int]] = DFLT_MAX_FIGSIZE,
+    figsize: int | tuple[int, int] = DFLT_MAX_FIGSIZE,
     x_tick_rotation: int = 90,
     y_tick_rotation: int = 0,
     show_colorbar: bool = False,
-    vert_lines: Union[int, list] = 5,
-    horiz_lines: Union[int, list] = 5,
+    vert_lines: int | list = 5,
+    horiz_lines: int | list = 5,
     linewidths: float = 0.5,
     linecolor: str = 'white',
     major_line_color: str = '#D3D3D3',
