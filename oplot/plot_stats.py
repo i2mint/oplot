@@ -396,7 +396,9 @@ def make_normal_outlier_timeline(
     scores = np.array(scores)
     y = np.array(y)
     if not y_order:
-        y_order = np.unique(y)
+        # Preserve insertion order instead of sorting
+        # Using dict.fromkeys() to maintain order (Python 3.7+)
+        y_order = list(dict.fromkeys(y))
     else:
         if set(np.unique(y)) != set(y_order):
             warnings.warn('y_order does not include the values present in y')
