@@ -1,8 +1,11 @@
 """Tests for oplot.plot_data_set module"""
 
+import warnings
+
 import pytest
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib import MatplotlibDeprecationWarning
 from matplotlib.axes import Axes
 
 from oplot.plot_data_set import (
@@ -111,6 +114,27 @@ class TestScatterAndColorAccordingToY:
         y = np.random.rand(50)
         scatter_and_color_according_to_y(X, y, projection='2d', dim_reduct='PCA')
         plt.close('all')
+
+    def test_scatter_with_float_y_emits_no_deprecation_warning(self):
+        """Continuous-y colouring must not rely on deprecated matplotlib APIs.
+
+        ``matplotlib.cm.get_cmap`` (a.k.a. ``plt.cm.get_cmap``) is deprecated
+        since matplotlib 3.7 and slated for removal in 3.11, which would turn
+        the float-``y`` branch into an ``AttributeError``.
+        """
+        np.random.seed(42)
+        X = np.random.rand(50, 4)
+        y = np.random.rand(50)
+        with warnings.catch_warnings(record=True) as recorded:
+            warnings.simplefilter('always')
+            scatter_and_color_according_to_y(X, y, projection='2d', dim_reduct='PCA')
+        plt.close('all')
+        deprecations = [
+            str(w.message)
+            for w in recorded
+            if issubclass(w.category, MatplotlibDeprecationWarning)
+        ]
+        assert not deprecations, f'deprecated matplotlib API used: {deprecations}'
 
     def test_scatter_1d(self):
         """Test 1D scatter plot"""

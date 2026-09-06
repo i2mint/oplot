@@ -220,7 +220,7 @@ def scatter_and_color_according_to_y(
 
     elif isinstance(y[0], float):
         legend = False
-        cm = plt.cm.get_cmap(cmap_col)
+        cm = plt.get_cmap(cmap_col)
         colors = None
         col = 'continuous'
         no_tag = True
