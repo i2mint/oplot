@@ -10,10 +10,10 @@ def plot_lines(
     ax,
     lines_loc,
     label=None,
-    color='r',
+    color="r",
     line_width=0.5,
-    line_style='-',
-    line_type='vert',
+    line_style="-",
+    line_type="vert",
     alpha=1,
 ):
     """
@@ -30,7 +30,7 @@ def plot_lines(
         line_type: 'vert' or 'horiz
 
     Examples:
-        
+
 
         An initial plot
 
@@ -48,9 +48,9 @@ def plot_lines(
 
     """
 
-    if line_type == 'vert':
+    if line_type == "vert":
         line_ = ax.axvline
-    if line_type == 'horiz':
+    if line_type == "horiz":
         line_ = ax.axhline
     for line in lines_loc:
         line_(
@@ -77,7 +77,7 @@ def plot_spectro(ax, wf, chk_size=2048, noverlap=0, sr=44100):
     ax.specgram(x=wf, NFFT=chk_size, noverlap=noverlap, Fs=sr)
 
 
-def plot_wf(ax, wf, wf_line_width=0.8, wf_color='b'):
+def plot_wf(ax, wf, wf_line_width=0.8, wf_color="b"):
     """
 
     :param ax:
@@ -108,7 +108,7 @@ def plot_wf_and_spectro(
     alpha_lines=None,
     n_tick_dec=None,
     wf_line_width=1,
-    wf_color='b',
+    wf_color="b",
     title=None,
     title_font_size=10,
 ):
@@ -141,7 +141,7 @@ def plot_wf_and_spectro(
     fig, ax = plt.subplots(2, 1, figsize=figsize)
 
     if n_tick_dec is None:
-        n_tick_dec = max(str(n_sec_per_tick)[::-1].find('.'), 1)
+        n_tick_dec = max(str(n_sec_per_tick)[::-1].find("."), 1)
 
     if n_sec_per_tick is None:
         # make a tick every 10% of the whole wf, roughly if possible, or every 1sec if 10% is less than 1sec
@@ -150,7 +150,7 @@ def plot_wf_and_spectro(
     # getting the ticks where we want them
     ticks_pos = range(0, len(wf), int(sr * n_sec_per_tick))
     ticks_labels = [
-        f'{round(n_sec_per_tick * i, n_tick_dec)}s' for i in range(len(ticks_pos))
+        f"{round(n_sec_per_tick * i, n_tick_dec)}s" for i in range(len(ticks_pos))
     ]
 
     # TODO: udnerstand wtf is going on here
@@ -179,7 +179,6 @@ def plot_wf_and_spectro(
     ]
 
     for lines_idx, lines_loc in enumerate(vert_lines_samp):
-
         if alpha_lines is None:
             alpha_line = None
         else:
@@ -189,7 +188,7 @@ def plot_wf_and_spectro(
         else:
             vert_line_label = vert_lines_labels[lines_idx]
         if vert_lines_colors is None:
-            vert_lines_color = 'r'
+            vert_lines_color = "r"
         else:
             vert_lines_color = vert_lines_colors[lines_idx]
         if vert_lines_width is None:
@@ -197,7 +196,7 @@ def plot_wf_and_spectro(
         else:
             vert_line_width = vert_lines_width[lines_idx]
         if vert_lines_style is None:
-            vert_line_style = '-'
+            vert_line_style = "-"
         else:
             vert_line_style = vert_lines_style[lines_idx]
 
@@ -208,7 +207,7 @@ def plot_wf_and_spectro(
             color=vert_lines_color,
             line_width=vert_line_width,
             line_style=vert_line_style,
-            line_type='vert',
+            line_type="vert",
             alpha=alpha_line,
         )
         first = False
@@ -241,7 +240,7 @@ def plot_wf_with_lines(
     alpha_lines=None,
     n_tick_dec=None,
     wf_line_width=1,
-    wf_color='b',
+    wf_color="b",
     title=None,
     title_font_size=10,
 ):
@@ -269,7 +268,7 @@ def plot_wf_with_lines(
     fig, ax = plt.subplots(1, 1, figsize=figsize)
 
     if n_tick_dec is None:
-        n_tick_dec = max(str(n_sec_per_tick)[::-1].find('.'), 1)
+        n_tick_dec = max(str(n_sec_per_tick)[::-1].find("."), 1)
 
     if n_sec_per_tick is None:
         # make a tick every 10% of the whole wf, roughly if possible, or every 1sec if 10% is less than 1sec
@@ -278,7 +277,7 @@ def plot_wf_with_lines(
     # getting the ticks where we want them
     ticks_pos = range(0, len(wf), int(sr * n_sec_per_tick))
     ticks_labels = [
-        f'{round(n_sec_per_tick * i, n_tick_dec)}s' for i in range(len(ticks_pos))
+        f"{round(n_sec_per_tick * i, n_tick_dec)}s" for i in range(len(ticks_pos))
     ]
 
     # TODO: udnerstand wtf is going on here
@@ -307,17 +306,16 @@ def plot_wf_with_lines(
     ]
 
     for lines_idx, lines_loc in enumerate(vert_lines_samp):
-
         if alpha_lines is None:
             alpha_line = None
         else:
             alpha_line = alpha_lines[lines_idx]
         if vert_lines_labels is None:
-            vert_line_label = ''
+            vert_line_label = ""
         else:
             vert_line_label = vert_lines_labels[lines_idx]
         if vert_lines_colors is None:
-            vert_lines_color = 'r'
+            vert_lines_color = "r"
         else:
             vert_lines_color = vert_lines_colors[lines_idx]
         if vert_lines_width is None:
@@ -325,7 +323,7 @@ def plot_wf_with_lines(
         else:
             vert_line_width = vert_lines_width[lines_idx]
         if vert_lines_style is None:
-            vert_line_style = '-'
+            vert_line_style = "-"
         else:
             vert_line_style = vert_lines_style[lines_idx]
 
@@ -336,7 +334,7 @@ def plot_wf_with_lines(
             color=vert_lines_color,
             line_width=vert_line_width,
             line_style=vert_line_style,
-            line_type='vert',
+            line_type="vert",
             alpha=alpha_line,
         )
 

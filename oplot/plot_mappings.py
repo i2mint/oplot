@@ -3,7 +3,7 @@
 
 def dict_bar_plot(
     d: dict,
-    title='',
+    title="",
     figsize=(12, 5),
     *,
     numeric_x_axis=None,
@@ -87,9 +87,9 @@ def dict_bar_plot(
             x_sorted,
             y_sorted,
             width=bar_width,
-            align='center',
-            edgecolor='black',
-            color='skyblue',
+            align="center",
+            edgecolor="black",
+            color="skyblue",
         )
 
         # Map original keys to bars
@@ -97,9 +97,9 @@ def dict_bar_plot(
         y_max = max(y_sorted)
     else:
         # Use seaborn.barplot for non-numerical keys
-        sns.set_style('whitegrid')
-        sns.set_context('talk')
-        sns.set_palette('muted')
+        sns.set_style("whitegrid")
+        sns.set_context("talk")
+        sns.set_palette("muted")
         plt.figure(figsize=figsize)
         ax = sns.barplot(x=x, y=y)
         sns.despine()
@@ -110,7 +110,7 @@ def dict_bar_plot(
         y_max = max(y)
 
     plt.title(title)
-    plt.grid(axis='y', linestyle='dotted', color='black')
+    plt.grid(axis="y", linestyle="dotted", color="black")
     if xlabel:
         plt.xlabel(xlabel)
     if ylabel:
@@ -123,7 +123,7 @@ def dict_bar_plot(
             def new_annotations():
                 for k, v in annotations.items():
                     if len(v) > annotations_cutoff_length:
-                        yield k, v[:annotations_cutoff_length] + '...'
+                        yield k, v[:annotations_cutoff_length] + "..."
                     else:
                         yield k, v
 
@@ -145,8 +145,8 @@ def dict_bar_plot(
                     x_pos,
                     y_pos,
                     text,
-                    ha='center',
-                    va='bottom',
+                    ha="center",
+                    va="bottom",
                     fontsize=annotations_font_size,
                     rotation=annotations_rotation,
                 )

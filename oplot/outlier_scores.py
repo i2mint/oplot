@@ -1,7 +1,6 @@
 """Visualizing various regions in a list of scores. E.g. adding colored regions
 corresponding to percentiles to a timeline of outlier scores"""
 
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -27,7 +26,7 @@ def sort_scores_truth(scores, truth):
 def get_confused_part(sorted_scores, sorted_truth):
     """
     Return the scores in the confused zone, i.e. scores whose range of values contains normal and anormal samples.
-    
+
     :param sorted_scores: an array of outlier scores, higher is more abnormal
     :param sorted_truth:  an array of 0 for normal and 1 for abnormal
     :return: an array of scores
@@ -43,7 +42,7 @@ def get_confused_part(sorted_scores, sorted_truth):
 def find_last_normal_idx(sorted_truth):
     """
     Return the index of the last 0 in the sorted_truth array
-    
+
     :param sorted_truth: an array of 0 or 1
     :return: an int, the last idx of a 0 in sorted_truth
     """
@@ -141,7 +140,7 @@ def get_percentiles(scores, n_percentiles):
 def get_confusion_zones_percentiles(scores, truth, n_percentiles=1):
     """
     Get the percentiles of the normal scores in the confused zone.
-    
+
     :param scores: an array of outlier scores
     :param truth: an array of 0 for normal and 1 for abnormal
     :param n_percentiles: the number of percentiles required
@@ -181,7 +180,7 @@ def get_confusion_zones_percentiles(scores, truth, n_percentiles=1):
 def get_confusion_zones_std(scores, truth=None, n_zones=6, std_per_zone=0.5):
     """
     Get a list of zones boundaries based on the standard deviation of the normal scores
-    
+
     :param scores: an array of outlier scores
     :param truth: an array of 0 for normal and 1 for abnormal
     :param n_zones: the number of zones required
@@ -206,7 +205,7 @@ def plot_scores_and_zones(scores, zones, box=None, title=None, lines=True):
     """
     Plot the scores on a timeline with color according to which zone they belong too, green under the first
     value in zones, red above the last and a shade from green to red.
-    
+
     :param scores: an array of scores
     :param zones: the limit of the zones
     :param box: limits to display the plot
@@ -236,9 +235,9 @@ def plot_scores_and_zones(scores, zones, box=None, title=None, lines=True):
     ]
     yellow_scores = scores[yellow_idx]
 
-    ax.scatter(x=green_idx, y=green_scores, c='g')
+    ax.scatter(x=green_idx, y=green_scores, c="g")
     # plotting all the red points:
-    ax.scatter(x=red_idx, y=red_scores, c='r')
+    ax.scatter(x=red_idx, y=red_scores, c="r")
 
     # plotting everything in between:
     if len(zones) > 2:
@@ -250,9 +249,9 @@ def plot_scores_and_zones(scores, zones, box=None, title=None, lines=True):
         color = yellow_scores
     if lines:
         for zone in zones:
-            ax.axhline(zone, color='b', lw=0.08, alpha=1)
+            ax.axhline(zone, color="b", lw=0.08, alpha=1)
 
-    ax.scatter(x=yellow_idx, y=yellow_scores, c=color, cmap='Wistia')
+    ax.scatter(x=yellow_idx, y=yellow_scores, c=color, cmap="Wistia")
     if box is None:
         min_ = np.min(scores)
         max_ = np.max(scores)

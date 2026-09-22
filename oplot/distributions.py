@@ -22,18 +22,18 @@ def kdeplot_w_boundary_condition(
     fill=True,
     cmap=None,
     figsize=None,
-    **kwargs
+    **kwargs,
 ):
     """
     Custom KDE plot that respects a boundary condition and handles datetime data.
 
-    This is useful because sometimes when you have data that fits certain conditions 
-    (e.g. y <= x), you want to plot the KDE of the data but only where the condition 
+    This is useful because sometimes when you have data that fits certain conditions
+    (e.g. y <= x), you want to plot the KDE of the data but only where the condition
     is met. If you scatter the data, you can see the boundary, but the KDE plot will
     not respect the boundary. This function allows you to specify a boundary condition
-    and only plot the KDE where the condition is met. 
+    and only plot the KDE where the condition is met.
 
-    
+
 
     Parameters:
     - data: DataFrame, optional
@@ -59,20 +59,20 @@ def kdeplot_w_boundary_condition(
     >>> import numpy as np
     >>> import pandas as pd
     >>> import matplotlib.pyplot as plt
-    
+
     Generate sample data
 
     >>> np.random.seed(42)
     >>> x = np.random.normal(0, 1, 500)
     >>> y = np.random.normal(0, 1, 500)
     >>> data = pd.DataFrame({'x': x, 'y': y})
-    
+
     Define a boundary condition
-    
+
     >>> boundary_condition = lambda X, Y: Y <= X
-    
+
     Plot using the custom KDE function
-    
+
     >>> ax = kdeplot_w_boundary_condition(
     ...     data=data,
     ...     x='x',
@@ -88,7 +88,7 @@ def kdeplot_w_boundary_condition(
     if ax is None:
         fig, ax = plt.subplots(figsize=figsize)
     else:
-        assert figsize is None, 'figsize should not be provided if ax is provided.'
+        assert figsize is None, "figsize should not be provided if ax is provided."
 
     if boundary_condition is None:
         return sns.kdeplot(
@@ -102,7 +102,7 @@ def kdeplot_w_boundary_condition(
         if isinstance(y, str):
             y = data[y]
     if x is None or y is None:
-        raise ValueError('Both x and y must be provided.')
+        raise ValueError("Both x and y must be provided.")
 
     x = np.asarray(x)
     y = np.asarray(y)
@@ -126,7 +126,7 @@ def kdeplot_w_boundary_condition(
     xmin, xmax = x_values.min(), x_values.max()
     ymin, ymax = y_values.min(), y_values.max()
 
-    num_grid_points = kwargs.pop('gridsize', 100)
+    num_grid_points = kwargs.pop("gridsize", 100)
     x_grid = np.linspace(xmin, xmax, num_grid_points)
     y_grid = np.linspace(ymin, ymax, num_grid_points)
     X, Y = np.meshgrid(x_grid, y_grid)
@@ -141,7 +141,7 @@ def kdeplot_w_boundary_condition(
         mask = boundary_condition(X, Y)
         Z = np.where(mask, Z, 0)
     else:
-        raise ValueError('A boundary_condition function must be provided.')
+        raise ValueError("A boundary_condition function must be provided.")
 
     # Plot the density
     if ax is None:
@@ -173,7 +173,7 @@ def kdeplot_w_boundary_condition(
         plt.setp(ax.get_yticklabels(), rotation=45)
 
     # Set labels
-    ax.set_xlabel(kwargs.get('xlabel', 'x'))
-    ax.set_ylabel(kwargs.get('ylabel', 'y'))
+    ax.set_xlabel(kwargs.get("xlabel", "x"))
+    ax.set_ylabel(kwargs.get("ylabel", "y"))
 
     return ax

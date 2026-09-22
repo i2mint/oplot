@@ -7,16 +7,17 @@
 
 ```python
 import pandas as pd
-from oplot import heatmap 
+from oplot import heatmap
+
 d = pd.DataFrame(
     [
-        {'A': 1, 'B': 3, 'C': 1},
-        {'A': 1, 'B': 3, 'C': 2},
-        {'A': 5, 'B': 5, 'C': 4},
-        {'A': 3, 'B': 2, 'C': 2},
-        {'A': 1, 'B': 3, 'C': 3},
-        {'A': 4, 'B': 3, 'C': 1},
-        {'A': 5, 'B': 1, 'C': 3},
+        {"A": 1, "B": 3, "C": 1},
+        {"A": 1, "B": 3, "C": 2},
+        {"A": 5, "B": 5, "C": 4},
+        {"A": 3, "B": 2, "C": 2},
+        {"A": 1, "B": 3, "C": 3},
+        {"A": 4, "B": 3, "C": 1},
+        {"A": 5, "B": 1, "C": 3},
     ]
 )
 heatmap(d)
@@ -48,16 +49,19 @@ For example:
 def ax_func(ax):
     ax.plot([1, 5, 3])
 
-# with an iterable of functions like ax_func, ax_func_to_plot makes 
-# a simple grid plot. The parameter n_per_row control the number of plots 
+
+# with an iterable of functions like ax_func, ax_func_to_plot makes
+# a simple grid plot. The parameter n_per_row control the number of plots
 # per row
-ax_func_to_plot([ax_func] * 6,
-                n_per_row=3,
-                width=5,
-                height_row=3,
-                x_labels='x axis name',
-                y_labels='y axis name',
-                outer_axis_labels_only=True)
+ax_func_to_plot(
+    [ax_func] * 6,
+    n_per_row=3,
+    width=5,
+    height_row=3,
+    x_labels="x axis name",
+    y_labels="y axis name",
+    outer_axis_labels_only=True,
+)
 ```
 
 <img src="https://user-images.githubusercontent.com/1906276/127305797-948851fa-6cb0-4d19-aac1-6508ee7db04f.png" width="320">
@@ -137,8 +141,8 @@ Example of a data dict with data having two different distributions:
 
 ```python
 data_dict = {
-    'Unicorn Heights': np.random.normal(loc=6, scale=1, size=1000),
-    'Dragon Wingspan': np.concatenate(
+    "Unicorn Heights": np.random.normal(loc=6, scale=1, size=1000),
+    "Dragon Wingspan": np.concatenate(
         [
             np.random.normal(loc=3, scale=0.5, size=500),
             np.random.normal(loc=7, scale=0.5, size=500),
@@ -167,18 +171,18 @@ density_distribution(
     data_dict,
     ax=ax,
     axvline_kwargs={
-        'Unicorn Heights': {'color': 'magenta', 'linestyle': ':'},
-        'Dragon Wingspan': {'color': 'cyan', 'linestyle': '-.'},
+        "Unicorn Heights": {"color": "magenta", "linestyle": ":"},
+        "Dragon Wingspan": {"color": "cyan", "linestyle": "-."},
     },
     line_width=2,
-    location_linestyle='-.',
-    colors=('magenta', 'cyan'),
+    location_linestyle="-.",
+    colors=("magenta", "cyan"),
     density_plot_func=sns.histplot,
-    density_plot_kwargs={'fill': True},
-    text_kwargs={'x': 0.1, 'y': 0.9, 'bbox': dict(facecolor='yellow', alpha=0.5)},
-    mean_line_kwargs={'linewidth': 2},
+    density_plot_kwargs={"fill": True},
+    text_kwargs={"x": 0.1, "y": 0.9, "bbox": dict(facecolor="yellow", alpha=0.5)},
+    mean_line_kwargs={"linewidth": 2},
 )
-ax.set_title('Customized Density Plot')
+ax.set_title("Customized Density Plot")
 plt.show()
 ```
 
@@ -198,14 +202,11 @@ from sklearn.datasets import make_classification
 ```python
 from oplot import scatter_and_color_according_to_y
 
-X, y = make_classification(n_samples=500,
-                           n_features=20,
-                           n_classes=4,
-                           n_clusters_per_class=1)
+X, y = make_classification(
+    n_samples=500, n_features=20, n_classes=4, n_clusters_per_class=1
+)
 
-scatter_and_color_according_to_y(X, y,
-                                 projection='2d',
-                                 dim_reduct='PCA')
+scatter_and_color_according_to_y(X, y, projection="2d", dim_reduct="PCA")
 ```
 
 
@@ -215,9 +216,7 @@ scatter_and_color_according_to_y(X, y,
 ```python
 from oplot import scatter_and_color_according_to_y
 
-scatter_and_color_according_to_y(X, y,
-                                 projection='3d',
-                                 dim_reduct='LDA')
+scatter_and_color_according_to_y(X, y, projection="3d", dim_reduct="LDA")
 ```
 
 
@@ -228,7 +227,7 @@ There is also that little one, which I don't remeber ever using and needs some w
 ```python
 from oplot import side_by_side_bar
 
-side_by_side_bar([[1,2,3], [4,5,6]], list_names=['you', 'me'])
+side_by_side_bar([[1, 2, 3], [4, 5, 6]], list_names=["you", "me"])
 ```
 
 <img src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_11.56.42.png" width="320">
@@ -245,11 +244,10 @@ sklearn function:
 from oplot.plot_stats import plot_confusion_matrix
 from sklearn.datasets import make_classification
 
-X, truth = make_classification(n_samples=500,
-                               n_features=20,
-                               n_classes=4,
-                               n_clusters_per_class=1)
-    
+X, truth = make_classification(
+    n_samples=500, n_features=20, n_classes=4, n_clusters_per_class=1
+)
+
 # making a copy of truth and messing with it
 y = truth.copy()
 y[:50] = (y[:50] + 1) % 4
@@ -266,7 +264,9 @@ the aligned list truth
 from oplot.plot_stats import make_normal_outlier_timeline
 
 scores = np.arange(-1, 3, 0.1)
-tags = np.array(['normal'] * 20 + ['outlier'] * 15 + ['crazy'] * (len(scores) - 20 - 15))
+tags = np.array(
+    ["normal"] * 20 + ["outlier"] * 15 + ["crazy"] * (len(scores) - 20 - 15)
+)
 make_normal_outlier_timeline(tags, scores)
 ```
 
@@ -310,9 +310,8 @@ from oplot.plot_stats import plot_outlier_metric_curve
 scores = np.concatenate([np.random.random(100), np.random.random(100) * 2])
 truth = np.array([0] * 100 + [1] * 100)
 
-pair_metrics={'x': 'recall', 'y': 'precision'}
-plot_outlier_metric_curve(truth, scores,
-                          pair_metrics=pair_metrics)
+pair_metrics = {"x": "recall", "y": "precision"}
+plot_outlier_metric_curve(truth, scores, pair_metrics=pair_metrics)
 ```
 
 <img src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_06.04.52.png" width="320">
@@ -324,9 +323,8 @@ less sense, some not at all.
 ```python
 from oplot.plot_stats import plot_outlier_metric_curve
 
-pair_metrics={'x': 'false_positive_rate', 'y': 'false_negative_rate'}
-plot_outlier_metric_curve(truth, scores,
-                          pair_metrics=pair_metrics)
+pair_metrics = {"x": "false_positive_rate", "y": "false_negative_rate"}
+plot_outlier_metric_curve(truth, scores, pair_metrics=pair_metrics)
 ```
 
 <img src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_06.11.13.png" width="320">
@@ -339,40 +337,53 @@ The full list of usable statistics along with synonymous:
 ```python
 # all these scores except for MCC gives a score between 0 and 1.
 # I normalized MMC into what I call NNMC in order to keep the same scale for all.
-base_statistics_dict = {'TPR': lambda tn, fp, fn, tp: tp / (tp + fn),
-                        # sensitivity, recall, hit rate, or true positive rate
-                        'TNR': lambda tn, fp, fn, tp: tn / (tn + fp),  # specificity, selectivity or true negative rate
-                        'PPV': lambda tn, fp, fn, tp: tp / (tp + fp),  # precision or positive predictive value
-                        'NPV': lambda tn, fp, fn, tp: tn / (tn + fn),  # negative predictive value
-                        'FNR': lambda tn, fp, fn, tp: fn / (fn + tp),  # miss rate or false negative rate
-                        'FPR': lambda tn, fp, fn, tp: fp / (fp + tn),  # fall-out or false positive rate
-                        'FDR': lambda tn, fp, fn, tp: fp / (fp + tp),  # false discovery rate
-                        'FOR': lambda tn, fp, fn, tp: fn / (fn + tn),  # false omission rate
-                        'TS': lambda tn, fp, fn, tp: tp / (tp + fn + fp),
-                        # threat score (TS) or Critical Success Index (CSI)
-                        'ACC': lambda tn, fp, fn, tp: (tp + tn) / (tp + tn + fp + fn),  # accuracy
-                        'F1': lambda tn, fp, fn, tp: (2 * tp) / (2 * tp + fp + fn),  # F1 score
-                        'NMCC': lambda tn, fp, fn, tp: ((tp * tn - fp * fn) / (
-                                (tp + fp) * (tp + fn) * (tn + fp) * (tn + fn)) ** 0.5 + 1) / 2,
-                        # NORMALIZED TO BE BETWEEN 0 AND 1 Matthews correlation coefficient
-                        'BM': lambda tn, fp, fn, tp: tp / (tp + fn) + tn / (tn + fp) - 1,
-                        # Informedness or Bookmaker Informedness
-                        'MK': lambda tn, fp, fn, tp: tp / (tp + fp) + tn / (tn + fn) - 1}  # Markedness
+base_statistics_dict = {
+    "TPR": lambda tn, fp, fn, tp: tp / (tp + fn),
+    # sensitivity, recall, hit rate, or true positive rate
+    "TNR": lambda tn, fp, fn, tp: (
+        tn / (tn + fp)
+    ),  # specificity, selectivity or true negative rate
+    "PPV": lambda tn, fp, fn, tp: (
+        tp / (tp + fp)
+    ),  # precision or positive predictive value
+    "NPV": lambda tn, fp, fn, tp: tn / (tn + fn),  # negative predictive value
+    "FNR": lambda tn, fp, fn, tp: fn / (fn + tp),  # miss rate or false negative rate
+    "FPR": lambda tn, fp, fn, tp: fp / (fp + tn),  # fall-out or false positive rate
+    "FDR": lambda tn, fp, fn, tp: fp / (fp + tp),  # false discovery rate
+    "FOR": lambda tn, fp, fn, tp: fn / (fn + tn),  # false omission rate
+    "TS": lambda tn, fp, fn, tp: tp / (tp + fn + fp),
+    # threat score (TS) or Critical Success Index (CSI)
+    "ACC": lambda tn, fp, fn, tp: (tp + tn) / (tp + tn + fp + fn),  # accuracy
+    "F1": lambda tn, fp, fn, tp: (2 * tp) / (2 * tp + fp + fn),  # F1 score
+    "NMCC": lambda tn, fp, fn, tp: (
+        (
+            (tp * tn - fp * fn) / ((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn)) ** 0.5
+            + 1
+        )
+        / 2
+    ),
+    # NORMALIZED TO BE BETWEEN 0 AND 1 Matthews correlation coefficient
+    "BM": lambda tn, fp, fn, tp: tp / (tp + fn) + tn / (tn + fp) - 1,
+    # Informedness or Bookmaker Informedness
+    "MK": lambda tn, fp, fn, tp: tp / (tp + fp) + tn / (tn + fn) - 1,
+}  # Markedness
 
-synonyms = {'TPR': ['recall', 'sensitivity', 'true_positive_rate', 'hit_rate', 'tpr'],
-            'TNR': ['specificity', 'SPC', 'true_negative_rate', 'selectivity', 'tnr'],
-            'PPV': ['precision', 'positive_predictive_value', 'ppv'],
-            'NPV': ['negative_predictive_value', 'npv'],
-            'FNR': ['miss_rate', 'false_negative_rate', 'fnr'],
-            'FPR': ['fall_out', 'false_positive_rate', 'fpr'],
-            'FDR': ['false_discovery_rate', 'fdr'],
-            'FOR': ['false_omission_rate', 'for'],
-            'TS': ['threat_score', 'critical_success_index', 'CSI', 'csi', 'ts'],
-            'ACC': ['accuracy', 'acc'],
-            'F1': ['f1_score', 'f1', 'F1_score'],
-            'NMCC': ['normalized_Matthews_correlation_coefficient', 'nmcc'],
-            'BM': ['informedness', 'bookmaker_informedness', 'bi', 'BI', 'bm'],
-            'MK': ['markedness', 'mk']}
+synonyms = {
+    "TPR": ["recall", "sensitivity", "true_positive_rate", "hit_rate", "tpr"],
+    "TNR": ["specificity", "SPC", "true_negative_rate", "selectivity", "tnr"],
+    "PPV": ["precision", "positive_predictive_value", "ppv"],
+    "NPV": ["negative_predictive_value", "npv"],
+    "FNR": ["miss_rate", "false_negative_rate", "fnr"],
+    "FPR": ["fall_out", "false_positive_rate", "fpr"],
+    "FDR": ["false_discovery_rate", "fdr"],
+    "FOR": ["false_omission_rate", "for"],
+    "TS": ["threat_score", "critical_success_index", "CSI", "csi", "ts"],
+    "ACC": ["accuracy", "acc"],
+    "F1": ["f1_score", "f1", "F1_score"],
+    "NMCC": ["normalized_Matthews_correlation_coefficient", "nmcc"],
+    "BM": ["informedness", "bookmaker_informedness", "bi", "BI", "bm"],
+    "MK": ["markedness", "mk"],
+}
 ```
 
 
@@ -414,7 +425,7 @@ x = np.concatenate([x1, x2])
 y = np.concatenate([y1, y2])
 
 # Create a DataFrame
-data = pd.DataFrame({'x': x, 'y': y})
+data = pd.DataFrame({"x": x, "y": y})
 ```
 
 ## Plot with Boundary Condition `y ≤ x`
@@ -429,17 +440,17 @@ boundary_condition = lambda X, Y: Y <= X
 # Plot using the custom KDE function
 ax = kdeplot_w_boundary_condition(
     data=data,
-    x='x',
-    y='y',
+    x="x",
+    y="y",
     boundary_condition=boundary_condition,
     fill=True,
-    cmap='viridis',
+    cmap="viridis",
     figsize=(8, 6),
-    levels=15  # Increased levels for better resolution
+    levels=15,  # Increased levels for better resolution
 )
 
 # Add a title
-ax.set_title('KDE Plot with Boundary Condition: y ≤ x')
+ax.set_title("KDE Plot with Boundary Condition: y ≤ x")
 
 # Show the plot
 plt.show()
@@ -454,17 +465,17 @@ plt.show()
 ```python
 ax = kdeplot_w_boundary_condition(
     data=data,
-    x='x',
-    y='y',
+    x="x",
+    y="y",
     boundary_condition=None,  # No boundary condition
     fill=True,
-    cmap='viridis',
+    cmap="viridis",
     figsize=(8, 6),
-    levels=15
+    levels=15,
 )
 
 # Add a title
-ax.set_title('KDE Plot without Boundary Condition')
+ax.set_title("KDE Plot without Boundary Condition")
 
 # Show the plot
 plt.show()
@@ -491,17 +502,17 @@ boundary_condition = lambda X, Y: Y >= X
 # Plot using the custom KDE function
 ax = kdeplot_w_boundary_condition(
     data=data,
-    x='x',
-    y='y',
+    x="x",
+    y="y",
     boundary_condition=boundary_condition,
     fill=True,
-    cmap='coolwarm',
+    cmap="coolwarm",
     figsize=(8, 6),
-    levels=15
+    levels=15,
 )
 
 # Add a title
-ax.set_title('KDE Plot with Boundary Condition: y ≥ x')
+ax.set_title("KDE Plot with Boundary Condition: y ≥ x")
 
 # Show the plot
 plt.show()
@@ -516,22 +527,22 @@ plt.show()
 
 ```python
 # Define a circular boundary condition function
-boundary_condition = lambda X, Y: (X - 2)**2 + (Y - 2)**2 <= 3**2
+boundary_condition = lambda X, Y: (X - 2) ** 2 + (Y - 2) ** 2 <= 3**2
 
 # Plot using the custom KDE function
 ax = kdeplot_w_boundary_condition(
     data=data,
-    x='x',
-    y='y',
+    x="x",
+    y="y",
     boundary_condition=boundary_condition,
     fill=True,
-    cmap='plasma',
+    cmap="plasma",
     figsize=(8, 6),
-    levels=15
+    levels=15,
 )
 
 # Add a title
-ax.set_title('KDE Plot with Circular Boundary Condition')
+ax.set_title("KDE Plot with Circular Boundary Condition")
 
 # Show the plot
 plt.show()
