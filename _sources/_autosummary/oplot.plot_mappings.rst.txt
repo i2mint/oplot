@@ -1,0 +1,12 @@
+oplot.plot\_mappings
+====================
+
+.. automodule:: oplot.plot_mappings
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      dict_bar_plot
+   

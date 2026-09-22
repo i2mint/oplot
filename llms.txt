@@ -1,0 +1,32 @@
+# oplot
+
+> A medley of plotting tools for data analysis
+
+
+## Pages
+
+- [matrix.py](index.html.md): &#96;oplot&#96; is a medley of various plotting and visualization functions, with
+- [API reference](api.html.md): | &#96;oplot&#96;   | Plots that are frequently useful to us   |
+- [oplot](_autosummary/oplot.html.md): Plots that are frequently useful to us
+- [oplot.distributions](_autosummary/oplot.distributions.html.md): Plot distributions (density etc.) of data.
+- [oplot.matrix](_autosummary/oplot.matrix.html.md): Plotting matrices and matrix-structured data
+- [oplot.multi_plot](_autosummary/oplot.multi_plot.html.md): Plotting multiple datas in a same figure
+- [oplot.multiplots](_autosummary/oplot.multiplots.html.md): Drawing multiple plots in a single figure
+- [oplot.my](_autosummary/oplot.my.html.md): What matplotlib has already – but with the interface I’d like
+- [oplot.outlier_scores](_autosummary/oplot.outlier_scores.html.md): Visualizing various regions in a list of scores. E.g. adding colored regions
+- [oplot.plot_audio](_autosummary/oplot.plot_audio.html.md): Functions intended to plot waveform and spectra plus some timestamps information as vertical lines o...
+- [oplot.plot_data_set](_autosummary/oplot.plot_data_set.html.md): Function to reduce and plot data in 2 or 3 dimensions
+- [oplot.plot_mappings](_autosummary/oplot.plot_mappings.html.md): Plot mappings (e.g. dicts, Series, etc.)
+- [oplot.plot_stats](_autosummary/oplot.plot_stats.html.md): Functions to represent the accuracy of outlier or classification algorithms
+- [oplot.sequences](_autosummary/oplot.sequences.html.md): Plotting sequences
+- [oplot.ui_scores_mapping](_autosummary/oplot.ui_scores_mapping.html.md): Functions to create and plot outlier scores (or other) in a fixed bounded range. Intended to use to
+- [oplot.util](_autosummary/oplot.util.html.md): | &#96;cast_inputs&#96;(&#92;&#42;args_cast, &#92;&#42;&#92;&#42;kwargs_cast)         | Creates a decorator that casts the arguments...
+- [About this build](about-this-build.html.md): This documentation was built on &#42;&#42;2026-09-22 15:03 UTC&#42;&#42; from commit &lt;a href="https://github.com/i2m...
+
+## Optional
+
+- [oplot.md](oplot.md): Complete documentation in a single file.
+
+## Build
+
+- [build_info.json](build_info.json): build provenance (commit, version, tool versions, whether the docs match the package)

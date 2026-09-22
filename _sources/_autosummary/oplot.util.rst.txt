@@ -1,0 +1,15 @@
+oplot.util
+==========
+
+.. automodule:: oplot.util
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      cast_inputs
+      fixed_step_chunker
+      float_to_timestamp
+      timestamp_to_float
+   

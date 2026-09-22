@@ -1,0 +1,13 @@
+oplot.multi\_plot
+=================
+
+.. automodule:: oplot.multi_plot
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      ax_func_to_plot
+      multi_row_plot
+   

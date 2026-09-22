@@ -1,0 +1,17 @@
+oplot.ui\_scores\_mapping
+=========================
+
+.. automodule:: oplot.ui_scores_mapping
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      between_percentiles_mean
+      make_bottom_part
+      make_linear_part
+      make_top_part
+      make_ui_score_mapping
+      tune_ui_map
+   

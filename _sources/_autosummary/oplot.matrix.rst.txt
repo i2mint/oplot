@@ -1,0 +1,20 @@
+oplot.matrix
+============
+
+.. automodule:: oplot.matrix
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      get_figsize_to_fit
+      heatmap
+      heatmap_sns
+      hierarchical_cluster_sorted_heatmap
+      labeled_heatmap
+      plot_simil_mat_with_labels
+      vlines_of_matrix
+      vlines_ranges
+      xy_boxplot
+   

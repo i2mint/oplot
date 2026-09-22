@@ -1,0 +1,16 @@
+oplot.plot\_audio
+=================
+
+.. automodule:: oplot.plot_audio
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      plot_lines
+      plot_spectro
+      plot_wf
+      plot_wf_and_spectro
+      plot_wf_with_lines
+   

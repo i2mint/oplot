@@ -1,0 +1,13 @@
+oplot.sequences
+===============
+
+.. automodule:: oplot.sequences
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      bars
+      fill_zeros
+   

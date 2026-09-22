@@ -1,0 +1,25 @@
+﻿oplot
+=====
+
+.. automodule:: oplot
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   distributions
+   matrix
+   multi_plot
+   multiplots
+   my
+   outlier_scores
+   plot_audio
+   plot_data_set
+   plot_mappings
+   plot_stats
+   sequences
+   ui_scores_mapping
+   util

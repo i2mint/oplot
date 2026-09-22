@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "built_at": "2026-09-22T15:03:24Z",
+  "package": {
+    "name": "oplot",
+    "version": "0.1.25",
+    "display_name": "oplot",
+    "source": "pyproject.toml"
+  },
+  "git": {
+    "available": true,
+    "commit": "1cc58dfaffe56121f5dbba4efe23be448bc89a5e",
+    "short_commit": "1cc58df",
+    "branch": "master",
+    "tags": [],
+    "dirty": false,
+    "remote_url": "https://github.com/i2mint/oplot",
+    "commit_url": "https://github.com/i2mint/oplot/commit/1cc58dfaffe56121f5dbba4efe23be448bc89a5e",
+    "error": null
+  },
+  "ci": {
+    "provider": "github",
+    "repository": "i2mint/oplot",
+    "sha": "1cc58dfaffe56121f5dbba4efe23be448bc89a5e",
+    "sha_in_history": true,
+    "ref": "refs/heads/master",
+    "ref_name": "master",
+    "run_id": "35744411388",
+    "run_url": "https://github.com/i2mint/oplot/actions/runs/35744411388",
+    "server_url": "https://github.com"
+  },
+  "tools": {
+    "epythet": "0.2.12",
+    "sphinx": "9.1.0",
+    "docutils": "0.22.4",
+    "python": "3.12.14"
+  },
+  "config": {
+    "theme": "auto",
+    "html_theme": "pydata_sphinx_theme",
+    "accent": "#614497",
+    "mode": "auto",
+    "api_generator": "autosummary",
+    "ignore": [
+      "tests/",
+      "scrap/",
+      "examples/"
+    ],
+    "agent_outputs": true,
+    "aggregates": [
+      "md"
+    ],
+    "ai_artifacts": true,
+    "provenance": true,
+    "docs_dir": "docsrc"
+  },
+  "site": {
+    "modules_documented": 14,
+    "objects_documented": 67
+  },
+  "pypi": {
+    "checked": true,
+    "latest": "0.1.26",
+    "relation": "behind",
+    "error": null
+  },
+  "reproduce": "git clone https://github.com/i2mint/oplot && cd oplot\ngit checkout 1cc58dfaffe56121f5dbba4efe23be448bc89a5e\npip install \"epythet==0.2.12\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "warnings": [],
+  "alignment": {
+    "aligned": false,
+    "notes": [
+      "The documented version (0.1.25) is behind the latest release on PyPI (0.1.26): `pip install oplot` gives newer code than these docs describe."
+    ]
+  }
+}

@@ -1,4 +1,0 @@
-oplot
-=====
-.. automodule:: oplot
-   :members:

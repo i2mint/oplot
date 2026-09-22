@@ -1,0 +1,34 @@
+oplot.plot\_stats
+=================
+
+.. automodule:: oplot.plot_stats
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      apply_function_on_consecutive
+      area_under_points
+      cumulative_tn_fp_fn_tp
+      get_tn_fp_fn_tp
+      list_mult
+      make_heatmap
+      make_normal_outlier_timeline
+      make_tables_tn_fp_fn_tp
+      make_tn_fp_fn_tp_tag_lists
+      pair_metrics_to_reference
+      parallel_sort
+      pick_equally_spaced_points
+      plot_confusion_matrix
+      plot_freqs_stats
+      plot_outlier_metric_curve
+      rebalance_scores
+      rebalancing_normal_outlier_ratio
+      render_mpl_table
+      smooth_scores
+      split_on_consecutive
+      vlines
+      wiggle_scores
+      wiggle_values_keep_order
+   

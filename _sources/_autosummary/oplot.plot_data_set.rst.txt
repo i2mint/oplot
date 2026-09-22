@@ -1,0 +1,17 @@
+oplot.plot\_data\_set
+=====================
+
+.. automodule:: oplot.plot_data_set
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      density_distribution
+      ensure_dict
+      ratio_comparison_vlines
+      save_figs_to_pdf
+      scatter_and_color_according_to_y
+      side_by_side_bar
+   

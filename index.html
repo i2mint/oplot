@@ -1,0 +1,921 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="alternate" type="text/markdown" href="index.html.md">
+<link rel="describedby" href="llms.txt" type="text/markdown">
+<link rel="alternate" type="text/markdown" href="index.html.md">
+<link rel="describedby" href="llms.txt">
+    <title>matrix.py &#8212; oplot</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=cb8930eaaf36d9849b67" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d75fae25" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/epythet.css?v=814d7ffe" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=cb8930eaaf36d9849b67"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67" />
+
+    <script src="_static/documentation_options.js?v=4fa33042"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=fd10adb8"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API reference" href="api.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1.25" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">oplot</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api.html">
+    API reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/i2mint/oplot" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="api.html">
+    API reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/i2mint/oplot" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i><span class="visually-hidden">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none"></div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <!-- generated by epythet -->
+<p><code class="docutils literal notranslate"><span class="pre">oplot</span></code> is a medley of various plotting and visualization functions, with
+<code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> and <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> in the background.</p>
+<section id="matrix-py">
+<h1>matrix.py<a class="headerlink" href="#matrix-py" title="Link to this heading">#</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">oplot</span><span class="w"> </span><span class="kn">import</span> <span class="n">heatmap</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">{</span><span class="s2">"A"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"B"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"C"</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">"A"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"B"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"C"</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">"A"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"B"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"C"</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">"A"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"B"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"C"</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">"A"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"B"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"C"</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">"A"</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s2">"B"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"C"</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+        <span class="p">{</span><span class="s2">"A"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"B"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"C"</span><span class="p">:</span> <span class="mi">3</span><span class="p">},</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<span class="n">heatmap</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://user-images.githubusercontent.com/1906276/127305086-94c54108-4ff2-471d-b808-89e0ae0f51d9.png"><img alt="https://user-images.githubusercontent.com/1906276/127305086-94c54108-4ff2-471d-b808-89e0ae0f51d9.png" src="https://user-images.githubusercontent.com/1906276/127305086-94c54108-4ff2-471d-b808-89e0ae0f51d9.png" width="320" />
+</a>
+<p>Lot’s more control is available. Signature is</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">col_labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">return_gcf</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+<span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">xlabel_top</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ylabel_left</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">xlabel_bottom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+<span class="n">ylabel_right</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</section>
+<section id="multiplots-py">
+<h1>multiplots.py<a class="headerlink" href="#multiplots-py" title="Link to this heading">#</a></h1>
+<p>The multiplots module contains functions to make “grid like” plot made of
+several different plots. The main parameter is an iterator of functions, each
+taking an ax as input and drawing something on it.</p>
+<p>For example:</p>
+<p><img alt="" src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_06.23.21.png" /> oplot import ax_func_to_plot</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ax_func just takes a matplotlib axix and draws something on it</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">ax_func</span><span class="p">(</span><span class="n">ax</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+
+<span class="c1"># with an iterable of functions like ax_func, ax_func_to_plot makes</span>
+<span class="c1"># a simple grid plot. The parameter n_per_row control the number of plots</span>
+<span class="c1"># per row</span>
+<span class="n">ax_func_to_plot</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">ax_func</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="n">n_per_row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">height_row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">x_labels</span><span class="o">=</span><span class="s2">"x axis name"</span><span class="p">,</span>
+    <span class="n">y_labels</span><span class="o">=</span><span class="s2">"y axis name"</span><span class="p">,</span>
+    <span class="n">outer_axis_labels_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://user-images.githubusercontent.com/1906276/127305797-948851fa-6cb0-4d19-aac1-6508ee7db04f.png"><img alt="https://user-images.githubusercontent.com/1906276/127305797-948851fa-6cb0-4d19-aac1-6508ee7db04f.png" src="https://user-images.githubusercontent.com/1906276/127305797-948851fa-6cb0-4d19-aac1-6508ee7db04f.png" width="320" />
+</a>
+<p>In some cases, the number of plots on the grid may be large enough to exceed
+the memory limit available to be saved on a single plot. In that case the function
+multiplot_with_max_size comes handy. You can specify a parameter
+max_plot_per_file, and if needed several plots with no more than that many
+plots will be created.</p>
+</section>
+<section id="ui-scores-mapping-py">
+<h1>ui_scores_mapping.py<a class="headerlink" href="#ui-scores-mapping-py" title="Link to this heading">#</a></h1>
+<p>The module contains functions to make “sigmoid like” mappings. The original
+and main intent is to provide function to map outlier scores to a bounded range,
+typically (0, 10). The function look like a sigmoid but in reality is linear
+over a predefined range, allowing for little “distortion” over a range of
+particular interest.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">oplot</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_ui_score_mapping</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># the map will be linear in the range 0 to 5. By default the range</span>
+<span class="c1"># of the sigmoid will be (0, 10)</span>
+<span class="n">sigmoid_map</span> <span class="o">=</span> <span class="n">make_ui_score_mapping</span><span class="p">(</span><span class="n">min_lin_score</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_lin_score</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">sigmoid_map</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/ScreenShot2021-01-06at07.21.26.png"><img alt="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/ScreenShot2021-01-06at07.21.26.png" src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/ScreenShot2021-01-06at07.21.26.png" width="320" />
+</a>
+</section>
+<section id="outlier-scores-py">
+<h1>outlier_scores.py<a class="headerlink" href="#outlier-scores-py" title="Link to this heading">#</a></h1>
+<p>This module contains functions to plot outlier scores with colors corresponding
+to chosen thresholds.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">oplot</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_scores_and_zones</span>
+
+<span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">plot_scores_and_zones</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">zones</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">])</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_08.32.16.png"><img alt="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_08.32.16.png" src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_08.32.16.png" width="320" />
+</a>
+<p>find_prop_markers, get_confusion_zone_percentiles and get_confusion_zones_std provides tools
+to find statistically meaningfull zones.</p>
+</section>
+<section id="plot-audio-py">
+<h1>plot_audio.py<a class="headerlink" href="#plot-audio-py" title="Link to this heading">#</a></h1>
+<p>Here two functions of interest, plot_spectra which does what the name implies,
+and plot_wf_and_spectro which gives two plots on top of each others:</p>
+<p>a) the samples of wf over time</p>
+<p>b) the aligned spectra</p>
+<p>Parameters allows to add vertical markers to the plot like in the example below.</p>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_09.08.55.png"><img alt="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_09.08.55.png" src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_09.08.55.png" width="800" />
+</a>
+</section>
+<section id="plot-data-set-py">
+<h1>plot_data_set.py<a class="headerlink" href="#plot-data-set-py" title="Link to this heading">#</a></h1>
+<section id="density-distribution">
+<h2>density_distribution<a class="headerlink" href="#density-distribution" title="Link to this heading">#</a></h2>
+<p>Plots the density distribution of different data sets (arrays).</p>
+<p>Example of a data dict with data having two different distributions:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"Unicorn Heights"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">),</span>
+    <span class="s2">"Dragon Wingspan"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">500</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">500</span><span class="p">),</span>
+        <span class="p">]</span>
+    <span class="p">),</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Plot this with all the defaults:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">density_distribution</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="image" src="https://github.com/user-attachments/assets/8062469d-564e-40f4-9b94-9db1f4ab1e04" /></p>
+<p>Plot this with a bunch of configurations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="c1"># Plot with customized arguments</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">density_distribution</span><span class="p">(</span>
+    <span class="n">data_dict</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+    <span class="n">axvline_kwargs</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"Unicorn Heights"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"color"</span><span class="p">:</span> <span class="s2">"magenta"</span><span class="p">,</span> <span class="s2">"linestyle"</span><span class="p">:</span> <span class="s2">":"</span><span class="p">},</span>
+        <span class="s2">"Dragon Wingspan"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"color"</span><span class="p">:</span> <span class="s2">"cyan"</span><span class="p">,</span> <span class="s2">"linestyle"</span><span class="p">:</span> <span class="s2">"-."</span><span class="p">},</span>
+    <span class="p">},</span>
+    <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">location_linestyle</span><span class="o">=</span><span class="s2">"-."</span><span class="p">,</span>
+    <span class="n">colors</span><span class="o">=</span><span class="p">(</span><span class="s2">"magenta"</span><span class="p">,</span> <span class="s2">"cyan"</span><span class="p">),</span>
+    <span class="n">density_plot_func</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">,</span>
+    <span class="n">density_plot_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"fill"</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="n">text_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span> <span class="s2">"bbox"</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s2">"yellow"</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)},</span>
+    <span class="n">mean_line_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"linewidth"</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Customized Density Plot"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="image" src="https://github.com/user-attachments/assets/a105d82e-7c35-41ea-a9a4-b276ed845ca9" /></p>
+</section>
+<section id="scatter-and-color-according-to-y">
+<h2>scatter_and_color_according_to_y<a class="headerlink" href="#scatter-and-color-according-to-y" title="Link to this heading">#</a></h2>
+<p>Next, we have a look at <code class="docutils literal notranslate"><span class="pre">scatter_and_color_according_to_y</span></code>, which makes a 2d
+or 3d scatter plot with color representing the class. The dimension reduction
+is controled by the paramters projection and dim_reduct.</p>
+<p>from oplot.plot_data_set import scatter_and_color_according_to_y
+from sklearn.datasets import make_classification</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">oplot</span><span class="w"> </span><span class="kn">import</span> <span class="n">scatter_and_color_according_to_y</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+
+<span class="n">scatter_and_color_according_to_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">"2d"</span><span class="p">,</span> <span class="n">dim_reduct</span><span class="o">=</span><span class="s2">"PCA"</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_11.36.02.png"><img alt="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_11.36.02.png" src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_11.36.02.png" width="320" />
+</a>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">oplot</span><span class="w"> </span><span class="kn">import</span> <span class="n">scatter_and_color_according_to_y</span>
+
+<span class="n">scatter_and_color_according_to_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s2">"3d"</span><span class="p">,</span> <span class="n">dim_reduct</span><span class="o">=</span><span class="s2">"LDA"</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_11.36.07.png"><img alt="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_11.36.07.png" src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_11.36.07.png" width="320" />
+</a>
+<p>There is also that little one, which I don’t remeber ever using and needs some work:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">oplot</span><span class="w"> </span><span class="kn">import</span> <span class="n">side_by_side_bar</span>
+
+<span class="n">side_by_side_bar</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]],</span> <span class="n">list_names</span><span class="o">=</span><span class="p">[</span><span class="s2">"you"</span><span class="p">,</span> <span class="s2">"me"</span><span class="p">])</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_11.56.42.png"><img alt="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_11.56.42.png" src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_11.56.42.png" width="320" />
+</a>
+</section>
+<section id="plot-stats-py">
+<h2>plot_stats.py<a class="headerlink" href="#plot-stats-py" title="Link to this heading">#</a></h2>
+<p>This module contains functions to plot statistics about datasets or model
+results.
+The confusion matrix is a classic easy one, below is a modification of an
+sklearn function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">oplot.plot_stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_confusion_matrix</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">truth</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+
+<span class="c1"># making a copy of truth and messing with it</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">truth</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">y</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">4</span>
+
+<span class="n">plot_confusion_matrix</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">truth</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_12.59.52.png"><img alt="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_12.59.52.png" src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-06_at_12.59.52.png" width="320" />
+</a>
+<p><code class="docutils literal notranslate"><span class="pre">make_normal_outlier_timeline</span></code> plots the scores with a color/legend given by
+the aligned list truth</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">oplot.plot_stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_normal_outlier_timeline</span>
+
+<span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">tags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[</span><span class="s2">"normal"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">20</span> <span class="o">+</span> <span class="p">[</span><span class="s2">"outlier"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">15</span> <span class="o">+</span> <span class="p">[</span><span class="s2">"crazy"</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span> <span class="o">-</span> <span class="mi">20</span> <span class="o">-</span> <span class="mi">15</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">make_normal_outlier_timeline</span><span class="p">(</span><span class="n">tags</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_05.46.39.png"><img alt="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_05.46.39.png" src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_05.46.39.png" width="800" />
+</a>
+<p><code class="docutils literal notranslate"><span class="pre">make_tables_tn_fp_fn_tp</span></code> is convenient to obtain True Positive and False Negative
+tables. The range of thresholds is induced from the data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">oplot.plot_stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_tables_tn_fp_fn_tp</span>
+
+<span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">truth</span> <span class="o">=</span> <span class="n">scores</span> <span class="o">&gt;</span> <span class="mf">2.5</span>
+<span class="n">make_tables_tn_fp_fn_tp</span><span class="p">(</span><span class="n">truth</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_05.51.23.png"><img alt="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_05.51.23.png" src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_05.51.23.png" width="320" />
+</a>
+<p><code class="docutils literal notranslate"><span class="pre">render_mpl_table</span></code> takes any pandas dataframe and turn it into a pretty plot
+which can then be saved as a pdf for example.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">oplot.plot_stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_tables_tn_fp_fn_tp</span><span class="p">,</span> <span class="n">render_mpl_table</span>
+
+<span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">truth</span> <span class="o">=</span> <span class="n">scores</span> <span class="o">&gt;</span> <span class="mf">2.5</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">make_tables_tn_fp_fn_tp</span><span class="p">(</span><span class="n">truth</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span>
+<span class="n">render_mpl_table</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_05.54.23.png"><img alt="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_05.54.23.png" src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_05.54.23.png" width="320" />
+</a>
+<p><code class="docutils literal notranslate"><span class="pre">plot_outlier_metric_curve</span></code> plots ROC type. You specify which pair of statistics
+you want to display along with a list of scores and truth (0 for negative, 1 for positive).
+The chance line is computed and displayed by default and the total area is returned.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">oplot.plot_stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_outlier_metric_curve</span>
+
+<span class="c1"># list of scores with higher average scores for positive events</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">truth</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="n">pair_metrics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="s2">"recall"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">:</span> <span class="s2">"precision"</span><span class="p">}</span>
+<span class="n">plot_outlier_metric_curve</span><span class="p">(</span><span class="n">truth</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">pair_metrics</span><span class="o">=</span><span class="n">pair_metrics</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_06.04.52.png"><img alt="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_06.04.52.png" src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_06.04.52.png" width="320" />
+</a>
+<p>There are many choices for the statistics to display, some pairs making more or
+less sense, some not at all.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">oplot.plot_stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_outlier_metric_curve</span>
+
+<span class="n">pair_metrics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"x"</span><span class="p">:</span> <span class="s2">"false_positive_rate"</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">:</span> <span class="s2">"false_negative_rate"</span><span class="p">}</span>
+<span class="n">plot_outlier_metric_curve</span><span class="p">(</span><span class="n">truth</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">pair_metrics</span><span class="o">=</span><span class="n">pair_metrics</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_06.11.13.png"><img alt="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_06.11.13.png" src="https://raw.githubusercontent.com/i2mint/oplot/master/readme_plots/Screen_Shot_2021-01-07_at_06.11.13.png" width="320" />
+</a>
+<p>The full list of usable statistics along with synonymous:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># all these scores except for MCC gives a score between 0 and 1.</span>
+<span class="c1"># I normalized MMC into what I call NNMC in order to keep the same scale for all.</span>
+<span class="n">base_statistics_dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"TPR"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span><span class="p">:</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fn</span><span class="p">),</span>
+    <span class="c1"># sensitivity, recall, hit rate, or true positive rate</span>
+    <span class="s2">"TNR"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span><span class="p">:</span> <span class="p">(</span>
+        <span class="n">tn</span> <span class="o">/</span> <span class="p">(</span><span class="n">tn</span> <span class="o">+</span> <span class="n">fp</span><span class="p">)</span>
+    <span class="p">),</span>  <span class="c1"># specificity, selectivity or true negative rate</span>
+    <span class="s2">"PPV"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span><span class="p">:</span> <span class="p">(</span>
+        <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fp</span><span class="p">)</span>
+    <span class="p">),</span>  <span class="c1"># precision or positive predictive value</span>
+    <span class="s2">"NPV"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span><span class="p">:</span> <span class="n">tn</span> <span class="o">/</span> <span class="p">(</span><span class="n">tn</span> <span class="o">+</span> <span class="n">fn</span><span class="p">),</span>  <span class="c1"># negative predictive value</span>
+    <span class="s2">"FNR"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span><span class="p">:</span> <span class="n">fn</span> <span class="o">/</span> <span class="p">(</span><span class="n">fn</span> <span class="o">+</span> <span class="n">tp</span><span class="p">),</span>  <span class="c1"># miss rate or false negative rate</span>
+    <span class="s2">"FPR"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span><span class="p">:</span> <span class="n">fp</span> <span class="o">/</span> <span class="p">(</span><span class="n">fp</span> <span class="o">+</span> <span class="n">tn</span><span class="p">),</span>  <span class="c1"># fall-out or false positive rate</span>
+    <span class="s2">"FDR"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span><span class="p">:</span> <span class="n">fp</span> <span class="o">/</span> <span class="p">(</span><span class="n">fp</span> <span class="o">+</span> <span class="n">tp</span><span class="p">),</span>  <span class="c1"># false discovery rate</span>
+    <span class="s2">"FOR"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span><span class="p">:</span> <span class="n">fn</span> <span class="o">/</span> <span class="p">(</span><span class="n">fn</span> <span class="o">+</span> <span class="n">tn</span><span class="p">),</span>  <span class="c1"># false omission rate</span>
+    <span class="s2">"TS"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span><span class="p">:</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fn</span> <span class="o">+</span> <span class="n">fp</span><span class="p">),</span>
+    <span class="c1"># threat score (TS) or Critical Success Index (CSI)</span>
+    <span class="s2">"ACC"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span><span class="p">:</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">tn</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">tn</span> <span class="o">+</span> <span class="n">fp</span> <span class="o">+</span> <span class="n">fn</span><span class="p">),</span>  <span class="c1"># accuracy</span>
+    <span class="s2">"F1"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span><span class="p">:</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">tp</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">tp</span> <span class="o">+</span> <span class="n">fp</span> <span class="o">+</span> <span class="n">fn</span><span class="p">),</span>  <span class="c1"># F1 score</span>
+    <span class="s2">"NMCC"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span><span class="p">:</span> <span class="p">(</span>
+        <span class="p">(</span>
+            <span class="p">(</span><span class="n">tp</span> <span class="o">*</span> <span class="n">tn</span> <span class="o">-</span> <span class="n">fp</span> <span class="o">*</span> <span class="n">fn</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fp</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fn</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">tn</span> <span class="o">+</span> <span class="n">fp</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">tn</span> <span class="o">+</span> <span class="n">fn</span><span class="p">))</span> <span class="o">**</span> <span class="mf">0.5</span>
+            <span class="o">+</span> <span class="mi">1</span>
+        <span class="p">)</span>
+        <span class="o">/</span> <span class="mi">2</span>
+    <span class="p">),</span>
+    <span class="c1"># NORMALIZED TO BE BETWEEN 0 AND 1 Matthews correlation coefficient</span>
+    <span class="s2">"BM"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span><span class="p">:</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fn</span><span class="p">)</span> <span class="o">+</span> <span class="n">tn</span> <span class="o">/</span> <span class="p">(</span><span class="n">tn</span> <span class="o">+</span> <span class="n">fp</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="c1"># Informedness or Bookmaker Informedness</span>
+    <span class="s2">"MK"</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span><span class="p">:</span> <span class="n">tp</span> <span class="o">/</span> <span class="p">(</span><span class="n">tp</span> <span class="o">+</span> <span class="n">fp</span><span class="p">)</span> <span class="o">+</span> <span class="n">tn</span> <span class="o">/</span> <span class="p">(</span><span class="n">tn</span> <span class="o">+</span> <span class="n">fn</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">}</span>  <span class="c1"># Markedness</span>
+
+<span class="n">synonyms</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"TPR"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"recall"</span><span class="p">,</span> <span class="s2">"sensitivity"</span><span class="p">,</span> <span class="s2">"true_positive_rate"</span><span class="p">,</span> <span class="s2">"hit_rate"</span><span class="p">,</span> <span class="s2">"tpr"</span><span class="p">],</span>
+    <span class="s2">"TNR"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"specificity"</span><span class="p">,</span> <span class="s2">"SPC"</span><span class="p">,</span> <span class="s2">"true_negative_rate"</span><span class="p">,</span> <span class="s2">"selectivity"</span><span class="p">,</span> <span class="s2">"tnr"</span><span class="p">],</span>
+    <span class="s2">"PPV"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"precision"</span><span class="p">,</span> <span class="s2">"positive_predictive_value"</span><span class="p">,</span> <span class="s2">"ppv"</span><span class="p">],</span>
+    <span class="s2">"NPV"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"negative_predictive_value"</span><span class="p">,</span> <span class="s2">"npv"</span><span class="p">],</span>
+    <span class="s2">"FNR"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"miss_rate"</span><span class="p">,</span> <span class="s2">"false_negative_rate"</span><span class="p">,</span> <span class="s2">"fnr"</span><span class="p">],</span>
+    <span class="s2">"FPR"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"fall_out"</span><span class="p">,</span> <span class="s2">"false_positive_rate"</span><span class="p">,</span> <span class="s2">"fpr"</span><span class="p">],</span>
+    <span class="s2">"FDR"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"false_discovery_rate"</span><span class="p">,</span> <span class="s2">"fdr"</span><span class="p">],</span>
+    <span class="s2">"FOR"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"false_omission_rate"</span><span class="p">,</span> <span class="s2">"for"</span><span class="p">],</span>
+    <span class="s2">"TS"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"threat_score"</span><span class="p">,</span> <span class="s2">"critical_success_index"</span><span class="p">,</span> <span class="s2">"CSI"</span><span class="p">,</span> <span class="s2">"csi"</span><span class="p">,</span> <span class="s2">"ts"</span><span class="p">],</span>
+    <span class="s2">"ACC"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"accuracy"</span><span class="p">,</span> <span class="s2">"acc"</span><span class="p">],</span>
+    <span class="s2">"F1"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"f1_score"</span><span class="p">,</span> <span class="s2">"f1"</span><span class="p">,</span> <span class="s2">"F1_score"</span><span class="p">],</span>
+    <span class="s2">"NMCC"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"normalized_Matthews_correlation_coefficient"</span><span class="p">,</span> <span class="s2">"nmcc"</span><span class="p">],</span>
+    <span class="s2">"BM"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"informedness"</span><span class="p">,</span> <span class="s2">"bookmaker_informedness"</span><span class="p">,</span> <span class="s2">"bi"</span><span class="p">,</span> <span class="s2">"BI"</span><span class="p">,</span> <span class="s2">"bm"</span><span class="p">],</span>
+    <span class="s2">"MK"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"markedness"</span><span class="p">,</span> <span class="s2">"mk"</span><span class="p">],</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="ploting-distributions-density">
+<h1>Ploting Distributions/Density<a class="headerlink" href="#ploting-distributions-density" title="Link to this heading">#</a></h1>
+<p>Testing the kdeplot_w_boundary_condition Function</p>
+<p>This section provides sample code to test the kdeplot_w_boundary_condition function with data drawn from two Gaussian distributions, using a boundary condition lambda X, Y: Y &lt;= X.</p>
+<section id="generate-some-data-to-test-on">
+<h2>Generate some data to test on<a class="headerlink" href="#generate-some-data-to-test-on" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Set random seed for reproducibility</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Parameters for the first Gaussian blob</span>
+<span class="n">mean1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">cov1</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>  <span class="c1"># Positive correlation</span>
+
+<span class="c1"># Parameters for the second Gaussian blob</span>
+<span class="n">mean2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">cov2</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>  <span class="c1"># Slight negative correlation</span>
+
+<span class="c1"># Number of samples per blob</span>
+<span class="n">n_samples</span> <span class="o">=</span> <span class="mi">500</span>
+
+<span class="c1"># Generate samples for the first blob</span>
+<span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mean1</span><span class="p">,</span> <span class="n">cov1</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># Generate samples for the second blob</span>
+<span class="n">x2</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mean2</span><span class="p">,</span> <span class="n">cov2</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># Combine the data</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">])</span>
+
+<span class="c1"># Create a DataFrame</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"x"</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span> <span class="s2">"y"</span><span class="p">:</span> <span class="n">y</span><span class="p">})</span>
+</pre></div>
+</div>
+</section>
+<section id="plot-with-boundary-condition-y-x">
+<h2>Plot with Boundary Condition <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">≤</span> <span class="pre">x</span></code><a class="headerlink" href="#plot-with-boundary-condition-y-x" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">oplot</span><span class="w"> </span><span class="kn">import</span> <span class="n">kdeplot_w_boundary_condition</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Define the boundary condition function</span>
+<span class="n">boundary_condition</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">:</span> <span class="n">Y</span> <span class="o">&lt;=</span> <span class="n">X</span>
+
+<span class="c1"># Plot using the custom KDE function</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">kdeplot_w_boundary_condition</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span>
+    <span class="n">boundary_condition</span><span class="o">=</span><span class="n">boundary_condition</span><span class="p">,</span>
+    <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"viridis"</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+    <span class="n">levels</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>  <span class="c1"># Increased levels for better resolution</span>
+<span class="p">)</span>
+
+<span class="c1"># Add a title</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"KDE Plot with Boundary Condition: y ≤ x"</span><span class="p">)</span>
+
+<span class="c1"># Show the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://github.com/user-attachments/assets/4c67d06f-0907-4a9e-9b95-2f12870a205e"><img alt="https://github.com/user-attachments/assets/4c67d06f-0907-4a9e-9b95-2f12870a205e" src="https://github.com/user-attachments/assets/4c67d06f-0907-4a9e-9b95-2f12870a205e" width="400" />
+</a>
+</section>
+<section id="plot-without-boundary-condition">
+<h2>Plot Without Boundary Condition<a class="headerlink" href="#plot-without-boundary-condition" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">kdeplot_w_boundary_condition</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span>
+    <span class="n">boundary_condition</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># No boundary condition</span>
+    <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"viridis"</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+    <span class="n">levels</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Add a title</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"KDE Plot without Boundary Condition"</span><span class="p">)</span>
+
+<span class="c1"># Show the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://github.com/user-attachments/assets/8ea779cf-7dc0-4aae-a3e1-194abf2046bd"><img alt="https://github.com/user-attachments/assets/8ea779cf-7dc0-4aae-a3e1-194abf2046bd" src="https://github.com/user-attachments/assets/8ea779cf-7dc0-4aae-a3e1-194abf2046bd" width="400" />
+</a>
+<section id="output">
+<h3>Output<a class="headerlink" href="#output" title="Link to this heading">#</a></h3>
+<p>When you run the code above, you will get two plots:
+1.	With Boundary Condition: The KDE plot will display density only in regions where <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">≤</span> <span class="pre">x</span></code>, effectively masking out areas where <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">&gt;</span> <span class="pre">x</span></code>.
+2.	Without Boundary Condition: The KDE plot will display the density over the entire range of the data, showing both Gaussian blobs fully.</p>
+<p>Additional Tests with Different Boundary Conditions</p>
+</section>
+</section>
+<section id="boundary-condition-y-x">
+<h2>Boundary Condition <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">≥</span> <span class="pre">x</span></code><a class="headerlink" href="#boundary-condition-y-x" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a different boundary condition function</span>
+<span class="n">boundary_condition</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">:</span> <span class="n">Y</span> <span class="o">&gt;=</span> <span class="n">X</span>
+
+<span class="c1"># Plot using the custom KDE function</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">kdeplot_w_boundary_condition</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span>
+    <span class="n">boundary_condition</span><span class="o">=</span><span class="n">boundary_condition</span><span class="p">,</span>
+    <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"coolwarm"</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+    <span class="n">levels</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Add a title</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"KDE Plot with Boundary Condition: y ≥ x"</span><span class="p">)</span>
+
+<span class="c1"># Show the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://github.com/user-attachments/assets/32d06bc2-cd9f-4680-88ec-5dd3d9a79abd"><img alt="https://github.com/user-attachments/assets/32d06bc2-cd9f-4680-88ec-5dd3d9a79abd" src="https://github.com/user-attachments/assets/32d06bc2-cd9f-4680-88ec-5dd3d9a79abd" width="400" />
+</a>
+</section>
+<section id="circular-boundary-condition">
+<h2>Circular Boundary Condition<a class="headerlink" href="#circular-boundary-condition" title="Link to this heading">#</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a circular boundary condition function</span>
+<span class="n">boundary_condition</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">:</span> <span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">Y</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="c1"># Plot using the custom KDE function</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">kdeplot_w_boundary_condition</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span>
+    <span class="n">boundary_condition</span><span class="o">=</span><span class="n">boundary_condition</span><span class="p">,</span>
+    <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">"plasma"</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+    <span class="n">levels</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Add a title</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"KDE Plot with Circular Boundary Condition"</span><span class="p">)</span>
+
+<span class="c1"># Show the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="https://github.com/user-attachments/assets/e28fe762-98fe-4401-8c69-0863d176da78"><img alt="https://github.com/user-attachments/assets/e28fe762-98fe-4401-8c69-0863d176da78" src="https://github.com/user-attachments/assets/e28fe762-98fe-4401-8c69-0863d176da78" width="400" />
+</a>
+<p class="epythet-aggregates">This documentation as a single file: <a href="oplot.md">oplot.md</a> (Markdown, for agents).</p>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+<p class="epythet-provenance" style="font-size:.8em;opacity:.65;margin-top:2.5em;text-align:right">built 2026-09-22 15:03 UTC from <a href="https://github.com/i2mint/oplot/commit/1cc58dfaffe56121f5dbba4efe23be448bc89a5e">1cc58df</a> (master) · oplot 0.1.25 · <a href="about-this-build.html">about this build</a></p>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="right-next"
+       href="api.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">API reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">matrix.py</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#multiplots-py">multiplots.py</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ui-scores-mapping-py">ui_scores_mapping.py</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#outlier-scores-py">outlier_scores.py</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-audio-py">plot_audio.py</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-data-set-py">plot_data_set.py</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#density-distribution">density_distribution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scatter-and-color-according-to-y">scatter_and_color_according_to_y</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-stats-py">plot_stats.py</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#ploting-distributions-density">Ploting Distributions/Density</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-some-data-to-test-on">Generate some data to test on</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-with-boundary-condition-y-x">Plot with Boundary Condition <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">≤</span> <span class="pre">x</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-without-boundary-condition">Plot Without Boundary Condition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#output">Output</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boundary-condition-y-x">Boundary Condition <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">≥</span> <span class="pre">x</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#circular-boundary-condition">Circular Boundary Condition</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="_sources/index.md.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=cb8930eaaf36d9849b67"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=cb8930eaaf36d9849b67"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.21.0.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

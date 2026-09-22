@@ -1,0 +1,25 @@
+# oplot
+
+> A medley of plotting tools for data analysis
+
+
+## Pages in this subsection
+
+- [oplot](oplot.html.md): Plots that are frequently useful to us
+- [oplot.distributions](oplot.distributions.html.md): Plot distributions (density etc.) of data.
+- [oplot.matrix](oplot.matrix.html.md): Plotting matrices and matrix-structured data
+- [oplot.multi_plot](oplot.multi_plot.html.md): Plotting multiple datas in a same figure
+- [oplot.multiplots](oplot.multiplots.html.md): Drawing multiple plots in a single figure
+- [oplot.my](oplot.my.html.md): What matplotlib has already – but with the interface I’d like
+- [oplot.outlier_scores](oplot.outlier_scores.html.md): Visualizing various regions in a list of scores. E.g. adding colored regions
+- [oplot.plot_audio](oplot.plot_audio.html.md): Functions intended to plot waveform and spectra plus some timestamps information as vertical lines o...
+- [oplot.plot_data_set](oplot.plot_data_set.html.md): Function to reduce and plot data in 2 or 3 dimensions
+- [oplot.plot_mappings](oplot.plot_mappings.html.md): Plot mappings (e.g. dicts, Series, etc.)
+- [oplot.plot_stats](oplot.plot_stats.html.md): Functions to represent the accuracy of outlier or classification algorithms
+- [oplot.sequences](oplot.sequences.html.md): Plotting sequences
+- [oplot.ui_scores_mapping](oplot.ui_scores_mapping.html.md): Functions to create and plot outlier scores (or other) in a fixed bounded range. Intended to use to
+- [oplot.util](oplot.util.html.md): | &#96;cast_inputs&#96;(&#92;&#42;args_cast, &#92;&#42;&#92;&#42;kwargs_cast)         | Creates a decorator that casts the arguments...
+
+## Optional
+
+- [Top-level llms.txt](../llms.txt): Complete documentation index.

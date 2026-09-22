@@ -1,0 +1,19 @@
+oplot.outlier\_scores
+=====================
+
+.. automodule:: oplot.outlier_scores
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      find_last_normal_idx
+      find_prop_markers
+      get_confused_part
+      get_confusion_zones_percentiles
+      get_confusion_zones_std
+      get_percentiles
+      plot_scores_and_zones
+      sort_scores_truth
+   

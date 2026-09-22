@@ -1,0 +1,14 @@
+oplot.multiplots
+================
+
+.. automodule:: oplot.multiplots
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      ax_func_to_plot
+      make_space_above
+      multiplot_with_max_size
+   
