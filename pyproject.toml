@@ -103,6 +103,11 @@ test_envvars = []
 extra_envvars = []
 
 [tool.wads.ci.env.defaults]
+# Force matplotlib's non-interactive backend in CI. Without this, plt.show()
+# in doctests/tests (oplot's core job is plotting) can pick a GUI backend on
+# some runners and hang instead of no-op-ing, which is what actually happened
+# enabling the Windows leg for the first time (see #8's CI migration).
+MPLBACKEND = "Agg"
 
 [tool.wads.ci.quality.ruff]
 enabled = true
