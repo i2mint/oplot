@@ -24,7 +24,7 @@ def bars(
     zero_thickness: float | None = None,
     barplot_kwargs: dict = (),
     density_sigma: int = 20,
-    density_line_kwargs: dict = (('color', 'black'),),
+    density_line_kwargs: dict = (("color", "black"),),
     ax=None,  # Add an ax parameter
 ):
     """
@@ -149,8 +149,8 @@ def bars(
 
     if density_line:
         y_density = gaussian_filter1d(y, sigma=density_sigma)
-        if 'linewidth' in density_line_kwargs:
-            density_line_kwargs['linewidth'] = int(density_line_kwargs['linewidth'])
+        if "linewidth" in density_line_kwargs:
+            density_line_kwargs["linewidth"] = int(density_line_kwargs["linewidth"])
 
         sns.lineplot(
             y=y_density,

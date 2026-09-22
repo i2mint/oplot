@@ -31,19 +31,19 @@ def plot_freqs_stats(X, upper_frequency=22050, n_bins=1025, normalized=True):
         mean_each_freq /= normalization_factor
 
     plt.figure(figsize=(20, 10))
-    plt.plot(np.linspace(0, upper_frequency, n_bins), max_each_freq, label='max')
-    plt.plot(np.linspace(0, upper_frequency, n_bins), min_each_freq, label='min')
-    plt.plot(np.linspace(0, upper_frequency, n_bins), mean_each_freq, label='mean')
-    plt.legend(loc='best')
-    plt.xlabel('frequencies')
-    plt.ylabel('intensities')
+    plt.plot(np.linspace(0, upper_frequency, n_bins), max_each_freq, label="max")
+    plt.plot(np.linspace(0, upper_frequency, n_bins), min_each_freq, label="min")
+    plt.plot(np.linspace(0, upper_frequency, n_bins), mean_each_freq, label="mean")
+    plt.legend(loc="best")
+    plt.xlabel("frequencies")
+    plt.ylabel("intensities")
     plt.show()
 
     plt.figure(figsize=(20, 10))
     freq_var = np.var(X, axis=0)
-    plt.plot(np.linspace(0, upper_frequency, n_bins), freq_var, label='variance')
-    plt.xlabel('frequencies')
-    plt.ylabel('variance')
+    plt.plot(np.linspace(0, upper_frequency, n_bins), freq_var, label="variance")
+    plt.xlabel("frequencies")
+    plt.ylabel("variance")
     plt.show()
 
 
@@ -55,7 +55,7 @@ def make_heatmap(
     make_symmetric=False,
     fill_diag=None,
     cmap=plt.cm.Blues,
-    name='',
+    name="",
 ):
     """
     Makes a heatmap plot of the matrix_results where the entries are rounded.
@@ -82,14 +82,14 @@ def make_heatmap(
     ax.set_xticklabels(tags)
     ax.set_yticklabels(tags)
     # Rotate the tick labels and set their alignment.
-    plt.setp(ax.get_xticklabels(), rotation=45, ha='right', rotation_mode='anchor')
+    plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
     # Loop over data dimensions and create text annotations.
     for i in range(len(tags)):
         for j in range(len(tags)):
             text = ax.text(
-                j, i, matrix_results[i, j], ha='center', va='center', color='w'
+                j, i, matrix_results[i, j], ha="center", va="center", color="w"
             )
-    ax.set_title('Pairwise Classification accuracy ' + name)
+    ax.set_title("Pairwise Classification accuracy " + name)
     fig.tight_layout()
     plt.show()
 
@@ -125,10 +125,10 @@ def plot_confusion_matrix(
         cm = cm.reshape((2, 2))
 
     if normalize:
-        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        cm = cm.astype("float") / cm.sum(axis=1)[:, np.newaxis]
     if ax is None:
         fig, ax = plt.subplots(figsize=figsize)
-    im = ax.imshow(cm, interpolation='nearest', cmap=cmap)
+    im = ax.imshow(cm, interpolation="nearest", cmap=cmap)
     if color_bar:
         ax.figure.colorbar(im, ax=ax)
     # We want to show all ticks...
@@ -139,15 +139,15 @@ def plot_confusion_matrix(
         xticklabels=classes,
         yticklabels=classes,
         title=title,
-        ylabel='True label',
-        xlabel='Predicted label',
+        ylabel="True label",
+        xlabel="Predicted label",
     )
     ax.grid(False)
     # Rotate the tick labels and set their alignment.
-    plt.setp(ax.get_xticklabels(), rotation=45, ha='right', rotation_mode='anchor')
+    plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
 
     # Loop over data dimensions and create text annotations.
-    fmt = '.2f' if normalize else 'd'
+    fmt = ".2f" if normalize else "d"
     thresh = cm.max() / 2.0
     for i in range(cm.shape[0]):
         for j in range(cm.shape[1]):
@@ -157,14 +157,14 @@ def plot_confusion_matrix(
                     j,
                     i,
                     format(cm[i, j], fmt),
-                    ha='center',
-                    va='center',
-                    color='white' if cm[i, j] > thresh else 'black',
+                    ha="center",
+                    va="center",
+                    color="white" if cm[i, j] > thresh else "black",
                 )
     if fig is not None:
         fig.tight_layout()
         if saving_path is not None:
-            fig.savefig(saving_path, bbox_inches='tight', dpi=200)
+            fig.savefig(saving_path, bbox_inches="tight", dpi=200)
     if plot:
         plt.show()
 
@@ -269,20 +269,20 @@ def make_tables_tn_fp_fn_tp(
     df = pd.DataFrame(
         row,
         columns=[
-            'Threshold',
-            'True Negative',
-            'False Positive',
-            'False Negative',
-            'True Positive',
+            "Threshold",
+            "True Negative",
+            "False Positive",
+            "False Negative",
+            "True Positive",
         ],
     )
     if normalize:
         total_positive = np.sum(truth)
         total_negative = len(truth) - total_positive
-        df['True Negative'] = df['True Negative'].apply(lambda x: x / total_negative)
-        df['False Positive'] = df['False Positive'].apply(lambda x: x / total_negative)
-        df['False Negative'] = df['False Negative'].apply(lambda x: x / total_positive)
-        df['True Positive'] = df['True Positive'].apply(lambda x: x / total_positive)
+        df["True Negative"] = df["True Negative"].apply(lambda x: x / total_negative)
+        df["False Positive"] = df["False Positive"].apply(lambda x: x / total_negative)
+        df["False Negative"] = df["False Negative"].apply(lambda x: x / total_positive)
+        df["True Positive"] = df["True Positive"].apply(lambda x: x / total_positive)
     return df
 
 
@@ -319,10 +319,10 @@ def make_tn_fp_fn_tp_tag_lists(truth, scores, threshold, tags=None):
         false_negative = Counter(false_negative)
 
     return {
-        'tp': true_positive,
-        'tn': true_negative,
-        'fp': false_positive,
-        'fn': false_negative,
+        "tp": true_positive,
+        "tn": true_negative,
+        "fp": false_positive,
+        "fn": false_negative,
     }
 
 
@@ -330,11 +330,11 @@ def vlines(
     x,
     ymin=0,
     ymax=None,
-    marker='o',
+    marker="o",
     marker_kwargs=None,
-    colors='k',
-    linestyles='solid',
-    label='',
+    colors="k",
+    linestyles="solid",
+    label="",
     data=None,
     **kwargs,
 ):
@@ -344,7 +344,7 @@ def vlines(
         x = np.arange(len(ymax))
 
         if ymax is None:
-            raise ValueError('Need to specify ymax')
+            raise ValueError("Need to specify ymax")
 
     if marker is not None:
         if marker_kwargs is None:
@@ -370,7 +370,7 @@ def make_normal_outlier_timeline(
     vertical_sep=False,
     saving_path=None,
     fig_size=(16, 5),
-    name='normal/outlier scores',
+    name="normal/outlier scores",
     smooth=False,
     legend_size=10,
     title_font_size=10,
@@ -401,7 +401,7 @@ def make_normal_outlier_timeline(
         y_order = list(dict.fromkeys(y))
     else:
         if set(np.unique(y)) != set(y_order):
-            warnings.warn('y_order does not include the values present in y')
+            warnings.warn("y_order does not include the values present in y")
 
     if smooth:
         new_scores = []
@@ -415,8 +415,8 @@ def make_normal_outlier_timeline(
                 new_y_order.append(i)
             except ValueError:
                 print(
-                    f'There are less scores corresponding to {i} than the smoothing window size. '
-                    f'These scores will be dropped'
+                    f"There are less scores corresponding to {i} than the smoothing window size. "
+                    f"These scores will be dropped"
                 )
         scores = np.array(new_scores)
         y = np.array(new_y)
@@ -447,32 +447,32 @@ def make_normal_outlier_timeline(
         )
     if xticks is not None and xticks_labels is not None:
         plt.xticks(ticks=xticks, labels=xticks_labels, rotation=xticks_rotation)
-    if vertical_sep == 'auto':
+    if vertical_sep == "auto":
         group_len = apply_function_on_consecutive(y, y, lambda x: len(x))
         vertical_lines_pos = np.cumsum(group_len)
         ax1.vlines(
             vertical_lines_pos,
             ymin=np.min(scores),
             ymax=np.max(scores),
-            colors='k',
+            colors="k",
             linewidth=0.3,
-            linestyles='-.',
+            linestyles="-.",
         )
     elif vertical_sep:
         ax1.vlines(
             vertical_sep,
             ymin=np.min(scores),
             ymax=np.max(scores),
-            colors='k',
+            colors="k",
             linewidth=0.3,
-            linestyles='-.',
+            linestyles="-.",
         )
 
     if legend_size:
-        plt.legend(prop={'size': legend_size}, loc=(1.04, 0), ncol=legend_n_cols)
+        plt.legend(prop={"size": legend_size}, loc=(1.04, 0), ncol=legend_n_cols)
     plt.title(name, fontsize=title_font_size)
     if saving_path is not None:
-        plt.savefig(saving_path, bbox_inches='tight', dpi=200)
+        plt.savefig(saving_path, bbox_inches="tight", dpi=200)
 
     plt.show()
 
@@ -517,16 +517,16 @@ def render_mpl_table(
     col_width=3.0,
     row_height=0.625,
     font_size=14,
-    header_color='#40466e',
-    row_colors=['#f1f1f2', 'w'],
-    edge_color='w',
+    header_color="#40466e",
+    row_colors=["#f1f1f2", "w"],
+    edge_color="w",
     bbox=[0, 0, 1, 1],
     header_columns=0,
     ax=None,
     path_to_save=None,
     round_decimals=3,
     cols_to_round=(),
-    cols_to_int='all_other',
+    cols_to_int="all_other",
     dpi=300,
     **kwargs,
 ):
@@ -539,7 +539,7 @@ def render_mpl_table(
         else:
             for col in cols_to_round:
                 data[col] = data[col].apply(lambda x: round(x, round_decimals))
-    if cols_to_int == 'all_others':
+    if cols_to_int == "all_others":
         for col in data.columns:
             if col not in cols_to_round:
                 data[col] = data[col].apply(lambda x: int(x))
@@ -548,7 +548,7 @@ def render_mpl_table(
             [col_width, row_height]
         )
         fig, ax = plt.subplots(figsize=size)
-        ax.axis('off')
+        ax.axis("off")
     mpl_table = ax.table(
         cellText=data.values, bbox=bbox, colLabels=data.columns, **kwargs
     )
@@ -559,65 +559,70 @@ def render_mpl_table(
     for k, cell in mpl_table._cells.items():
         cell.set_edgecolor(edge_color)
         if k[0] == 0 or k[1] < header_columns:
-            cell.set_text_props(weight='bold', color='w')
+            cell.set_text_props(weight="bold", color="w")
             cell.set_facecolor(header_color)
         else:
             cell.set_facecolor(row_colors[k[0] % len(row_colors)])
     if path_to_save:
-        plt.savefig(path_to_save, bbox_inches='tight', dpi=dpi)
+        plt.savefig(path_to_save, bbox_inches="tight", dpi=dpi)
     plt.show()
 
 
 # all these scores except for MCC gives a score between 0 and 1.
 # I normalized MMC into what I call NNMC in order to keep the same scale for all.
 base_statistics_dict = {
-    'TPR': lambda tn, fp, fn, tp: tp / (tp + fn),
+    "TPR": lambda tn, fp, fn, tp: tp / (tp + fn),
     # sensitivity, recall, hit rate, or true positive rate
-    'TNR': lambda tn, fp, fn, tp: tn
-    / (tn + fp),  # specificity, selectivity or true negative rate
-    'PPV': lambda tn, fp, fn, tp: tp
-    / (tp + fp),  # precision or positive predictive value
-    'NPV': lambda tn, fp, fn, tp: tn / (tn + fn),  # negative predictive value
-    'FNR': lambda tn, fp, fn, tp: fn / (fn + tp),  # miss rate or false negative rate
-    'FPR': lambda tn, fp, fn, tp: fp / (fp + tn),  # fall-out or false positive rate
-    'FDR': lambda tn, fp, fn, tp: fp / (fp + tp),  # false discovery rate
-    'FOR': lambda tn, fp, fn, tp: fn / (fn + tn),  # false omission rate
-    'TS': lambda tn, fp, fn, tp: tp / (tp + fn + fp),
+    "TNR": lambda tn, fp, fn, tp: (
+        tn / (tn + fp)
+    ),  # specificity, selectivity or true negative rate
+    "PPV": lambda tn, fp, fn, tp: (
+        tp / (tp + fp)
+    ),  # precision or positive predictive value
+    "NPV": lambda tn, fp, fn, tp: tn / (tn + fn),  # negative predictive value
+    "FNR": lambda tn, fp, fn, tp: fn / (fn + tp),  # miss rate or false negative rate
+    "FPR": lambda tn, fp, fn, tp: fp / (fp + tn),  # fall-out or false positive rate
+    "FDR": lambda tn, fp, fn, tp: fp / (fp + tp),  # false discovery rate
+    "FOR": lambda tn, fp, fn, tp: fn / (fn + tn),  # false omission rate
+    "TS": lambda tn, fp, fn, tp: tp / (tp + fn + fp),
     # threat score (TS) or Critical Success Index (CSI)
-    'ACC': lambda tn, fp, fn, tp: (tp + tn) / (tp + tn + fp + fn),  # accuracy
-    'F1': lambda tn, fp, fn, tp: (2 * tp) / (2 * tp + fp + fn),  # F1 score
-    'NMCC': lambda tn, fp, fn, tp: (
-        (tp * tn - fp * fn) / ((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn)) ** 0.5 + 1
-    )
-    / 2,
+    "ACC": lambda tn, fp, fn, tp: (tp + tn) / (tp + tn + fp + fn),  # accuracy
+    "F1": lambda tn, fp, fn, tp: (2 * tp) / (2 * tp + fp + fn),  # F1 score
+    "NMCC": lambda tn, fp, fn, tp: (
+        (
+            (tp * tn - fp * fn) / ((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn)) ** 0.5
+            + 1
+        )
+        / 2
+    ),
     # NORMALIZED TO BE BETWEEN 0 AND 1 Matthews correlation coefficient
-    'BM': lambda tn, fp, fn, tp: tp / (tp + fn) + tn / (tn + fp) - 1,
+    "BM": lambda tn, fp, fn, tp: tp / (tp + fn) + tn / (tn + fp) - 1,
     # Informedness or Bookmaker Informedness
-    'MK': lambda tn, fp, fn, tp: tp / (tp + fp) + tn / (tn + fn) - 1,
+    "MK": lambda tn, fp, fn, tp: tp / (tp + fp) + tn / (tn + fn) - 1,
 }  # Markedness
 
 synonyms = {
-    'TPR': ['recall', 'sensitivity', 'true_positive_rate', 'hit_rate', 'tpr'],
-    'TNR': ['specificity', 'SPC', 'true_negative_rate', 'selectivity', 'tnr'],
-    'PPV': ['precision', 'positive_predictive_value', 'ppv'],
-    'NPV': ['negative_predictive_value', 'npv'],
-    'FNR': ['miss_rate', 'false_negative_rate', 'fnr'],
-    'FPR': ['fall_out', 'false_positive_rate', 'fpr'],
-    'FDR': ['false_discovery_rate', 'fdr'],
-    'FOR': ['false_omission_rate', 'for'],
-    'TS': ['threat_score', 'critical_success_index', 'CSI', 'csi', 'ts'],
-    'ACC': ['accuracy', 'acc'],
-    'F1': ['f1_score', 'f1', 'F1_score'],
-    'NMCC': ['normalized_Matthews_correlation_coefficient', 'nmcc'],
-    'BM': ['informedness', 'bookmaker_informedness', 'bi', 'BI', 'bm'],
-    'MK': ['markedness', 'mk'],
+    "TPR": ["recall", "sensitivity", "true_positive_rate", "hit_rate", "tpr"],
+    "TNR": ["specificity", "SPC", "true_negative_rate", "selectivity", "tnr"],
+    "PPV": ["precision", "positive_predictive_value", "ppv"],
+    "NPV": ["negative_predictive_value", "npv"],
+    "FNR": ["miss_rate", "false_negative_rate", "fnr"],
+    "FPR": ["fall_out", "false_positive_rate", "fpr"],
+    "FDR": ["false_discovery_rate", "fdr"],
+    "FOR": ["false_omission_rate", "for"],
+    "TS": ["threat_score", "critical_success_index", "CSI", "csi", "ts"],
+    "ACC": ["accuracy", "acc"],
+    "F1": ["f1_score", "f1", "F1_score"],
+    "NMCC": ["normalized_Matthews_correlation_coefficient", "nmcc"],
+    "BM": ["informedness", "bookmaker_informedness", "bi", "BI", "bm"],
+    "MK": ["markedness", "mk"],
 }
 
 
 def pair_metrics_to_reference(
-    pair_metrics={'x': 'TPR', 'y': 'FPR'},
+    pair_metrics={"x": "TPR", "y": "FPR"},
     outlier_proportion=0.2,
-    label='chance line',
+    label="chance line",
     base_statistics_dict=base_statistics_dict,
     synonyms=synonyms,
 ):
@@ -627,9 +632,9 @@ def pair_metrics_to_reference(
     """
 
     # r = rate of positive of a random outlier model
-    r = sp.symbols('r')
+    r = sp.symbols("r")
     # R = rate of positive in the test set
-    R = sp.symbols('R')
+    R = sp.symbols("R")
 
     tn = (1 - r) * (1 - R)
     fp = r * (1 - R)
@@ -643,8 +648,8 @@ def pair_metrics_to_reference(
             statistics_dict[k] = v
             statistics_dict[alt] = v
 
-    fx = statistics_dict[pair_metrics['x']]
-    fy = statistics_dict[pair_metrics['y']]
+    fx = statistics_dict[pair_metrics["x"]]
+    fy = statistics_dict[pair_metrics["y"]]
 
     simp_fx = sp.expand(fx(tn, fp, fn, tp))
     simp_fy = sp.expand(fy(tn, fp, fn, tp))
@@ -653,7 +658,7 @@ def pair_metrics_to_reference(
     y_values = [
         simp_fy.evalf(subs={R: outlier_proportion, simp_fx: i}) for i in x_values
     ]
-    plt.plot(x_values, y_values, '--', c='r', label=label)
+    plt.plot(x_values, y_values, "--", c="r", label=label)
 
 
 def wiggle_values_keep_order(values):
@@ -693,12 +698,12 @@ def wiggle_values_keep_order(values):
 
 
 def cumulative_tn_fp_fn_tp(truth, scores):
-    """Compute efficiently the cumulative tn, fp, fn and tp """
+    """Compute efficiently the cumulative tn, fp, fn and tp"""
 
     truth = np.array(truth)
     scores = np.array(scores)
 
-    sorted_idx = np.argsort(scores, kind='mergesort')
+    sorted_idx = np.argsort(scores, kind="mergesort")
     sorted_truth = truth[sorted_idx]
 
     total_true_positive = np.sum(sorted_truth)
@@ -741,7 +746,7 @@ def wiggle_scores(scores, truth):
 def plot_outlier_metric_curve(
     truth,
     scores,
-    pair_metrics={'x': 'TPR', 'y': 'PPV'},
+    pair_metrics={"x": "TPR", "y": "PPV"},
     plot_curve=True,
     curve_legend_name=None,
     title=None,
@@ -832,8 +837,8 @@ def plot_outlier_metric_curve(
     tns, fps, fns, tps = cumulative_tn_fp_fn_tp(truth, scores)
     x = []
     y = []
-    fx = statistics_dict[pair_metrics['x']]
-    fy = statistics_dict[pair_metrics['y']]
+    fx = statistics_dict[pair_metrics["x"]]
+    fy = statistics_dict[pair_metrics["y"]]
     for tn, fp, fn, tp in zip(tns, fps, fns, tps):
         x.append(fx(tn, fp, fn, tp))
         y.append(fy(tn, fp, fn, tp))
@@ -879,24 +884,24 @@ def plot_outlier_metric_curve(
 
     if plot_table or plot_curve:
         if not axis_name_dict:
-            x_label = pair_metrics['x']
-            y_label = pair_metrics['y']
+            x_label = pair_metrics["x"]
+            y_label = pair_metrics["y"]
         else:
-            x_label = axis_name_dict['x']
-            y_label = axis_name_dict['y']
+            x_label = axis_name_dict["x"]
+            y_label = axis_name_dict["y"]
 
     # plotting the curve
     if plot_curve:
         plt.xlabel(x_label)
         plt.ylabel(y_label)
 
-        curve_name = y_label + '_' + x_label + '_curve'
+        curve_name = y_label + "_" + x_label + "_curve"
         if not curve_legend_name:
             curve_legend_name = curve_name
         if not title:
             title = curve_name
-        plt.plot(x, y, color='b', alpha=0.2, label=curve_legend_name)
-        plt.fill_between(x, y, alpha=0.2, color='b')
+        plt.plot(x, y, color="b", alpha=0.2, label=curve_legend_name)
+        plt.fill_between(x, y, alpha=0.2, color="b")
         plt.ylim([0.0, 1.1])
         plt.xlim([0.0, 1.0])
 
@@ -909,11 +914,11 @@ def plot_outlier_metric_curve(
 
         # adding the points to the curve
         if plot_table_points_on_curve:
-            plt.scatter(x_points, y_points, label='table points')
+            plt.scatter(x_points, y_points, label="table points")
         # saving the curve
         if saving_root:
             path_to_save = os.path.join(saving_root, title)
-            plt.savefig(path_to_save, bbox_inches='tight', dpi=200, figsize=(6, 6))
+            plt.savefig(path_to_save, bbox_inches="tight", dpi=200, figsize=(6, 6))
         plt.legend(bbox_to_anchor=(1, 1), fancybox=True, shadow=True)
         plt.show()
 
@@ -922,7 +927,7 @@ def plot_outlier_metric_curve(
         rows = list(zip(x_points, y_points))
         df = pd.DataFrame(rows, columns=[x_label, y_label])
         if saving_root:
-            path_to_save = os.path.join(saving_root, title + '_table')
+            path_to_save = os.path.join(saving_root, title + "_table")
         else:
             path_to_save = None
         render_mpl_table(df, path_to_save=path_to_save, dpi=table_dpi)
@@ -971,9 +976,9 @@ def smooth_scores(scores, window_size=2, window_step=None, smooth_func=np.mean):
     >>> list(smooth_scores([1], window_size=2))
     []
     >>> list(smooth_scores([1, 2], window_size=2))
-    [1.5]
+    [np.float64(1.5)]
     >>> list(smooth_scores([1, 2, 3], window_size=2, window_step=1, smooth_func=np.max))
-    [2, 3]
+    [np.int64(2), np.int64(3)]
 
     """
     if window_step is None:
@@ -1031,7 +1036,7 @@ from operator import itemgetter
 def parallel_sort(iterable_list, sort_idx=0):
     """
     Sort several lists in iterable_list in parallel, according to the the list of index sort_idx
-    
+
     :param iterable_list: list of list, all the lists have the same length
     :param sort_idx: int, the index of the list to sort by
     :return: a list sorted tuples

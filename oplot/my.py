@@ -1,6 +1,6 @@
 """What matplotlib has already -- but with the interface I'd like"""
 
-import nympy as np
+import numpy as np
 import matplotlib.pylab as plt
 
 
@@ -8,21 +8,21 @@ def vlines(
     x,
     ymin=0,
     ymax=None,
-    marker='o',
+    marker="o",
     marker_kwargs=None,
-    colors='k',
-    linestyles='solid',
-    label='',
+    colors="k",
+    linestyles="solid",
+    label="",
     hold=None,
     data=None,
-    **kwargs
+    **kwargs,
 ):
     if ymax is None:
         ymax = x
         x = np.arange(len(ymax))
 
         if ymax is None:
-            raise ValueError('Need to specify ymax')
+            raise ValueError("Need to specify ymax")
 
     if marker is not None:
         if marker_kwargs is None:
@@ -38,7 +38,5 @@ def vlines(
         label=label,
         hold=hold,
         data=data,
-        **kwargs
+        **kwargs,
     )
-
-

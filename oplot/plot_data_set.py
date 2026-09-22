@@ -48,7 +48,7 @@ def ensure_dict(obj: Any) -> Mapping:
         if isinstance(obj, Iterable):
             return dict(enumerate(obj))
         else:
-            raise ValueError(f'Cannot convert {obj} to a dictionary.')
+            raise ValueError(f"Cannot convert {obj} to a dictionary.")
 
 
 def density_distribution(
@@ -58,21 +58,21 @@ def density_distribution(
     axvline_kwargs: dict[str, dict[str, Any]] | None = None,
     line_width: int = 3,
     location_func: Callable = np.mean,
-    location_linestyle: str = '--',
+    location_linestyle: str = "--",
     display_location_text: bool = True,
-    colors: tuple = ('blue', 'orange', 'green', 'red', 'purple', 'brown'),
+    colors: tuple = ("blue", "orange", "green", "red", "purple", "brown"),
     density_plot_func: Callable = sns.kdeplot,
     density_plot_kwargs: dict[str, Any] | None = None,
     text_kwargs: dict[str, Any] | Iterable[tuple[str, Any]] | None = (
-        ('x', 0.05),
-        ('y', 0.05),
-        ('bbox', dict(facecolor='white', alpha=0.5)),
+        ("x", 0.05),
+        ("y", 0.05),
+        ("bbox", dict(facecolor="white", alpha=0.5)),
     ),
     mean_line_kwargs: dict[str, Any] | None = None,
 ):
     """
     Plots the density distribution of different data sets (arrays).
-    
+
     Args:
         data_dict (dict): A dictionary where keys are labels and values are arrays to plot.
         ax (plt.Axes, optional): Matplotlib Axes object to plot on. If None, a new figure and axis will be created.
@@ -101,7 +101,7 @@ def density_distribution(
         >>> fig, ax = plt.subplots()
         >>> density_distribution(data_dict, ax=ax, display_location_text=False, colors=('red', 'blue'))
         >>> # This will plot the density distributions on the provided axis.
-        
+
     """
     # Define default colors and linestyle
     colors_cycle = itertools.cycle(colors)
@@ -132,8 +132,8 @@ def density_distribution(
             # Get axvline kwargs for the current label
             if axvline_kwargs and label in axvline_kwargs:
                 kwargs = axvline_kwargs[label]
-                color = kwargs.get('color', color)
-                linestyle = kwargs.get('linestyle', linestyle)
+                color = kwargs.get("color", color)
+                linestyle = kwargs.get("linestyle", linestyle)
 
             # Add vertical line for the location
             ax.axvline(
@@ -142,14 +142,16 @@ def density_distribution(
 
         if display_location_text:
             text_kwargs = dict(
-                (('x', 0.05), ('y', 0.05), ('bbox', dict(facecolor='white', alpha=0.5)))
+                (("x", 0.05), ("y", 0.05), ("bbox", dict(facecolor="white", alpha=0.5)))
             )
             # Add text box displaying the mean of each distribution
-            text_str = '\n'.join(
-                [f'{label}: {np.mean(array):.2f}' for label, array in data_dict.items()]
+            text_str = "\n".join(
+                [f"{label}: {np.mean(array):.2f}" for label, array in data_dict.items()]
             )
             ax.text(
-                s=text_str, transform=ax.transAxes, **text_kwargs,
+                s=text_str,
+                transform=ax.transAxes,
+                **text_kwargs,
             )
 
     # Add legend
@@ -159,16 +161,16 @@ def density_distribution(
 def scatter_and_color_according_to_y(
     X,
     y=None,
-    col='rainbow',
-    projection='2d',
-    dim_reduct='LDA',
+    col="rainbow",
+    projection="2d",
+    dim_reduct="LDA",
     save=False,
     legend=True,
-    saving_loc='/home/chris/',
-    saving_name='myplot-',
+    saving_loc="/home/chris/",
+    saving_name="myplot-",
     plot_tag_name=False,
     super_alpha=10,
-    cmap_col='viridis',
+    cmap_col="viridis",
     *args,
     **kwargs,
 ):
@@ -194,51 +196,51 @@ def scatter_and_color_according_to_y(
     :return: a plot of 2d scatter plot of X with different colors for each tag
     """
 
-    if projection == '1d':
+    if projection == "1d":
         proj_dim = 1
-    elif projection == '2d':
+    elif projection == "2d":
         proj_dim = 2
-    elif projection == '3d':
+    elif projection == "3d":
         proj_dim = 3
     else:
         warnings.warn(
-            'The choices for the parameter projectionare'
+            "The choices for the parameter projectionare"
             " '1d', '2d' or '3d'. Anything else and it will be assumed to be '2d' by default"
         )
         proj_dim = 2
 
     if y is None:
-        y = np.zeros(len(X), dtype='int')
+        y = np.zeros(len(X), dtype="int")
         legend = False
         n_tags = 1
         tags = [0]
-        if dim_reduct == 'LDA':
+        if dim_reduct == "LDA":
             warnings.warn(
-                'LDA cannot be used if no y is provided, will use PCA instead'
+                "LDA cannot be used if no y is provided, will use PCA instead"
             )
-            dim_reduct = 'PCA'
+            dim_reduct = "PCA"
 
     elif isinstance(y[0], float):
         legend = False
         cm = plt.get_cmap(cmap_col)
         colors = None
-        col = 'continuous'
+        col = "continuous"
         no_tag = True
-        if dim_reduct == 'LDA':
+        if dim_reduct == "LDA":
             warnings.warn(
-                'LDA cannot be used if the y entries are floats, will use PCA instead'
+                "LDA cannot be used if the y entries are floats, will use PCA instead"
             )
-            dim_reduct = 'PCA'
+            dim_reduct = "PCA"
 
     else:
         tags = np.unique(y)
         n_tags = len(tags)
-        if dim_reduct == 'LDA' and proj_dim > n_tags - 1:
+        if dim_reduct == "LDA" and proj_dim > n_tags - 1:
             warnings.warn(
-                'LDA cannot be used to produce {} dimensions if y has less than {} classes,'
-                ' will use PCA instead'.format(proj_dim, proj_dim + 1)
+                "LDA cannot be used to produce {} dimensions if y has less than {} classes,"
+                " will use PCA instead".format(proj_dim, proj_dim + 1)
             )
-            dim_reduct = 'PCA'
+            dim_reduct = "PCA"
 
     second_index = 1
     third_index = 2
@@ -247,29 +249,29 @@ def scatter_and_color_according_to_y(
 
     # use LDA/PCA to project on a 2d/3d space if needed
     if n_dim > proj_dim:
-        if dim_reduct == 'LDA':
+        if dim_reduct == "LDA":
             LDA = LinearDiscriminantAnalysis(n_components=proj_dim)
             X = LDA.fit(X, y).transform(X)
 
-        elif dim_reduct == 'PCA':
+        elif dim_reduct == "PCA":
             pca = PCA(n_components=proj_dim)
             X = pca.fit_transform(X)
 
-        elif dim_reduct == 'TSNE':
+        elif dim_reduct == "TSNE":
             X = TSNE(n_components=proj_dim).fit_transform(X)
 
-        elif dim_reduct == 'random':
+        elif dim_reduct == "random":
             pass
 
         else:
             X = X[:, :proj_dim]
 
-    if col == 'rainbow':
+    if col == "rainbow":
         colors = matplotlib.cm.rainbow(np.linspace(0, 1, n_tags))
-    if col == 'random':
+    if col == "random":
         colors = matplotlib.colors.hsv_to_rgb(np.random.rand(n_tags, 3))
 
-    if projection == '1d':
+    if projection == "1d":
         fig = plt.figure()
         ax = fig.add_subplot(111)
         handles = []
@@ -284,7 +286,7 @@ def scatter_and_color_according_to_y(
                     alpha=alpha,
                     s=10,
                     linewidths=0.05,
-                    marker='+',
+                    marker="+",
                     *args,
                     **kwargs,
                 )
@@ -292,13 +294,15 @@ def scatter_and_color_according_to_y(
                     handle = mpatches.Patch(color=c, label=i)
                     handles.append(handle)
                     ax.legend(
-                        handles=handles, loc='center left', bbox_to_anchor=(1, 0.5)
+                        handles=handles, loc="center left", bbox_to_anchor=(1, 0.5)
                     )
         else:
-            sc = ax.scatter(X[:, 0], X[:, second_index], c=y, alpha=alpha, *args, **kwargs)
+            sc = ax.scatter(
+                X[:, 0], X[:, second_index], c=y, alpha=alpha, *args, **kwargs
+            )
             fig.colorbar(sc, ax=ax)
 
-    if projection == '2d':
+    if projection == "2d":
         fig = plt.figure()
         ax = fig.add_subplot(111)
         handles = []
@@ -318,13 +322,15 @@ def scatter_and_color_according_to_y(
                     handle = mpatches.Patch(color=c, label=i)
                     handles.append(handle)
                     ax.legend(
-                        handles=handles, loc='center left', bbox_to_anchor=(1, 0.5)
+                        handles=handles, loc="center left", bbox_to_anchor=(1, 0.5)
                     )
         else:
-            sc = ax.scatter(X[:, 0], X[:, second_index], c=y, alpha=alpha, *args, **kwargs)
+            sc = ax.scatter(
+                X[:, 0], X[:, second_index], c=y, alpha=alpha, *args, **kwargs
+            )
             fig.colorbar(sc, ax=ax)
 
-    if projection == '3d':
+    if projection == "3d":
         handles = []
         if n_dim == 1:
             second_index = 0
@@ -332,7 +338,7 @@ def scatter_and_color_according_to_y(
         if n_dim == 2:
             third_index = 1
         fig = plt.figure()
-        ax = fig.add_subplot(111, projection='3d')
+        ax = fig.add_subplot(111, projection="3d")
         if colors is not None:
             for c, i in zip(colors, tags):
                 sc = ax.scatter(
@@ -346,7 +352,7 @@ def scatter_and_color_according_to_y(
                     handle = mpatches.Patch(color=c, label=i)
                     handles.append(handle)
                     ax.legend(
-                        handles=handles, loc='center left', bbox_to_anchor=(1, 0.5)
+                        handles=handles, loc="center left", bbox_to_anchor=(1, 0.5)
                     )
         else:
             p = ax.scatter(
@@ -363,7 +369,7 @@ def scatter_and_color_according_to_y(
     if plot_tag_name and not no_tag:
         for tag in range(n_tags):
             tag_center = np.mean(X[y == tag], axis=0)
-            if projection == '2d':
+            if projection == "2d":
                 plt.text(tag_center[0], tag_center[1], tags[tag])
             else:
                 ax.text(
@@ -373,14 +379,14 @@ def scatter_and_color_according_to_y(
                     tags[tag],
                     size=20,
                     zorder=1,
-                    color='k',
+                    color="k",
                 )
 
     if save:
         path = (
-            saving_loc + saving_name + datetime.datetime.today().strftime('%Y-%m-%d-%r')
+            saving_loc + saving_name + datetime.datetime.today().strftime("%Y-%m-%d-%r")
         )
-        plt.savefig(path, bbox_inches='tight')
+        plt.savefig(path, bbox_inches="tight")
     plt.show()
 
 
@@ -394,7 +400,7 @@ def save_figs_to_pdf(figs, pdf_filepath=None):
     """
 
     if pdf_filepath is None:
-        pdf_filepath = '' + datetime.datetime.today().strftime('%Y-%m-%d-%r') + '.pdf'
+        pdf_filepath = "" + datetime.datetime.today().strftime("%Y-%m-%d-%r") + ".pdf"
     with PdfPages(pdf_filepath) as pdf:
         for fig in figs:
             pdf.savefig(fig)
@@ -431,9 +437,9 @@ def side_by_side_bar(
     if colors is None:
         colors = plt.cm.rainbow(np.linspace(0, 1, n_bars))
     else:
-        assert (
-            len(colors) >= n_bars
-        ), f"There's not enough colors for the number of bars ({n_bars})"
+        assert len(colors) >= n_bars, (
+            f"There's not enough colors for the number of bars ({n_bars})"
+        )
     ax = plt.subplot(111)
     # making each of the bar plot
     for i, list_of_values_for_bars in enumerate(list_of_values_for_bars):
@@ -441,12 +447,12 @@ def side_by_side_bar(
             width * j * n_bars + spacing * j + i * width
             for j in range(len(list_of_values_for_bars))
         ]
-        ax.bar(x, list_of_values_for_bars, width=width, color=colors[i], align='center')
+        ax.bar(x, list_of_values_for_bars, width=width, color=colors[i], align="center")
     ax.legend(list_names)
     ax.xaxis.set_ticklabels([])
 
 
-def ratio_comparison_vlines(y1, y2, c1='b', c2='k'):
+def ratio_comparison_vlines(y1, y2, c1="b", c2="k"):
     """
     Plots vlines of y1/y2.
 
@@ -459,4 +465,4 @@ def ratio_comparison_vlines(y1, y2, c1='b', c2='k'):
     y = np.array(y1) / np.array(y2)
     plt.vlines(list(range(len(y))), 1, y)
     plt.hlines(1, 0, len(y) - 1, colors=c2)
-    return plt.plot(list(range(len(y))), y, 'o', color=c1)
+    return plt.plot(list(range(len(y))), y, "o", color=c1)

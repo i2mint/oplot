@@ -4,7 +4,7 @@ import os
 from functools import wraps
 import pandas as pd
 
-DFLT_DIRPATH = os.path.expanduser('~')
+DFLT_DIRPATH = os.path.expanduser("~")
 
 
 # --------------------------------------------------------------------------------------
@@ -54,7 +54,7 @@ def cast_inputs(*args_cast, **kwargs_cast):
     return decorator
 
 
-def timestamp_to_float(timestamps, reference_time=pd.Timestamp('1970-01-01')):
+def timestamp_to_float(timestamps, reference_time=pd.Timestamp("1970-01-01")):
     """
     Convert an array-like of Timestamps to absolute floats representing days
     since a fixed reference datetime.
@@ -75,7 +75,7 @@ def timestamp_to_float(timestamps, reference_time=pd.Timestamp('1970-01-01')):
     return (timestamps - reference_time).dt.total_seconds() / (24 * 3600)
 
 
-def float_to_timestamp(floats, reference_time=pd.Timestamp('1970-01-01')):
+def float_to_timestamp(floats, reference_time=pd.Timestamp("1970-01-01")):
     """
     Convert an array-like of floats (days since reference datetime) back to Timestamps.
 
@@ -92,7 +92,7 @@ def float_to_timestamp(floats, reference_time=pd.Timestamp('1970-01-01')):
         Array of pandas Timestamps.
     """
     floats = np.array(floats)  # Ensure it's a numpy array
-    return pd.Series(reference_time + pd.to_timedelta(floats * 24 * 3600, unit='s'))
+    return pd.Series(reference_time + pd.to_timedelta(floats * 24 * 3600, unit="s"))
 
 
 # --------------------------------------------------------------------------------------
@@ -282,7 +282,7 @@ def fixed_step_chunker(
         start_at = 0
 
     # if the input is a list
-    if hasattr(it, '__getitem__') and hasattr(it, '__len__'):
+    if hasattr(it, "__getitem__") and hasattr(it, "__len__"):
         if stop_at is None:
             stop_at = len(it)
         else:
@@ -308,7 +308,6 @@ def fixed_step_chunker(
     # if the input is an iterator
     else:
         if chk_step < chk_size:
-
             it = islice(it, start_at, stop_at)
             chk = list(islice(it, chk_size))
 

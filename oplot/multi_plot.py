@@ -10,9 +10,9 @@ def _get_attr_args_and_kwargs_from_ax_call_item(ax_call_item):
     :return:
     """
     if isinstance(ax_call_item, dict):
-        attr = ax_call_item['attr']
-        args = ax_call_item.pop('args', ())
-        kwargs = ax_call_item.pop('kwargs', {})
+        attr = ax_call_item["attr"]
+        args = ax_call_item.pop("args", ())
+        kwargs = ax_call_item.pop("kwargs", {})
     else:
         attr = ax_call_item[0]
         if len(ax_call_item) == 2:
@@ -64,9 +64,9 @@ def multi_row_plot(
         plt.subplot(n_rows, 1, row_idx)
         specific_ax_calls = ()
         if isinstance(row_data, dict):
-            specific_ax_calls = row_data.pop('ax_calls', ())
-            if 'row_data' in row_data:
-                row_data = row_data['row_data']
+            specific_ax_calls = row_data.pop("ax_calls", ())
+            if "row_data" in row_data:
+                row_data = row_data["row_data"]
 
         if isinstance(row_data, dict):
             plot_func(**dict(plot_func_kwargs, **row_data))
@@ -141,10 +141,10 @@ def ax_func_to_plot(
         plt.show()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     def ax_func(ax):
         ax.plot([1, 5, 3])
-        ax.set_title('test_test')
+        ax.set_title("test_test")
 
-    ax_func_to_plot([ax_func] * 6, title='Test', x_labels='x_name_here')
+    ax_func_to_plot([ax_func] * 6, title="Test", x_labels="x_name_here")

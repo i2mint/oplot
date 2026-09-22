@@ -1,5 +1,6 @@
 """Functions to create and plot outlier scores (or other) in a fixed bounded range. Intended to use to
 show the results of an outlier algorithm in a user friendly UI"""
+
 import numpy as np
 
 
@@ -66,7 +67,7 @@ def make_ui_score_mapping(
     Plot a sigmoid function to map outlier scores to (by default) the range (0, 10)
     The function is not only continuous but also smooth and the radius of the corners are controlled by the floats
     top_base and bottom_base
-    
+
     :param min_lin_score: float, the minimum scores which is map with a linear function
     :param max_lin_score: float, the maximum scores which is map with a linear function
     :param top_base: float, the base of the exponential function on top of the linear part
