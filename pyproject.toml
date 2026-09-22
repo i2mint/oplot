@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "oplot"
-version = "0.1.25"
+version = "0.1.26"
 description = "A medley of plotting tools for data analysis"
 readme = "README.md"
 requires-python = ">=3.10"
