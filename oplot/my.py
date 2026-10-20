@@ -13,10 +13,13 @@ def vlines(
     colors="k",
     linestyles="solid",
     label="",
-    hold=None,
     data=None,
     **kwargs,
 ):
+    """``plt.vlines`` that draws stems (``vlines(y)`` plots y against its indices).
+
+    (The ``hold`` argument was removed: matplotlib dropped it long ago.)
+    """
     if ymax is None:
         ymax = x
         x = np.arange(len(ymax))
@@ -36,7 +39,6 @@ def vlines(
         colors=colors,
         linestyles=linestyles,
         label=label,
-        hold=hold,
         data=data,
         **kwargs,
     )
