@@ -103,6 +103,22 @@ class TestMakeNormalOutlierTimeline:
         make_normal_outlier_timeline(y, scores, y_order=['C', 'B', 'A'])
         plt.close('all')
 
+    def test_make_normal_outlier_timeline_class_order(self):
+        """Legend order follows y_order, else first appearance in y (#6)"""
+        y = np.array(['b', 'a', 'b', 'c', 'a'])
+        scores = np.arange(5)
+
+        def legend_labels():
+            texts = plt.gcf().axes[0].get_legend().get_texts()
+            return [t.get_text() for t in texts]
+
+        make_normal_outlier_timeline(y, scores)
+        assert legend_labels() == ['b', 'a', 'c']
+        plt.close('all')
+        make_normal_outlier_timeline(y, scores, y_order=['c', 'a', 'b'])
+        assert legend_labels() == ['c', 'a', 'b']
+        plt.close('all')
+
     def test_make_normal_outlier_timeline_with_custom_figsize(self):
         """Test make_normal_outlier_timeline with custom figure size"""
         scores = np.random.rand(60)
