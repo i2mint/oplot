@@ -22,7 +22,14 @@ Return the index of the last 0 in the sorted_truth array
 * **Parameters:**
   **sorted_truth** – an array of 0 or 1
 * **Returns:**
-  an int, the last idx of a 0 in sorted_truth
+  an int, the last idx of a 0 in sorted_truth, or -1 if there is none
+
+```pycon
+>>> find_last_normal_idx(np.array([0, 1, 0, 1, 1]))
+2
+>>> find_last_normal_idx(np.array([1, 1]))
+-1
+```
 
 ### oplot.outlier_scores.find_prop_markers(sorted_scores, sorted_truth, ratio_markers=(1, 0.75, 0.5), add_full_out_zone=True)
 

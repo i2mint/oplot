@@ -1,4 +1,4 @@
-> built 2026-10-20 03:35 UTC from 23f8717 (master) · oplot 0.1.26. Details: build_info.json
+> built 2026-10-20 06:29 UTC from 00dac90 (master) · oplot 0.1.27. Details: build_info.json
 
 # index.html.md
 
@@ -876,7 +876,14 @@ Return the index of the last 0 in the sorted_truth array
 * **Parameters:**
   **sorted_truth** – an array of 0 or 1
 * **Returns:**
-  an int, the last idx of a 0 in sorted_truth
+  an int, the last idx of a 0 in sorted_truth, or -1 if there is none
+
+```pycon
+>>> find_last_normal_idx(np.array([0, 1, 0, 1, 1]))
+2
+>>> find_last_normal_idx(np.array([1, 1]))
+-1
+```
 
 ### oplot.outlier_scores.find_prop_markers(sorted_scores, sorted_truth, ratio_markers=(1, 0.75, 0.5), add_full_out_zone=True)
 
@@ -1958,18 +1965,16 @@ reference_time
 
 # About this build
 
-This documentation was built on **2026-10-20 03:35 UTC** from commit <a href="https://github.com/i2mint/oplot/commit/23f87179ed44006e2ec86ff8ad4dab04e5052519"><code>23f8717</code></a> on branch <code>master</code>, for **oplot 0.1.26** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-10-20 06:29 UTC** from commit <a href="https://github.com/i2mint/oplot/commit/00dac9071f5add40bde3d35747966482f3e12f1d"><code>00dac90</code></a> on branch <code>master</code>, for **oplot 0.1.27** (from <code>pyproject.toml</code>).
 
-#### WARNING
-The documentation and the package may be misaligned:
-
-- The documented version (0.1.26) is behind the latest release on PyPI (0.1.27): `pip install oplot` gives newer code than these docs describe.
+#### NOTE
+Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
 
 ## Source
 
 |                     |                                                                                                                                                     |
 |---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/i2mint/oplot/commit/23f87179ed44006e2ec86ff8ad4dab04e5052519"><code>23f87179ed44006e2ec86ff8ad4dab04e5052519</code></a> |
+| Commit              | <a href="https://github.com/i2mint/oplot/commit/00dac9071f5add40bde3d35747966482f3e12f1d"><code>00dac9071f5add40bde3d35747966482f3e12f1d</code></a> |
 | Branch              | <code>master</code>                                                                                                                                 |
 | Tags at this commit | none                                                                                                                                                |
 | Working tree        | clean                                                                                                                                               |
@@ -1980,9 +1985,9 @@ The documentation and the package may be misaligned:
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
 | Repository   | <code>i2mint/oplot</code>                                                                  |
-| Run          | <a href="https://github.com/i2mint/oplot/actions/runs/39364974001">39364974001</a>         |
+| Run          | <a href="https://github.com/i2mint/oplot/actions/runs/39380548665">39380548665</a>         |
 | Ref          | <code>refs/heads/master</code>                                                             |
-| Event commit | <code>23f87179ed44006e2ec86ff8ad4dab04e5052519</code> (in the history of the built commit) |
+| Event commit | <code>00dac9071f5add40bde3d35747966482f3e12f1d</code> (in the history of the built commit) |
 
 ## Tools
 
@@ -2007,13 +2012,13 @@ The documentation and the package may be misaligned:
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/oplot/0.1.27/">0.1.27</a>, newer than the documented version (0.1.26).
+Latest release: <a href="https://pypi.org/project/oplot/0.1.27/">0.1.27</a>, the same as the documented version.
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/i2mint/oplot && cd oplot
-git checkout 23f87179ed44006e2ec86ff8ad4dab04e5052519
+git checkout 00dac9071f5add40bde3d35747966482f3e12f1d
 pip install "epythet==0.2.18"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```

@@ -1,32 +1,32 @@
 {
   "schema_version": 1,
-  "built_at": "2026-10-20T03:35:37Z",
+  "built_at": "2026-10-20T06:29:55Z",
   "package": {
     "name": "oplot",
-    "version": "0.1.26",
+    "version": "0.1.27",
     "display_name": "oplot",
     "source": "pyproject.toml"
   },
   "git": {
     "available": true,
-    "commit": "23f87179ed44006e2ec86ff8ad4dab04e5052519",
-    "short_commit": "23f8717",
+    "commit": "00dac9071f5add40bde3d35747966482f3e12f1d",
+    "short_commit": "00dac90",
     "branch": "master",
     "tags": [],
     "dirty": false,
     "remote_url": "https://github.com/i2mint/oplot",
-    "commit_url": "https://github.com/i2mint/oplot/commit/23f87179ed44006e2ec86ff8ad4dab04e5052519",
+    "commit_url": "https://github.com/i2mint/oplot/commit/00dac9071f5add40bde3d35747966482f3e12f1d",
     "error": null
   },
   "ci": {
     "provider": "github",
     "repository": "i2mint/oplot",
-    "sha": "23f87179ed44006e2ec86ff8ad4dab04e5052519",
+    "sha": "00dac9071f5add40bde3d35747966482f3e12f1d",
     "sha_in_history": true,
     "ref": "refs/heads/master",
     "ref_name": "master",
-    "run_id": "39364974001",
-    "run_url": "https://github.com/i2mint/oplot/actions/runs/39364974001",
+    "run_id": "39380548665",
+    "run_url": "https://github.com/i2mint/oplot/actions/runs/39380548665",
     "server_url": "https://github.com"
   },
   "tools": {
@@ -61,15 +61,13 @@
   "pypi": {
     "checked": true,
     "latest": "0.1.27",
-    "relation": "behind",
+    "relation": "same",
     "error": null
   },
-  "reproduce": "git clone https://github.com/i2mint/oplot && cd oplot\ngit checkout 23f87179ed44006e2ec86ff8ad4dab04e5052519\npip install \"epythet==0.2.18\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "reproduce": "git clone https://github.com/i2mint/oplot && cd oplot\ngit checkout 00dac9071f5add40bde3d35747966482f3e12f1d\npip install \"epythet==0.2.18\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
   "warnings": [],
   "alignment": {
-    "aligned": false,
-    "notes": [
-      "The documented version (0.1.26) is behind the latest release on PyPI (0.1.27): `pip install oplot` gives newer code than these docs describe."
-    ]
+    "aligned": true,
+    "notes": []
   }
 }
