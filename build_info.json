@@ -1,39 +1,39 @@
 {
   "schema_version": 1,
-  "built_at": "2026-09-22T15:03:24Z",
+  "built_at": "2026-10-20T03:35:37Z",
   "package": {
     "name": "oplot",
-    "version": "0.1.25",
+    "version": "0.1.26",
     "display_name": "oplot",
     "source": "pyproject.toml"
   },
   "git": {
     "available": true,
-    "commit": "1cc58dfaffe56121f5dbba4efe23be448bc89a5e",
-    "short_commit": "1cc58df",
+    "commit": "23f87179ed44006e2ec86ff8ad4dab04e5052519",
+    "short_commit": "23f8717",
     "branch": "master",
     "tags": [],
     "dirty": false,
     "remote_url": "https://github.com/i2mint/oplot",
-    "commit_url": "https://github.com/i2mint/oplot/commit/1cc58dfaffe56121f5dbba4efe23be448bc89a5e",
+    "commit_url": "https://github.com/i2mint/oplot/commit/23f87179ed44006e2ec86ff8ad4dab04e5052519",
     "error": null
   },
   "ci": {
     "provider": "github",
     "repository": "i2mint/oplot",
-    "sha": "1cc58dfaffe56121f5dbba4efe23be448bc89a5e",
+    "sha": "23f87179ed44006e2ec86ff8ad4dab04e5052519",
     "sha_in_history": true,
     "ref": "refs/heads/master",
     "ref_name": "master",
-    "run_id": "35744411388",
-    "run_url": "https://github.com/i2mint/oplot/actions/runs/35744411388",
+    "run_id": "39364974001",
+    "run_url": "https://github.com/i2mint/oplot/actions/runs/39364974001",
     "server_url": "https://github.com"
   },
   "tools": {
-    "epythet": "0.2.12",
-    "sphinx": "9.1.0",
+    "epythet": "0.2.18",
+    "sphinx": "9.1.1",
     "docutils": "0.22.4",
-    "python": "3.12.14"
+    "python": "3.12.15"
   },
   "config": {
     "theme": "auto",
@@ -60,16 +60,16 @@
   },
   "pypi": {
     "checked": true,
-    "latest": "0.1.26",
+    "latest": "0.1.27",
     "relation": "behind",
     "error": null
   },
-  "reproduce": "git clone https://github.com/i2mint/oplot && cd oplot\ngit checkout 1cc58dfaffe56121f5dbba4efe23be448bc89a5e\npip install \"epythet==0.2.12\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "reproduce": "git clone https://github.com/i2mint/oplot && cd oplot\ngit checkout 23f87179ed44006e2ec86ff8ad4dab04e5052519\npip install \"epythet==0.2.18\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
   "warnings": [],
   "alignment": {
     "aligned": false,
     "notes": [
-      "The documented version (0.1.25) is behind the latest release on PyPI (0.1.26): `pip install oplot` gives newer code than these docs describe."
+      "The documented version (0.1.26) is behind the latest release on PyPI (0.1.27): `pip install oplot` gives newer code than these docs describe."
     ]
   }
 }

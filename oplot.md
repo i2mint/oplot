@@ -1,4 +1,4 @@
-> built 2026-09-22 15:03 UTC from 1cc58df (master) · oplot 0.1.25. Details: build_info.json
+> built 2026-10-20 03:35 UTC from 23f8717 (master) · oplot 0.1.26. Details: build_info.json
 
 # index.html.md
 
@@ -1958,18 +1958,18 @@ reference_time
 
 # About this build
 
-This documentation was built on **2026-09-22 15:03 UTC** from commit <a href="https://github.com/i2mint/oplot/commit/1cc58dfaffe56121f5dbba4efe23be448bc89a5e"><code>1cc58df</code></a> on branch <code>master</code>, for **oplot 0.1.25** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-10-20 03:35 UTC** from commit <a href="https://github.com/i2mint/oplot/commit/23f87179ed44006e2ec86ff8ad4dab04e5052519"><code>23f8717</code></a> on branch <code>master</code>, for **oplot 0.1.26** (from <code>pyproject.toml</code>).
 
 #### WARNING
 The documentation and the package may be misaligned:
 
-- The documented version (0.1.25) is behind the latest release on PyPI (0.1.26): `pip install oplot` gives newer code than these docs describe.
+- The documented version (0.1.26) is behind the latest release on PyPI (0.1.27): `pip install oplot` gives newer code than these docs describe.
 
 ## Source
 
 |                     |                                                                                                                                                     |
 |---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/i2mint/oplot/commit/1cc58dfaffe56121f5dbba4efe23be448bc89a5e"><code>1cc58dfaffe56121f5dbba4efe23be448bc89a5e</code></a> |
+| Commit              | <a href="https://github.com/i2mint/oplot/commit/23f87179ed44006e2ec86ff8ad4dab04e5052519"><code>23f87179ed44006e2ec86ff8ad4dab04e5052519</code></a> |
 | Branch              | <code>master</code>                                                                                                                                 |
 | Tags at this commit | none                                                                                                                                                |
 | Working tree        | clean                                                                                                                                               |
@@ -1980,18 +1980,18 @@ The documentation and the package may be misaligned:
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
 | Repository   | <code>i2mint/oplot</code>                                                                  |
-| Run          | <a href="https://github.com/i2mint/oplot/actions/runs/35744411388">35744411388</a>         |
+| Run          | <a href="https://github.com/i2mint/oplot/actions/runs/39364974001">39364974001</a>         |
 | Ref          | <code>refs/heads/master</code>                                                             |
-| Event commit | <code>1cc58dfaffe56121f5dbba4efe23be448bc89a5e</code> (in the history of the built commit) |
+| Event commit | <code>23f87179ed44006e2ec86ff8ad4dab04e5052519</code> (in the history of the built commit) |
 
 ## Tools
 
 |          |         |
 |----------|---------|
-| epythet  | 0.2.12  |
-| Sphinx   | 9.1.0   |
+| epythet  | 0.2.18  |
+| Sphinx   | 9.1.1   |
 | docutils | 0.22.4  |
-| Python   | 3.12.14 |
+| Python   | 3.12.15 |
 
 ## Configuration as resolved
 
@@ -2007,14 +2007,14 @@ The documentation and the package may be misaligned:
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/oplot/0.1.26/">0.1.26</a>, newer than the documented version (0.1.25).
+Latest release: <a href="https://pypi.org/project/oplot/0.1.27/">0.1.27</a>, newer than the documented version (0.1.26).
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/i2mint/oplot && cd oplot
-git checkout 1cc58dfaffe56121f5dbba4efe23be448bc89a5e
-pip install "epythet==0.2.12"
+git checkout 23f87179ed44006e2ec86ff8ad4dab04e5052519
+pip install "epythet==0.2.18"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```
 
