@@ -1,4 +1,4 @@
-> built 2026-10-20 06:29 UTC from 00dac90 (master) · oplot 0.1.27. Details: build_info.json
+> built 2026-10-20 10:05 UTC from 04285f6 (master) · oplot 0.1.28. Details: build_info.json
 
 # index.html.md
 
@@ -846,8 +846,14 @@ What matplotlib has already – but with the interface I’d like
 
 ### Functions
 
-| `vlines`(x[, ymin, ymax, marker, ...])   |    |
-|------------------------------------------|----|
+| [`vlines`](_autosummary/oplot.my.html.md#oplot.my.vlines)(x[, ymin, ymax, marker, ...])   | `plt.vlines` that draws stems (`vlines(y)` plots y against its indices).   |
+|-----------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+
+### oplot.my.vlines(x, ymin=0, ymax=None, marker='o', marker_kwargs=None, colors='k', linestyles='solid', label='', data=None, \*\*kwargs)
+
+`plt.vlines` that draws stems (`vlines(y)` plots y against its indices).
+
+(The `hold` argument was removed: matplotlib dropped it long ago.)
 
 
 # _autosummary/oplot.outlier_scores.html.md
@@ -1965,16 +1971,18 @@ reference_time
 
 # About this build
 
-This documentation was built on **2026-10-20 06:29 UTC** from commit <a href="https://github.com/i2mint/oplot/commit/00dac9071f5add40bde3d35747966482f3e12f1d"><code>00dac90</code></a> on branch <code>master</code>, for **oplot 0.1.27** (from <code>pyproject.toml</code>).
+This documentation was built on **2026-10-20 10:05 UTC** from commit <a href="https://github.com/i2mint/oplot/commit/04285f607026e427294c0075ab808bc6df2f25c5"><code>04285f6</code></a> on branch <code>master</code>, for **oplot 0.1.28** (from <code>pyproject.toml</code>).
 
-#### NOTE
-Nothing suggests a mismatch: the tree was clean at the commit above, and the documented version is the one on PyPI.
+#### WARNING
+The documentation and the package may be misaligned:
+
+- The documented version (0.1.28) is behind the latest release on PyPI (0.1.29): `pip install oplot` gives newer code than these docs describe.
 
 ## Source
 
 |                     |                                                                                                                                                     |
 |---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| Commit              | <a href="https://github.com/i2mint/oplot/commit/00dac9071f5add40bde3d35747966482f3e12f1d"><code>00dac9071f5add40bde3d35747966482f3e12f1d</code></a> |
+| Commit              | <a href="https://github.com/i2mint/oplot/commit/04285f607026e427294c0075ab808bc6df2f25c5"><code>04285f607026e427294c0075ab808bc6df2f25c5</code></a> |
 | Branch              | <code>master</code>                                                                                                                                 |
 | Tags at this commit | none                                                                                                                                                |
 | Working tree        | clean                                                                                                                                               |
@@ -1985,9 +1993,9 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 |              |                                                                                            |
 |--------------|--------------------------------------------------------------------------------------------|
 | Repository   | <code>i2mint/oplot</code>                                                                  |
-| Run          | <a href="https://github.com/i2mint/oplot/actions/runs/39380548665">39380548665</a>         |
+| Run          | <a href="https://github.com/i2mint/oplot/actions/runs/39405258996">39405258996</a>         |
 | Ref          | <code>refs/heads/master</code>                                                             |
-| Event commit | <code>00dac9071f5add40bde3d35747966482f3e12f1d</code> (in the history of the built commit) |
+| Event commit | <code>04285f607026e427294c0075ab808bc6df2f25c5</code> (in the history of the built commit) |
 
 ## Tools
 
@@ -2012,13 +2020,13 @@ Nothing suggests a mismatch: the tree was clean at the commit above, and the doc
 
 ## Package on PyPI
 
-Latest release: <a href="https://pypi.org/project/oplot/0.1.27/">0.1.27</a>, the same as the documented version.
+Latest release: <a href="https://pypi.org/project/oplot/0.1.29/">0.1.29</a>, newer than the documented version (0.1.28).
 
 ## Reproduce
 
 ```bash
 git clone https://github.com/i2mint/oplot && cd oplot
-git checkout 00dac9071f5add40bde3d35747966482f3e12f1d
+git checkout 04285f607026e427294c0075ab808bc6df2f25c5
 pip install "epythet==0.2.18"
 epythet quickstart . --ignore tests/ scrap/ examples/
 ```
