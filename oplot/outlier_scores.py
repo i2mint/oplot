@@ -44,13 +44,20 @@ def find_last_normal_idx(sorted_truth):
     Return the index of the last 0 in the sorted_truth array
 
     :param sorted_truth: an array of 0 or 1
-    :return: an int, the last idx of a 0 in sorted_truth
+    :return: an int, the last idx of a 0 in sorted_truth, or -1 if there is none
+
+    >>> find_last_normal_idx(np.array([0, 1, 0, 1, 1]))
+    2
+    >>> find_last_normal_idx(np.array([1, 1]))
+    -1
     """
 
     if sorted_truth[-1] == 0:
         return len(sorted_truth) - 1
+    elif not np.any(sorted_truth == 0):
+        return -1  # no normal sample at all
     else:
-        return len(sorted_truth) - np.argmax(np.diff(sorted_truth)[::-1]) - 2
+        return int(len(sorted_truth) - np.argmax(np.diff(sorted_truth)[::-1]) - 2)
 
 
 def find_prop_markers(
@@ -64,6 +71,9 @@ def find_prop_markers(
     any zone above that one is removed.
     """
 
+    sorted_truth = np.asarray(sorted_truth)
+    if not np.any(sorted_truth == 0):
+        return np.array([])  # no normal sample: no proportion to track
     tot_normal = 0
     marker_idx = 0
     marker = ratio_markers[marker_idx]
@@ -162,7 +172,7 @@ def get_confusion_zones_percentiles(scores, truth, n_percentiles=1):
             (min_anomaly <= scores_normal) & (scores_normal <= max_normal)
         ]
         confused_anomaly_scores = scores_anomaly[
-            (min_anomaly <= scores_anomaly) & (scores_normal <= max_normal)
+            (min_anomaly <= scores_anomaly) & (scores_anomaly <= max_normal)
         ]
         if len(confused_normal_scores) > len(confused_anomaly_scores):
             most_numerous = confused_normal_scores

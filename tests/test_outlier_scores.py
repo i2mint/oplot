@@ -127,3 +127,24 @@ class TestGetConfusionZonesStd:
         zones = get_confusion_zones_std(scores, n_zones=3, std_per_zone=1.0)
 
         assert len(zones) == 3
+
+
+class TestOutlierScoresFixes:
+    """Regressions for i2mint/oplot#5."""
+
+    def test_confusion_zones_percentiles_with_overlap_and_unequal_counts(self):
+        from oplot.outlier_scores import get_confusion_zones_percentiles
+
+        rng = np.random.default_rng(0)
+        scores = np.concatenate([rng.normal(0, 1, 50), rng.normal(2, 1, 20)])
+        truth = np.r_[np.zeros(50), np.ones(20)]
+        zones = get_confusion_zones_percentiles(scores, truth, n_percentiles=4)
+        assert list(zones) == sorted(zones)
+        assert zones[0] >= scores[truth == 1].min()
+        assert zones[-1] <= scores[truth == 0].max()
+
+    def test_find_prop_markers_without_normal_samples(self):
+        from oplot.outlier_scores import find_last_normal_idx, find_prop_markers
+
+        assert find_last_normal_idx(np.array([1, 1, 1])) == -1
+        assert len(find_prop_markers(np.array([1, 2, 3]), np.array([1, 1, 1]))) == 0
